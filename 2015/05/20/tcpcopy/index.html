@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【工具】TcpCopy使用 | 找节拍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工具】TcpCopy使用">
+<meta property="og:url" content="http://www.inorz.net/2015/05/20/tcpcopy/index.html">
+<meta property="og:site_name" content="找节拍">
+<meta property="og:description" content="有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。">
+<meta property="og:image" content="http://inorz.net/image/tcpcopy-jiagoutu.png">
+<meta property="og:updated_time" content="2015-10-28T08:38:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【工具】TcpCopy使用">
+<meta name="twitter:description" content="有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。">
+  
+    <link rel="alternative" href="/atom.xml" title="找节拍" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <script>
+  var _hmt = _hmt || [];
+   (function() {
+     var hm = document.createElement("script");
+     hm.src = "//hm.baidu.com/hm.js?3db042763e07f3ca38ad8111598c5066";
+     var s = document.getElementsByTagName("script")[0]; 
+     s.parentNode.insertBefore(hm, s);
+   })();
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="/image/myt.png" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">找节拍</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="/#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/fuqihuan" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/MAC/" style="font-size: 10px;">MAC</a> <a href="/tags/Privoxy/" style="font-size: 10px;">Privoxy</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/resolv/" style="font-size: 10px;">resolv</a> <a href="/tags/resolv-conf/" style="font-size: 10px;">resolv.conf</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/tcpcopy/" style="font-size: 10px;">tcpcopy</a> <a href="/tags/主题曲/" style="font-size: 10px;">主题曲</a> <a href="/tags/乱码/" style="font-size: 10px;">乱码</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/分享/" style="font-size: 10px;">分享</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/科学上网/" style="font-size: 10px;">科学上网</a> <a href="/tags/速7/" style="font-size: 10px;">速7</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://inorz.net/#">暂无</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">看看就好^_^</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">找节拍</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/image/myt.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">找节拍</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="/#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/fuqihuan" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-tcpcopy" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/20/tcpcopy/" class="article-date">
+  	<time datetime="2015-05-20T14:45:48.000Z" itemprop="datePublished">2015-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【工具】TcpCopy使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcpcopy/">tcpcopy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/工具使用/">工具使用</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。</p>
+</blockquote>
+<h3 id="【Tcpcopy简介】">【Tcpcopy简介】</h3><ul>
+<li>TCPCopy是一种请求复制（所有基于tcp的packets）工具 ，其功能是复制在线数据包，修改TCP/IP头部信息，发送给测试服务器，达到欺骗测试服务器的TCP 程序的目的，从而为欺骗上层应用打下坚实基础。</li>
+</ul>
+<a id="more"></a>
+<h3 id="【TCPCopy七大功能】">【TCPCopy七大功能】</h3><ol>
+<li>分布式压力测试工具，利用在线数据，可以测试系统能够承受的压力大小（远比ab压力测试工具真实地多）,也可以提前发现一些bug</li>
+<li>普通上线测试，可以发现新系统是否稳定，提前发现上线过程中会出现的诸多问题，让开发者有信心上线</li>
+<li>对比试验，同样请求，针对不同或不同版本程序，可以做性能对比等试验</li>
+<li>流量放大功能，可以利用多种手段构造无限在线压力，满足中小网站压力测试要求</li>
+<li>利用TCPCopy转发传统压力测试工具发出的请求，可以增加网络延迟，使其压力测试更加真实</li>
+<li>热备份</li>
+</ol>
+<h3 id="【TCPCopy架构】">【TCPCopy架构】</h3><ol>
+<li>架构图<blockquote>
+<p><img src="http://inorz.net/image/tcpcopy-jiagoutu.png" alt=""></p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>数据流向<br>&gt;<br>① 一个访问到达线上机器；<br>② socket数据包在ip层被拷贝了一份传给tcpcopy进程；<br>③ tcpcopy修改包的目的及源地址，发给目标测试机；<br>④ 拷贝的包到达目标测试机；<br>⑤ 目标测试机的应用程处理访问，并返回结果；<br>⑥ 返回结果在ip层被截获、丢弃，由intercpet进程拷贝返回结果的ip header并返回；<br>⑦ ip header被发送给线上机器的tcpcopy进程。</li>
+</ol>
+<h3 id="【TCPCopy安装】">【TCPCopy安装】</h3><ol>
+<li>tcpcopy下载：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a></li>
+<li>intercept下载：<a href="https://github.com/session-replay-tools/intercept/releases" target="_blank" rel="external">https://github.com/session-replay-tools/intercept/releases</a></li>
+<li><p>生产服安装tcpcop，这里下载的是0.9.6版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar xf tcpcopy-<span class="number">0.9</span>.<span class="number">6</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="comment">#　</span></span><br><span class="line"><span class="comment">#做个软链接，方便使用</span></span><br><span class="line">ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/tcpcopy/sbin/tcpcopy /usr/<span class="built_in">local</span>/bin/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试服安装 intercept，这里下载1.0.0版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar xf intercept-<span class="number">1.0</span>.<span class="number">0</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="comment">#做个软链接，方便使用</span></span><br><span class="line">ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/intercept/sbin/intercept /usr/<span class="built_in">local</span>/bin/</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 安装intercept时，如果遇到：checking for pcap.h ... not found。</span></span><br><span class="line"><span class="comment"># 解决：yum install libpcap-devel -y</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【TCPCopy使用（实时）】">【TCPCopy使用（实时）】</h3><ol>
+<li><p>测试服，运行intercept服务端程序，指定IP为生产服（源IP）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 使用前要先启用内核模块ip_queue支持</span></span><br><span class="line">modprobe ip_queue</span><br><span class="line"><span class="comment">#　</span></span><br><span class="line"><span class="comment"># 2. 检查一下是否有启用</span></span><br><span class="line">lsmod|grep ip_queue</span><br><span class="line">　</span><br><span class="line"><span class="comment"># 3. 运行 intercept</span></span><br><span class="line">intercept -i eth0 -F <span class="string">'tcp and src port 80'</span> <span class="operator">-d</span> <span class="operator">-l</span> /data/logs/intercept.log</span><br><span class="line">　</span><br><span class="line"><span class="comment">#参数：</span></span><br><span class="line"><span class="comment"># -i 指定网卡</span></span><br><span class="line"><span class="comment"># -F 指定源端口为80端口</span></span><br><span class="line"><span class="comment"># -d 启动为守护进程</span></span><br><span class="line"><span class="comment"># -l 指定log日志</span></span><br><span class="line"><span class="comment"># 更多的参数可 intercept -h 来查看</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tcpcopy -x <span class="number">80</span>-测试服IP:<span class="number">80</span> <span class="operator">-s</span> 测试服IP <span class="operator">-l</span> /data/logs/tcpcopy.log <span class="operator">-d</span></span><br><span class="line">　</span><br><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># -d 是做为守护进程方式运行</span></span><br><span class="line"><span class="comment"># -l 是记录日志 -l /data/logs/tcpcopy_log.log</span></span><br><span class="line"><span class="comment"># -s 指定intercept服务器</span></span><br><span class="line"><span class="comment"># -n 复制几倍流量，不加参数默认为1，最大值为1023</span></span><br><span class="line"><span class="comment"># -r 复制部分流量，比如 -r 20，即为复制20%的流量。传参数范围为1-99，其他数值都是默认为全部流量复制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：运行完可以通过tcpdump命令来抓包查看80端口的收发包情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -S port <span class="number">80</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【TCPCopy使用（离线）】">【TCPCopy使用（离线）】</h3><ol>
+<li><p>测试服，使用tcpdump抓包，并保存抓包文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0 tcp and port <span class="number">80</span> <span class="operator">-s</span> <span class="number">0</span> -w /data/logs/online_80.pcap</span><br><span class="line">　</span><br><span class="line"><span class="comment">#参数</span></span><br><span class="line"><span class="comment">#-s 获取数据包，默认为68字节，设置成0，获取全部数据包</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpcopy -x <span class="number">80</span>-测试服IP:<span class="number">80</span> -i /data/logs/online_80.pcap <span class="operator">-l</span> /data/logs/tcpcopy.log <span class="operator">-d</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【注意事项】">【注意事项】</h3><ol>
+<li>不支持域名，只支持IP地址。</li>
+<li>如果采用的是IP Queue模块来截获响应包，所以intercept程序密切跟ip queue内核模块相关，所以当压力很大的时候请求丢失率很高，需要优化sysctl系统参数才能达到好的效果。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看ip queue运行情况，</span></span><br><span class="line">cat /proc/net/ip_queue</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 如果Queue dropped的数值不断增大，则需要修改ip_queue_maxlen参数</span></span><br><span class="line"><span class="comment"># 比如echo 4096 &gt; /proc/sys/net/ipv4/ip_queue_maxlen</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 如果Netlink dropped的数值不断增大，修改net.core.rmem_max和net.core.wmem_max参数</span></span><br><span class="line"><span class="comment"># 比如 sysctl -w net.core.rmem_max=16777216和sysctl -w net.core.wmem_max=16777216）</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/20/mac-dabao-luanma-windows/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          解决MAC打包压缩文件在Windows下乱码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/19/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="tcpcopy" data-title="【工具】TcpCopy使用" data-url="http://www.inorz.net/2015/05/20/tcpcopy/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"duoshuo-inorz"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 找节拍
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

