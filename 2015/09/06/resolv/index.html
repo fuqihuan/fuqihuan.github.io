@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://www.inorz.net/2015/09/06/resolv/index.html">
 <meta property="og:site_name" content="找节拍">
 <meta property="og:description" content="简单说明一下 resolv.conf 配置">
-<meta property="og:updated_time" content="2015-10-28T08:46:46.000Z">
+<meta property="og:updated_time" content="2016-04-01T07:12:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【DNS】resolv.conf 配置说明[转]">
 <meta name="twitter:description" content="简单说明一下 resolv.conf 配置">
@@ -122,7 +122,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/MAC/" style="font-size: 10px;">MAC</a> <a href="/tags/Privoxy/" style="font-size: 10px;">Privoxy</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/resolv/" style="font-size: 10px;">resolv</a> <a href="/tags/resolv-conf/" style="font-size: 10px;">resolv.conf</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/tcpcopy/" style="font-size: 10px;">tcpcopy</a> <a href="/tags/主题曲/" style="font-size: 10px;">主题曲</a> <a href="/tags/乱码/" style="font-size: 10px;">乱码</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/分享/" style="font-size: 10px;">分享</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/科学上网/" style="font-size: 10px;">科学上网</a> <a href="/tags/速7/" style="font-size: 10px;">速7</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a>
+						<a href="/tags/Clover/" style="font-size: 10px;">Clover</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Glances/" style="font-size: 10px;">Glances</a> <a href="/tags/Grafana/" style="font-size: 10px;">Grafana</a> <a href="/tags/InfluxDB/" style="font-size: 10px;">InfluxDB</a> <a href="/tags/MAC/" style="font-size: 20px;">MAC</a> <a href="/tags/Privoxy/" style="font-size: 10px;">Privoxy</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/limit/" style="font-size: 10px;">limit</a> <a href="/tags/msyh/" style="font-size: 10px;">msyh</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/resolv/" style="font-size: 10px;">resolv</a> <a href="/tags/resolv-conf/" style="font-size: 10px;">resolv.conf</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/sni/" style="font-size: 10px;">sni</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/tcpcopy/" style="font-size: 10px;">tcpcopy</a> <a href="/tags/zimbra/" style="font-size: 15px;">zimbra</a> <a href="/tags/主题曲/" style="font-size: 10px;">主题曲</a> <a href="/tags/乱码/" style="font-size: 10px;">乱码</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/分享/" style="font-size: 10px;">分享</a> <a href="/tags/字体/" style="font-size: 10px;">字体</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/并发/" style="font-size: 10px;">并发</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a> <a href="/tags/科学上网/" style="font-size: 10px;">科学上网</a> <a href="/tags/速7/" style="font-size: 10px;">速7</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a> <a href="/tags/黑苹果/" style="font-size: 10px;">黑苹果</a>
 					</div>
 				</section>
 				
@@ -231,15 +231,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对这个一开始是一种半解的，看了<a href="http://www.lnmpy.com/resolv.conf-search-domain/" target="_blank" rel="external">这篇文章</a>后觉得有用，就转了过来记录一下。</p>
+        <p>　　对这个一开始是一种半解的，看了<a href="http://www.lnmpy.com/resolv.conf-search-domain/" target="_blank" rel="external">这篇文章</a>后觉得有用，就转了过来记录一下。</p>
 <h3 id="配置说明">配置说明</h3><ol>
-<li>“nameserver”指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求</li>
-<li>“domain”指定本地的domain，如果查询时的域名没有包含”.”，则会在此后面加上domain的值来进行解析</li>
-<li>“search”若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。</li>
+<li>“nameserver” 指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求</li>
+<li>“domain” 指定本地的domain，如果查询时的域名没有包含”.”，则会在此后面加上domain的值来进行解析</li>
+<li>“search” 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。</li>
 </ol>
 <a id="more"></a>
 <p>现实中有”qh.inorz.net”，下面就以这个来说明，主要是说明”domain”和”search”的意义。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf&#10;&#10;########&#10;nameserver 192.168.1.1&#10;nameserver 8.8.8.8&#10;domain  inorz.net&#10;search  baidu.com inorz.net.cn</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment">########</span></span><br><span class="line">nameserver <span class="number">192.168</span>.<span class="number">1.1</span></span><br><span class="line">nameserver <span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line">domain  inorz.net</span><br><span class="line">search  baidu.com inorz.net.cn</span><br></pre></td></tr></table></figure>
 <h3 id="测试">测试</h3><ol>
 <li><p>ping inorz.net</p>
 <blockquote>
@@ -266,9 +266,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2015/11/05/zimbra-change-ssl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【Zimbra】更换邮箱SSL证书
+        
+      </div>
+    </a>
   
-    <a href="/2015/05/24/see-you-again/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">See you Again</div>
+  
+    <a href="/2015/08/19/nginx-module-limit/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用nginx的limit模块限制并发</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -301,7 +310,7 @@
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"duoshuo-inorz"};
+	var duoshuoQuery = {short_name:"inorz"};
 	(function() {
 		var ds = document.createElement('script');
 		ds.type = 'text/javascript';ds.async = true;
@@ -321,7 +330,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 找节拍
+    		&copy; 2016 找节拍
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
