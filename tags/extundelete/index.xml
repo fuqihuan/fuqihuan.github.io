@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Extundelete on inorz.net</title>
+    <link>http://inorz.net/tags/extundelete/index.xml</link>
+    <description>Recent content in Extundelete on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2015-2017 ღ fuqihuan</copyright>
+    <atom:link href="http://inorz.net/tags/extundelete/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Linux下恢复被格了硬盘的MySQL数据</title>
+      <link>http://inorz.net/2017/04/19/linux%E4%B8%8B%E6%81%A2%E5%A4%8D%E8%A2%AB%E6%A0%BC%E4%BA%86%E7%A1%AC%E7%9B%98%E7%9A%84mysql%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2017/04/19/linux%E4%B8%8B%E6%81%A2%E5%A4%8D%E8%A2%AB%E6%A0%BC%E4%BA%86%E7%A1%AC%E7%9B%98%E7%9A%84mysql%E6%95%B0%E6%8D%AE/</guid>
+      <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;前段时间运维事故也不少，大都是删库无备份到跑路这种级别的事故，于是模拟了一次这样的灾难，做了次恢复实验。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;前期准备&#34;&gt;前期准备&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;找了个有数据的后台数据机器，将整台机器的 MySQL 数据恢复到一台测试机里。&lt;/li&gt;
+&lt;li&gt;验证数据都进来后，对测试机进行一个可怕的操作: mkfs.ext4&lt;/li&gt;
+&lt;li&gt;开始模拟恢复数据。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;抢救前戏&#34;&gt;抢救前戏&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;假装发现磁盘数据清空后，做做样子去找了一下之前有没有拉过备份。&lt;/li&gt;
+&lt;li&gt;假装找遍了机器。发现没有。然后就接着恢复数据。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤：&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;先恢复分区里面的数据&lt;/li&gt;
+&lt;li&gt;用恢复出来的数据使mysql启动起来，然后看数据能否正常开启来。并做逻辑备份。并拉到另一台机器恢复。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;准备恢复工具&#34;&gt;准备恢复工具&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载 extundelete：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://sourceforge.net/projects/extundelete/files/latest/download --no-check-certificate
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;编译安装：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xf .extundelete-0.2.4.tar.bz2
+cd extundelete-0.2.4/
+./configure --prefix=/usr/local/extundelete
+make &amp;amp;&amp;amp; make install
+# 检查是否安装成功：
+/usr/local/extundelete/bin/extundelete -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;开始恢复&#34;&gt;开始恢复：&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首先把目标磁盘卸载下来，避免有其他第三方程序还往磁盘上读写文件&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;查看下目标磁盘xvdb1上面的文件状态：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./extundelete /dev/sdb1 --inode 2
+# 注:一般一个分区挂载到一个目录下时，这个”根”目录的inode值为2，我们为了查看根目录所有文件，所以查看分区inode为2的这个部分
+NOTICE: Extended attributes are not restored.
+Loading filesystem metadata ... 800 groups loaded.
+Group: 0
+Contents of inode 2:
+########## 省略一大坨 ############
+File name                                       | Inode number | Deleted status
+.                                                 2
+..                                                2
+home                                              2310145
+logs                                              5718017
+tmp_agent_IN1nBf                                  11             Deleted
+backup                                            2236417        Deleted
+tmp                                               3399681        Deleted
+database                                          4014081        Deleted
+########## 继续省略一大坨 ############
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;上面列出了被格掉的文件。这里已经看到了要恢复的目录。这时需要准备另外一块硬盘来恢复目标文件。
+由于真实机器是固定的。于是重新创建了一台机器，用NFS挂载远程另一台机器的磁盘来解决。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 服务端（找着了台centos机器做NFS服务端）
+echo &#39;/data/tmp IP(rw,sync,no_root_squash)&#39; &amp;gt;&amp;gt; /etc/exports
+/etc/init.d/rpcbind start
+/etc/init.d/nfs start
+    
+# 客户端（挂载）
+mount -o nolock -t nfs IP:/data/tmp /mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;开始恢复（我们的数据存放在database下，只需要恢复这个目录即可）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 恢复目录先做个软链接到刚刚挂载的NFS磁盘上。
+mkdir -p /mnt/RECOVERED_FILES &amp;amp;&amp;amp; ln -s /mnt/RECOVERED_FILES /usr/local/extundelete/bin/
+    
+# 开始恢复
+/usr/local/extundelete/bin/extundelete /dev/sdb1 --restore-directory database
+NOTICE: Extended attributes are not restored.
+Loading filesystem metadata ... 800 groups loaded.
+Loading journal descriptors ... 26244 descriptors loaded.
+Searching for recoverable inodes in directory database ...
+331 recoverable inodes found.
+Looking through the directory structure for deleted files ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;恢复完后即可在对应的目录里看到恢复出来的文件。下面介绍一下extundelete的其他参数：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ndash;after dtime : 只恢复指定时间【dtime】（时间戳）之后，被删除的数据&lt;/li&gt;
+&lt;li&gt;&amp;ndash;before dtime : 只恢复指定时间【dtime】（时间戳）之前，被删除的数据&lt;/li&gt;
+&lt;li&gt;&amp;ndash;restore-inode : 恢复一个或多个指定inode号的文件，该恢复的文件名为【file.$inode】&lt;/li&gt;
+&lt;li&gt;&amp;ndash;restore-file : 恢复指定的文件（被删除的），文件名还是原来的&lt;/li&gt;
+&lt;li&gt;&amp;ndash;restore-files : 恢复指定的文件（真实存在的）中的内容&lt;/li&gt;
+&lt;li&gt;&amp;ndash;restore-directory : 恢复指定的目录&lt;/li&gt;
+&lt;li&gt;&amp;ndash;restore-all : 恢复某分区里所有被删除的数据，文件名还是原来的&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;恢复mysql数据库&#34;&gt;恢复MySQL数据库&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;这里主要做的是修改一下my.conf，将datadir指向刚刚还原出来的数据库目录，然后启动MySQL&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@localhost database]# /usr/local/services/mysql/bin/mysqld_safe &amp;amp;
+# 不出所料，启动挂掉。看了报错信息，有以下内容
+InnoDB: Reading tablespace information from the .ibd files...
+InnoDB: Restoring possible half-written data pages from the doublewrite
+InnoDB: buffer...
+InnoDB: Doing recovery: scanned up to log sequence number 9120034833
+160822 13:12:51 InnoDB: Starting an apply batch of log records to the database...
+InnoDB: Progress in percents: 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 160822 13:12:51 [ERROR] mysqld got signal 11 ;
+This could be because you hit a bug. It is also possible that this binary
+or one of the libraries it was linked against is corrupt, improperly built,
+or misconfigured. This error can also be caused by malfunctioning hardware.
+To report this bug, see http://kb.askmonty.org/en/reporting-bugs
+We will try our best to scrape up some info that will hopefully help
+diagnose the problem, but since we have already crashed, 
+something is definitely wrong and this may fail.
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;这里主要关注 mysqld got signal 11 ，从日志内容分析来看，应该是上一步恢复出来的文件是不完整的，日志文件损坏，无法正常恢复。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;因为日志已经损坏，这里采用非常规手段，首先修改innodb_force_recovery参数，使mysqld跳过恢复步骤，将mysqld 启动,将数据导出来然后重建数据库。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;innodb_force_recovery可以设置为1-6,大的数字包含前面所有数字的影响。
+
+&lt;ol&gt;
+&lt;li&gt;(SRV_FORCE_IGNORE_CORRUPT):忽略检查到的corrupt页。&lt;/li&gt;
+&lt;li&gt;(SRV_FORCE_NO_BACKGROUND):阻止主线程的运行，如主线程需要执行full purge操作，会导致crash。&lt;/li&gt;
+&lt;li&gt;(SRV_FORCE_NO_TRX_UNDO):不执行事务回滚操作。&lt;/li&gt;
+&lt;li&gt;(SRV_FORCE_NO_IBUF_MERGE):不执行插入缓冲的合并操作。&lt;/li&gt;
+&lt;li&gt;(SRV_FORCE_NO_UNDO_LOG_SCAN):不查看重做日志，InnoDB存储引擎会将未提交的事务视为已提交。&lt;/li&gt;
+&lt;li&gt;(SRV_FORCE_NO_LOG_REDO):不执行前滚的操作。&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;注意&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;当设置参数值大于0后，可以对表进行select,create,drop操作，但insert,update或者delete这类操作是不允许的。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当innodb_purge_threads 和 innodb_force_recovery一起设置会出现一种loop现象:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;170322 14:20:42 InnoDB: Waiting for the background threads to start
+170322 14:20:43 InnoDB: Waiting for the background threads to start
+170322 14:20:44 InnoDB: Waiting for the background threads to start
+170322 14:20:45 InnoDB: Waiting for the background threads to start
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在my.cnf中修改以下两个参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;innodb_force_recovery=1
+innodb_purge_thread=0
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重启MySQL，因为mysql root密码文件也没了，这里我们用安全模式启动：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/local/services/mysql/bin/mysqld_safe --skip-grant-tables &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;数据库开启来了。这时候正常来说应该可以松一口气，用mysqldump来个逻辑备份了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;test -d /mnt/backup/ || mkdir -p /mnt/backup/
+mysqldump database &amp;gt; /mnt/backup/database.sql
+### 分隔线 ###
+mysqldump: Couldn&#39;t execute &#39;show create table `xxxxxxx`&#39;: File &#39;./database/xxxxxxx.MYD&#39; not found (Errcode: 2) (29)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;按上面的报错到数据目录看了下，傻眼了，库里有MyISAM引擎的表。而且还是MYD丢失了。只剩下了.frm和.MYI。搜了一圈，没找着合适的方法。最后对比了下原备份的数据。报的这几个表里面都是没有数据或是一些不重要的数据。于是可以放心的干掉这几个有问题的表。只恢复重要的数据。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安全起见，还是用了一下mysqlcheck来修复了一下数据库。mysqlcheck database
+运气较好，这几个丢的MYD的表都是些没数据或是不重要的表。去掉后继续 mysqldump 数据。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysqldump database &amp;gt; /mnt/backup/database.sql  
+### 分隔线 ###
+mysqldump: Got error: 1146: Table &#39;&#39; doesn&#39;t exist when using LOCK TABLES
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;还来。。这回的是innoDB的表有问题，按上面报错的话。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一般是以下几个原因：
+
+&lt;ul&gt;
+&lt;li&gt;已经删除且重新创建了 InnoDB 数据文件，但是忘了从数据库目录删除相应的 InnoDB 表的 .frm 文件，或者您已经移动 .frm 文件到其它的数据库。检查 show tables&lt;/li&gt;
+&lt;li&gt;mysql 数据目录中表文件的权限和所有权不正确&lt;/li&gt;
+&lt;li&gt;表文件已被损坏&lt;/li&gt;
+&lt;li&gt;表文件是用大写形式创建的&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;解决方法
+
+&lt;ul&gt;
+&lt;li&gt;检查 show tables，如果未列举表文件，请将 .frm 文件移出数据库目录&lt;/li&gt;
+&lt;li&gt;mysql 数据目录中表文件的权限和所有权不正确，理想的所有权限应为 mysql 用户和权限 660。&lt;/li&gt;
+&lt;li&gt;修复表文件&lt;/li&gt;
+&lt;li&gt;设置 lower_case_table_names&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;看了其他几条，都不是。只能是恢复数据的时候没有恢复完。丢失了.idb文件。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;这次实验的运气还是比较好，丢失的.idb表也是一直不重要的表。直接把.frm文件移了出去。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重新mysqldump试试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysqldump database &amp;gt; /mnt/backup/database.sql
+### 分隔线 ###
+echo $?
+### 分隔线 ###
+0
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;成功备份&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;备份非常重要。&lt;/li&gt;
+&lt;li&gt;生产环境，用非 root 用户操作，能大大减少误操作的概率。&lt;/li&gt;
+&lt;li&gt;恢复过程中，有会丢失个别表数据的情况，虽然说这些数据对于我们这次实验的数据来说不太重要。但如果发生在真实环境中，刚好丢失了重要的数据，那真是欲哭无泪了。&lt;/li&gt;
+&lt;li&gt;真实环境中，如果需要快速恢复业务，那么中间遇到的几个表异常，应该先确认是否为重要数据，如不重要直接跳过先恢复有用的数据。后面的再想办法恢复。&lt;/li&gt;
+&lt;li&gt;希望这种数据恢复，只在实验环境中出现。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

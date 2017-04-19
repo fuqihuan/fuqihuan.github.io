@@ -16,7 +16,7 @@ a:visited {
 
 .small-print {
   font-size: 0.8em;
-  margin: 0.6em;
+  text-align: center;
 }
 
 .post-meta {
@@ -55,11 +55,14 @@ article > footer {
   text-transform: none;
   background: transparent;
   text-decoration: none;
-  margin: 0.5em 0;
+  text-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #menu .pure-menu {
   font-size: 0.9em;
+  margin: 0.5em ;
 }
 
 i {
