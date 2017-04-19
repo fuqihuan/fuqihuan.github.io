@@ -70,7 +70,7 @@ make &amp;amp;&amp;amp; make install
 &lt;ul&gt;
 &lt;li&gt;首先把目标磁盘卸载下来，避免有其他第三方程序还往磁盘上读写文件&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;查看下目标磁盘xvdb1上面的文件状态：&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;查看下目标磁盘sdb1上面的文件状态：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./extundelete /dev/sdb1 --inode 2
 # 注:一般一个分区挂载到一个目录下时，这个”根”目录的inode值为2，我们为了查看根目录所有文件，所以查看分区inode为2的这个部分
