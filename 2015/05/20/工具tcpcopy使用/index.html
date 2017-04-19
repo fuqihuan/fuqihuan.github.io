@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。">
+  <meta name="generator" content="Hugo 0.20.2" />
+
+  <title>【工具】TcpCopy使用 &middot; inorz.net</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://inorz.net/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">inorz.net</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>主页</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>文章列表</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>关于我</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>没想好</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/*" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/*" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://plus.google.com/+*" target="_blank"><i class="fa fa-google-plus-square fa-fw"></i>Google+</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://weibo.com/*" target="_blank"><i class="fa fa-weibo fa-fw"></i>Weibo</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>【工具】TcpCopy使用</h1>
+  <h2>有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015-05-20 22:45:48</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/tcpcopy">tcpcopy</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E6%B5%8B%E8%AF%95">测试</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/tcp">tcp</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <blockquote>
+<p>有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。</p>
+</blockquote>
+
+<h3 id="tcpcopy简介">【Tcpcopy简介】</h3>
+
+<ul>
+<li>TCPCopy是一种请求复制（所有基于tcp的packets）工具 ，其功能是复制在线数据包，修改TCP/IP头部信息，发送给测试服务器，达到欺骗测试服务器的TCP 程序的目的，从而为欺骗上层应用打下坚实基础。</li>
+</ul>
+
+<p></p>
+
+<h3 id="tcpcopy七大功能">【TCPCopy七大功能】</h3>
+
+<ol>
+<li>分布式压力测试工具，利用在线数据，可以测试系统能够承受的压力大小（远比ab压力测试工具真实地多）,也可以提前发现一些bug</li>
+<li>普通上线测试，可以发现新系统是否稳定，提前发现上线过程中会出现的诸多问题，让开发者有信心上线</li>
+<li>对比试验，同样请求，针对不同或不同版本程序，可以做性能对比等试验</li>
+<li>流量放大功能，可以利用多种手段构造无限在线压力，满足中小网站压力测试要求</li>
+<li>利用TCPCopy转发传统压力测试工具发出的请求，可以增加网络延迟，使其压力测试更加真实</li>
+<li>热备份</li>
+</ol>
+
+<h3 id="tcpcopy架构">【TCPCopy架构】</h3>
+
+<ol>
+<li><p>架构图
+<img src="/images/tcpcopy-jiagoutu.png" alt="tcpcopy-jiagoutu" /></p></li>
+
+<li><p>数据流向
+&gt;
+① 一个访问到达线上机器；
+② socket数据包在ip层被拷贝了一份传给tcpcopy进程；
+③ tcpcopy修改包的目的及源地址，发给目标测试机；
+④ 拷贝的包到达目标测试机；
+⑤ 目标测试机的应用程处理访问，并返回结果；
+⑥ 返回结果在ip层被截获、丢弃，由intercpet进程拷贝返回结果的ip header并返回；
+⑦ ip header被发送给线上机器的tcpcopy进程。</p></li>
+</ol>
+
+<h3 id="tcpcopy安装">【TCPCopy安装】</h3>
+
+<ol>
+<li>tcpcopy下载：<a href="https://github.com/wangbin579/tcpcopy">https://github.com/wangbin579/tcpcopy</a></li>
+<li>intercept下载：<a href="https://github.com/session-replay-tools/intercept/releases">https://github.com/session-replay-tools/intercept/releases</a></li>
+
+<li><p>生产服安装tcpcop，这里下载的是0.9.6版本。</p>
+
+<pre><code class="language-bash">tar xf tcpcopy-0.9.6.tar.gz
+./configure
+make &amp;&amp; make install
+#　
+#做个软链接，方便使用
+ln -s /usr/local/tcpcopy/sbin/tcpcopy /usr/local/bin/
+</code></pre></li>
+
+<li><p>测试服安装 intercept，这里下载1.0.0版本：</p>
+
+<pre><code class="language-bash">tar xf intercept-1.0.0.tar.gz
+./configure
+make &amp;&amp; make install
+#做个软链接，方便使用
+ln -s /usr/local/intercept/sbin/intercept /usr/local/bin/
+#
+# 安装intercept时，如果遇到：checking for pcap.h ... not found。
+# 解决：yum install libpcap-devel -y
+</code></pre></li>
+</ol>
+
+<h3 id="tcpcopy使用-实时">【TCPCopy使用（实时）】</h3>
+
+<ol>
+<li><p>测试服，运行intercept服务端程序，指定IP为生产服（源IP）：</p>
+
+<pre><code class="language-bash"># 1. 使用前要先启用内核模块ip_queue支持
+modprobe ip_queue
+#　
+# 2. 检查一下是否有启用
+lsmod|grep ip_queue
+　
+# 3. 运行 intercept
+intercept -i eth0 -F 'tcp and src port 80' -d -l /data/logs/intercept.log
+　
+#参数：
+# -i 指定网卡
+# -F 指定源端口为80端口
+# -d 启动为守护进程
+# -l 指定log日志
+# 更多的参数可 intercept -h 来查看
+　
+</code></pre></li>
+
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+
+<pre><code class="language-bash">tcpcopy -x 80-测试服IP:80 -s 测试服IP -l /data/logs/tcpcopy.log -d
+　
+# 参数
+# -d 是做为守护进程方式运行
+# -l 是记录日志 -l /data/logs/tcpcopy_log.log
+# -s 指定intercept服务器
+# -n 复制几倍流量，不加参数默认为1，最大值为1023
+# -r 复制部分流量，比如 -r 20，即为复制20%的流量。传参数范围为1-99，其他数值都是默认为全部流量复制
+　
+</code></pre></li>
+
+<li><p>测试：运行完可以通过tcpdump命令来抓包查看80端口的收发包情况。</p>
+
+<pre><code class="language-bash">tcpdump -S port 80
+</code></pre></li>
+</ol>
+
+<h3 id="tcpcopy使用-离线">【TCPCopy使用（离线）】</h3>
+
+<ol>
+<li><p>测试服，使用tcpdump抓包，并保存抓包文件。</p>
+
+<pre><code class="language-bash">tcpdump -i eth0 tcp and port 80 -s 0 -w /data/logs/online_80.pcap
+　
+#参数
+#-s 获取数据包，默认为68字节，设置成0，获取全部数据包
+</code></pre></li>
+
+<li><p>生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：</p>
+
+<pre><code class="language-bash">tcpcopy -x 80-测试服IP:80 -i /data/logs/online_80.pcap -l /data/logs/tcpcopy.log -d
+</code></pre></li>
+</ol>
+
+<h3 id="注意事项">【注意事项】</h3>
+
+<ol>
+<li>不支持域名，只支持IP地址。</li>
+
+<li><p>如果采用的是IP Queue模块来截获响应包，所以intercept程序密切跟ip queue内核模块相关，所以当压力很大的时候请求丢失率很高，需要优化sysctl系统参数才能达到好的效果。</p>
+
+<pre><code class="language-bash"># 查看ip queue运行情况，
+cat /proc/net/ip_queue
+#
+# 如果Queue dropped的数值不断增大，则需要修改ip_queue_maxlen参数
+# 比如echo 4096 &gt; /proc/sys/net/ipv4/ip_queue_maxlen
+#
+# 如果Netlink dropped的数值不断增大，修改net.core.rmem_max和net.core.wmem_max参数
+# 比如 sysctl -w net.core.rmem_max=16777216和sysctl -w net.core.wmem_max=16777216）
+</code></pre></li>
+</ol>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/">解决MAC打包压缩文件在Windows下乱码</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'Your Disqus shortname';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="http://inorz.net/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
+

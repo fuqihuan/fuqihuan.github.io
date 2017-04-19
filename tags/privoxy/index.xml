@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Privoxy on inorz.net</title>
+    <link>http://inorz.net/tags/privoxy/</link>
+    <description>Recent content in Privoxy on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 24 May 2015 13:25:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/privoxy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos下Privoxy的安装与配置</title>
+      <link>http://inorz.net/2015/05/24/centos%E4%B8%8Bprivoxy%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 24 May 2015 13:25:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/05/24/centos%E4%B8%8Bprivoxy%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h3 id=&#34;一-背景&#34;&gt;一、【背景】&lt;/h3&gt;
+
+&lt;p&gt;　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。&lt;/p&gt;
+
+&lt;p&gt;步骤如下：
+&amp;gt; 1. 国外VPS机器分别安装ss服务端和客户端
+&amp;gt; 2. 客户端直接连本机服务端
+&amp;gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
+&amp;gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
+PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

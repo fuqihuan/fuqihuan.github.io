@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dns on inorz.net</title>
+    <link>http://inorz.net/tags/dns/</link>
+    <description>Recent content in Dns on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 06 Sep 2015 12:05:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>【DNS】resolv.conf 配置说明[转]</title>
+      <link>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</link>
+      <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</guid>
+      <description>&lt;p&gt;对这个一开始是一种半解的，看了&lt;a href=&#34;http://www.lnmpy.com/resolv.conf-search-domain/&#34;&gt;这篇文章&lt;/a&gt;后觉得有用，就转了过来记录一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;配置说明&#34;&gt;配置说明&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;nameserver&amp;rdquo; 指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;domain&amp;rdquo; 指定本地的domain，如果查询时的域名没有包含&amp;rdquo;.&amp;ldquo;，则会在此后面加上domain的值来进行解析&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;search&amp;rdquo; 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【DNS】resolv.conf 配置说明[转]</title>
+      <link>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</link>
+      <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</guid>
+      <description>&lt;p&gt;对这个一开始是一种半解的，看了&lt;a href=&#34;http://www.lnmpy.com/resolv.conf-search-domain/&#34;&gt;这篇文章&lt;/a&gt;后觉得有用，就转了过来记录一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;配置说明&#34;&gt;配置说明&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;nameserver&amp;rdquo; 指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;domain&amp;rdquo; 指定本地的domain，如果查询时的域名没有包含&amp;rdquo;.&amp;ldquo;，则会在此后面加上domain的值来进行解析&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;search&amp;rdquo; 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

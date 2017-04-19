@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="使用nginx的limit模块限制并发">
+  <meta name="generator" content="Hugo 0.20.2" />
+
+  <title>使用nginx的limit模块限制并发 &middot; inorz.net</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://inorz.net/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">inorz.net</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>主页</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>文章列表</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>关于我</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>没想好</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/*" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/*" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://plus.google.com/+*" target="_blank"><i class="fa fa-google-plus-square fa-fw"></i>Google+</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://weibo.com/*" target="_blank"><i class="fa fa-weibo fa-fw"></i>Weibo</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>使用nginx的limit模块限制并发</h1>
+  <h2>使用nginx的limit模块限制并发</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015-08-19 22:15:48</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/nginx">nginx</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/limit">limit</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E5%B9%B6%E5%8F%91">并发</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h2 id="遇到的问题">【遇到的问题】</h2>
+
+<ol>
+<li>当前系统被高强度频繁的调用API</li>
+<li>当前系统API经常被各种扫描请求</li>
+</ol>
+
+<h2 id="如何解决">【如何解决】</h2>
+
+<ol>
+<li>使用nginx的limit模块限制并发</li>
+<li>只限制部分地址或是只限制部分IP（白名单或黑名单）</li>
+</ol>
+
+<p></p>
+
+<h2 id="配置方法">【配置方法】</h2>
+
+<p>1、 <code>vi nginx/conf/limit/black_ip.conf</code></p>
+
+<pre><code class="language-bash">192.168.8.xxx 1;
+192.168.8.xxx 1;
+</code></pre>
+
+<p>2、 <code>vi nginx/conf/limit/limit_zone.conf</code></p>
+
+<pre><code class="language-bash">    geo $blackiplist  {
+        default 0;
+        include limit/black_ip.conf;
+    }
+
+    map $blackiplist $limit {
+        1 $binary_remote_addr;
+        0 &quot;&quot;;
+    }
+
+    limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
+    limit_conn_zone $limit zone=perip:100m; 
+</code></pre>
+
+<p>3、 <code>vi nginx/conf/limit/limit_location.conf</code></p>
+
+<pre><code class="language-bash">    limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
+    limit_req zone=perreq nodelay;
+</code></pre>
+
+<p>4、 修改 <code>nginx/conf/nginx.conf</code>，http { &hellip; } 区域添加下面配置：</p>
+
+<pre><code class="language-bash">include limit/limit_zone.conf;
+</code></pre>
+
+<p>5、 最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。</p>
+
+<pre><code class="language-bash">include limit/limit_location.conf;
+
+</code></pre>
+
+<h3 id="配置说明">【配置说明】</h3>
+
+<ol>
+<li>里面使用到了 geo指令定义黑名单 \$blackiplist 的变量，默认值为0，如果客户端IP在上面的范围内，\$blackiplist 的值为1</li>
+<li>使用map指令映射【黑名单里IP】显示为真实的IP，如果不是黑名单里的IP就为空，这样【除了黑名单里的IP】都不能存到limit_req_zone内存session中，所以不会限制黑名单之外的ip访问</li>
+</ol>
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="http://inorz.net/2015/05/24/see-you-again/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="http://inorz.net/2015/05/24/see-you-again/">See you Again</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/">【DNS】resolv.conf 配置说明[转]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'Your Disqus shortname';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="http://inorz.net/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
+

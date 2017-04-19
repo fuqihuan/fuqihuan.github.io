@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>乱码 on inorz.net</title>
+    <link>http://inorz.net/tags/%E4%B9%B1%E7%A0%81/</link>
+    <description>Recent content in 乱码 on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 20 May 2015 23:45:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/%E4%B9%B1%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>解决MAC打包压缩文件在Windows下乱码</title>
+      <link>http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/</link>
+      <pubDate>Wed, 20 May 2015 23:45:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/05/20/%E8%A7%A3%E5%86%B3mac%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6%E5%9C%A8windows%E4%B8%8B%E4%B9%B1%E7%A0%81/</guid>
+      <description>&lt;h3 id=&#34;问题&#34;&gt;【问题】&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;用Mac自带的归档程序打包的zip，发到windows端，显示会乱码。里面对应的文件夹的文件目录也发生变化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;原因&#34;&gt;【原因】&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;是文件编码的问题，Mac 下默认是UTF-8，windows下默认为GBK&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

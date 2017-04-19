@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openssl on inorz.net</title>
+    <link>http://inorz.net/tags/openssl/</link>
+    <description>Recent content in Openssl on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 13 Apr 2016 00:55:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>记录一次android上https无法正常访问</title>
+      <link>http://inorz.net/2016/04/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1android%E4%B8%8Ahttps%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE/</link>
+      <pubDate>Wed, 13 Apr 2016 00:55:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2016/04/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1android%E4%B8%8Ahttps%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE/</guid>
+      <description>&lt;p&gt;有同鞋反馈过来说，A域名通过Https去访问，完全无法建立连接。用B域名则没有任何问题。于是排除了代码这块的问题。
+A域名和B域名，在浏览器上打开，则是完全没问题的。于是在小猜会不会是代码有问题。
+然后就开始一系列的排查过程。
+期间大神也过来帮忙一起排查。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

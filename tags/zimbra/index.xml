@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zimbra on inorz.net</title>
+    <link>http://inorz.net/tags/zimbra/</link>
+    <description>Recent content in Zimbra on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 11 Apr 2016 23:20:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/zimbra/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zimbra添加微软雅黑字体</title>
+      <link>http://inorz.net/2016/04/11/zimbra%E6%B7%BB%E5%8A%A0%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91%E5%AD%97%E4%BD%93/</link>
+      <pubDate>Mon, 11 Apr 2016 23:20:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2016/04/11/zimbra%E6%B7%BB%E5%8A%A0%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91%E5%AD%97%E4%BD%93/</guid>
+      <description>&lt;p&gt;很多同鞋都习惯了在zimbra上面使用雅黑字体来写邮件
+最近把zimbra从8.0.5升级到了8.6.0后，没留意又覆盖回去了。
+在这里做个记录&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Zimbra】更换邮箱SSL证书</title>
+      <link>http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Thu, 05 Nov 2015 20:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/</guid>
+      <description>&lt;p&gt;有台用zimbra部署的邮箱服务器证书马上到期了，之前用的StartSSL突然抽风，不知为何不能申请证书了。于是临时换用了沃通的免费证书来应急一下。
+　　中间遇到了些困难，主要是被网上搜索的一些文章给误导了，失败了无数次。
+　　记录下更换过程。&lt;/p&gt;
+
+&lt;h3 id=&#34;申请证书&#34;&gt;申请证书&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;先到沃通官网申请证书&lt;a href=&#34;https://buy.wosign.com/free/#ssl&#34;&gt;点此跳转&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;按上面的要求一步步申请完证书&lt;/li&gt;
+&lt;li&gt;证书下载回来后,打开文件选择解压for Other Apache.zip, 其中有3个文件:
+&amp;gt; 根证书：1_root_bundle.crt
+&amp;gt; 公钥证书：2_domain.com.crt
+&amp;gt; 私钥：3_domain.com.key&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

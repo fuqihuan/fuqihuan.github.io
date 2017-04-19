@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tcpcopy on inorz.net</title>
+    <link>http://inorz.net/tags/tcpcopy/</link>
+    <description>Recent content in Tcpcopy on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 20 May 2015 22:45:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/tcpcopy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>【工具】TcpCopy使用</title>
+      <link>http://inorz.net/2015/05/20/%E5%B7%A5%E5%85%B7tcpcopy%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 20 May 2015 22:45:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2015/05/20/%E5%B7%A5%E5%85%B7tcpcopy%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;tcpcopy简介&#34;&gt;【Tcpcopy简介】&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TCPCopy是一种请求复制（所有基于tcp的packets）工具 ，其功能是复制在线数据包，修改TCP/IP头部信息，发送给测试服务器，达到欺骗测试服务器的TCP 程序的目的，从而为欺骗上层应用打下坚实基础。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

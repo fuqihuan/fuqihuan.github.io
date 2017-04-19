@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ssh on inorz.net</title>
+    <link>http://inorz.net/tags/ssh/</link>
+    <description>Recent content in Ssh on inorz.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Apr 2016 12:35:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MAC开机启动ssh，并指定端口</title>
+      <link>http://inorz.net/2016/04/10/mac%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8ssh%E5%B9%B6%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/</link>
+      <pubDate>Sun, 10 Apr 2016 12:35:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2016/04/10/mac%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8ssh%E5%B9%B6%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/</guid>
+      <description>&lt;p&gt;MAC开机启用SSH，比较简单。
+偏好设置-共享-选中远程登录就可以了。&lt;/p&gt;
+
+&lt;p&gt;但是想要指定端口去启用就比较恶心了。
+网上搜了一圈后，可以按以下的方式去指定端口配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
