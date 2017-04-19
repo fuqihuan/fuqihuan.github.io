@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>休眠 on inorz.net</title>
-    <link>http://inorz.net/tags/%E4%BC%91%E7%9C%A0/</link>
+    <link>http://inorz.net/tags/%E4%BC%91%E7%9C%A0/index.xml</link>
     <description>Recent content in 休眠 on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 24 Mar 2016 11:15:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/%E4%BC%91%E7%9C%A0/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/%E4%BC%91%E7%9C%A0/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MAC查看休眠日志</title>
@@ -23,7 +20,34 @@
 &lt;li&gt;通过下面操作可查到系统是否休眠了。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;执行下面这条命令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;syslog |grep -Ei &amp;quot;Wake reason|sleep&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码（红色字），那么这些代码表示什么意思呢？
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;OHC&lt;/code&gt;：表示开放式主机控制器（Open Host Controller），它通常和USB或火线有关，如果你看到的是OHC1或OHC2则基本上是USB外接键盘或鼠标导致唤醒了您的Mac。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EHC&lt;/code&gt;：表示增强的主机控制器（Enhanced Host Controller），这是另一种USB接口，但也可以是无线或蓝牙设备，因为它们均隶属于Mac的USB总线。（新版系统好像全部由XHC取代OHC和EHC了，不再细分，求证实）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USB&lt;/code&gt;：一个USB设备唤醒了Mac。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LID0&lt;/code&gt;：字面意思是MB或MBP的盖子，代表您打开盖子使机器唤醒了。（实际上在新版系统，开盖唤醒对应的代码应该是EC.LidOpen (User)）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PWRB&lt;/code&gt;：表示电源按钮（Power Button）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RTC&lt;/code&gt;：实时时钟（Real Time Clock Alarm），一般是由会唤醒机器的服务导致的，诸如“节能器”控制台（位于系统偏好设置中）设定的定时睡眠或唤醒。也可以由已启用的设定、用户的应用程序、备份任务以及其它计划任务触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EC.ACAttach (Maintenance)/EC.ACDetach (Maintenance)&lt;/code&gt;：连接/断开电源适配器（维护），会导致短暂的唤醒（就几秒，随后继续睡回笼觉，无需在意）。当外接电源发生变化时，系统短暂唤醒一下，然后调整电源管理方案（如是否启用Power Nap，各USB设备、Thunderbolt设备、蓝牙设备、无线网络、Airport、netbios等工作方式），调整完毕后继续睡眠。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;你可能会看到其它代码（诸如&lt;code&gt;PCI&lt;/code&gt;、&lt;code&gt;GEGE&lt;/code&gt;等），但上述代码是大多数人会在系统日志里遇到的。一旦你看到这些代码，你可以缩小查找范围。&lt;/p&gt;
+
+&lt;p&gt;PS：最后查到果然是因为系统自动休眠了，改了一下休眠设置。解决！&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
   </channel>

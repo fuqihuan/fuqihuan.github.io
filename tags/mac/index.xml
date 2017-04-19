@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mac on inorz.net</title>
-    <link>http://inorz.net/tags/mac/</link>
+    <link>http://inorz.net/tags/mac/index.xml</link>
     <description>Recent content in Mac on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 May 2016 23:55:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/mac/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/mac/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>InfluxDB、Glances和Grafana构建现代化监控系统</title>
@@ -29,7 +26,150 @@
 
 &lt;p&gt;下面我们说一下具体的部署过程：&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;部署环境&#34;&gt;部署环境&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;监控对象：MAC机器&lt;/li&gt;
+&lt;li&gt;监控平台：InfluxDB+Grafana，安装在一台CentOS机器上。(192.168.99.9)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;部署过程&#34;&gt;部署过程&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;InfluxDB(192.168.99.9)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS 6.2
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#下载：
+wget https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm
+#安装：
+sudo yum localinstall influxdb-0.13.0.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;其他操作系统: &lt;a href=&#34;https://influxdata.com/downloads/#influxdb&#34;&gt;详见官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行influxdb
+sudo /etc/init.d/influxdb start
+    
+# 创建数据库
+curl &#39;http://192.168.8.172:8086/query?q=CREATE+DATABASE+&amp;quot;inorz_db_name&amp;quot;&#39;
+
+# 查询已经创建的数据库
+curl &#39;http://localhost:8086/query?q=SHOW+DATABASES&#39;
+    
+# 也可以直接登录WEB界面进行操作和查询
+# 访问地址：http://192.168.99.9:8083
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Glances&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install glances --user
+pip install influxdb --user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;配置和启动
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo vim /etc/glances.conf
+# 输入以下内容后保存退出
+host=192.168.99.9
+port=8086
+ser=root
+password=root
+db=inorz_db_name
+    
+# 运行
+glances --export-influxdb -C /etc/glances.conf
+    
+# 如果需要后台运行，挂掉又可自动拉启。可以用supervisor来托管服务
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl &#39;http://192.168.99.9:8086/query?q=SHOW+MEASUREMENTS&amp;amp;db=glances&#39;
+# 反馈来的是一串json
+{&amp;quot;results&amp;quot;:[{&amp;quot;series&amp;quot;:[{&amp;quot;name&amp;quot;:&amp;quot;measurements&amp;quot;,&amp;quot;columns&amp;quot;:[&amp;quot;name&amp;quot;],&amp;quot;values&amp;quot;:[[&amp;quot;cpu&amp;quot;],[&amp;quot;diskio&amp;quot;],[&amp;quot;fs&amp;quot;],[&amp;quot;load&amp;quot;],[&amp;quot;mem&amp;quot;],[&amp;quot;memswap&amp;quot;],[&amp;quot;network&amp;quot;],[&amp;quot;percpu&amp;quot;],[&amp;quot;processcount&amp;quot;],[&amp;quot;system&amp;quot;]]}]}]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Grafana(192.168.99.9)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;安装
+
+&lt;ul&gt;
+&lt;li&gt;CentOS 6.2
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   # 下载：
+   wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
+   # 解压并启动
+   tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
+   cd grafana-3.0.2-1463383025/bin/
+   ./grafana-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;其他操作系统: &lt;a href=&#34;http://grafana.org/download/&#34;&gt;详见官方文档&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;直接在浏览器上进行配置：&lt;a href=&#34;http://192.168.99.9:3000&#34;&gt;http://192.168.99.9:3000&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;默认账密为admin,admin&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加数据源
+&lt;img src=&#34;http://inorz.net/images/grafana-add-data-influxdb.png&#34; alt=&#34;grafana-dd-data-influxdb&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加Graph
+&lt;img src=&#34;http://inorz.net/images/grafana_add_graph.png&#34; alt=&#34;grafana_add_graph&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;填入查询语句（可以到influxdb的WEB页面操作查询，语法和SQL差不多，非常简单）。这里我们填入查询复杂信息的语句。
+&lt;img src=&#34;http://inorz.net/images/grafana_add_graph_edit.png&#34; alt=&#34;grafana_add_graph_edit&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;效果图
+下面是我自己简单配置的一个监控图形，有兴趣的可以自己发挥。
+&lt;img src=&#34;http://inorz.net/images/grafana_dashboards.png&#34; alt=&#34;grafana_dashboards&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;faq&#34;&gt;FAQ&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。&lt;/p&gt;
+
+&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;以上为个人的一个安装和配置过程，如有不对，请多多指正。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -44,7 +184,78 @@
 &lt;p&gt;但是想要指定端口去启用就比较恶心了。
 网上搜了一圈后，可以按以下的方式去指定端口配置。&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;系统环境&#34;&gt;【系统环境】&lt;/h2&gt;
+
+&lt;p&gt;OS: 10.11.4&lt;/p&gt;
+
+&lt;h2 id=&#34;配置过程&#34;&gt;【配置过程】&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;因为10.11开启了SIP，所以不能直接修改/System/下的文件。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;把下面配置文件配置到用户级目录下。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p ~/Library/LaunchDaemons/
+sudo cp /System/Library/LaunchDaemons/ssh.plist ~/Library/LaunchDaemons/ssh.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改配置文件&lt;code&gt;vi ~/Library/LaunchDaemons/ssh.plist&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE plist PUBLIC &amp;quot;-//Apple//DTD PLIST 1.0//EN&amp;quot; &amp;quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;quot;&amp;gt;
+&amp;lt;plist version=&amp;quot;1.0&amp;quot;&amp;gt;
+&amp;lt;dict&amp;gt;
+    &amp;lt;key&amp;gt;Enabled&amp;lt;/key&amp;gt;
+    &amp;lt;true/&amp;gt;
+    &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;com.openssh.sshd.xxxxx（随便起个名字，目的是不被共享设置里面的开关影响到）&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;Program&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;/usr/libexec/sshd-keygen-wrapper&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+    &amp;lt;array&amp;gt;
+        &amp;lt;string&amp;gt;/usr/sbin/sshd&amp;lt;/string&amp;gt;
+        &amp;lt;string&amp;gt;-i&amp;lt;/string&amp;gt;
+    &amp;lt;/array&amp;gt;
+    &amp;lt;key&amp;gt;Sockets&amp;lt;/key&amp;gt;
+    &amp;lt;dict&amp;gt;
+        &amp;lt;key&amp;gt;Listeners&amp;lt;/key&amp;gt;
+        &amp;lt;dict&amp;gt;
+            &amp;lt;key&amp;gt;SockServiceName&amp;lt;/key&amp;gt;
+            &amp;lt;string&amp;gt;SSH端口&amp;lt;/string&amp;gt;
+            &amp;lt;key&amp;gt;Bonjour&amp;lt;/key&amp;gt;
+            &amp;lt;array&amp;gt;
+                &amp;lt;string&amp;gt;ssh&amp;lt;/string&amp;gt;
+                &amp;lt;string&amp;gt;sftp-ssh&amp;lt;/string&amp;gt;
+            &amp;lt;/array&amp;gt;
+        &amp;lt;/dict&amp;gt;
+    &amp;lt;/dict&amp;gt;
+    &amp;lt;key&amp;gt;inetdCompatibility&amp;lt;/key&amp;gt;
+    &amp;lt;dict&amp;gt;
+        &amp;lt;key&amp;gt;Wait&amp;lt;/key&amp;gt;
+        &amp;lt;false/&amp;gt;
+        &amp;lt;key&amp;gt;Instances&amp;lt;/key&amp;gt;
+        &amp;lt;integer&amp;gt;42&amp;lt;/integer&amp;gt;
+    &amp;lt;/dict&amp;gt;
+    &amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;/dev/null&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;SHAuthorizationRight&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;system.preferences&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;POSIXSpawnType&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;Interactive&amp;lt;/string&amp;gt;
+&amp;lt;/dict&amp;gt;
+&amp;lt;/plist&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重新载入配置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo launchctl unload ~/Library/LaunchDaemons/ssh.plist
+sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;可以用telnet或是lsof来检查一下修改并启用的端口有没有开起来。或是直接ssh连一下测试即可。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -59,7 +270,34 @@
 &lt;li&gt;通过下面操作可查到系统是否休眠了。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;执行下面这条命令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;syslog |grep -Ei &amp;quot;Wake reason|sleep&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码（红色字），那么这些代码表示什么意思呢？
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;OHC&lt;/code&gt;：表示开放式主机控制器（Open Host Controller），它通常和USB或火线有关，如果你看到的是OHC1或OHC2则基本上是USB外接键盘或鼠标导致唤醒了您的Mac。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EHC&lt;/code&gt;：表示增强的主机控制器（Enhanced Host Controller），这是另一种USB接口，但也可以是无线或蓝牙设备，因为它们均隶属于Mac的USB总线。（新版系统好像全部由XHC取代OHC和EHC了，不再细分，求证实）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USB&lt;/code&gt;：一个USB设备唤醒了Mac。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LID0&lt;/code&gt;：字面意思是MB或MBP的盖子，代表您打开盖子使机器唤醒了。（实际上在新版系统，开盖唤醒对应的代码应该是EC.LidOpen (User)）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PWRB&lt;/code&gt;：表示电源按钮（Power Button）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RTC&lt;/code&gt;：实时时钟（Real Time Clock Alarm），一般是由会唤醒机器的服务导致的，诸如“节能器”控制台（位于系统偏好设置中）设定的定时睡眠或唤醒。也可以由已启用的设定、用户的应用程序、备份任务以及其它计划任务触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EC.ACAttach (Maintenance)/EC.ACDetach (Maintenance)&lt;/code&gt;：连接/断开电源适配器（维护），会导致短暂的唤醒（就几秒，随后继续睡回笼觉，无需在意）。当外接电源发生变化时，系统短暂唤醒一下，然后调整电源管理方案（如是否启用Power Nap，各USB设备、Thunderbolt设备、蓝牙设备、无线网络、Airport、netbios等工作方式），调整完毕后继续睡眠。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;你可能会看到其它代码（诸如&lt;code&gt;PCI&lt;/code&gt;、&lt;code&gt;GEGE&lt;/code&gt;等），但上述代码是大多数人会在系统日志里遇到的。一旦你看到这些代码，你可以缩小查找范围。&lt;/p&gt;
+
+&lt;p&gt;PS：最后查到果然是因为系统自动休眠了，改了一下休眠设置。解决！&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -80,7 +318,27 @@
 &lt;li&gt;是文件编码的问题，Mac 下默认是UTF-8，windows下默认为GBK&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;解决&#34;&gt;【解决】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在Windows上用新版WinRAR(5.0) 以上版本直接解压即可&lt;/li&gt;
+&lt;li&gt;用第三方打包软件Keka(开源、免费)，打包成.7z&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;keka下载&#34;&gt;【Keka下载】：&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Keka: &lt;a href=&#34;http://www.kekaosx.com/zh-cn/&#34;&gt;http://www.kekaosx.com/zh-cn/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;注意&#34;&gt;【注意】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;用的2345好压 直接解压不能解决此文件，，&lt;/li&gt;
+&lt;li&gt;可以通过设置2345好压 的代码页 为UTF-8 来解压即可 （预览的时候还是乱码），不过解压出来就都正常了&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

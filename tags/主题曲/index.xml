@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>主题曲 on inorz.net</title>
-    <link>http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/</link>
+    <link>http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/index.xml</link>
     <description>Recent content in 主题曲 on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 24 May 2015 14:35:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>See you Again</title>
@@ -22,7 +19,25 @@
 废话不多说了，下面的视频献上。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;粤语版&#34;&gt;【粤语版】&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;embed src=&#34;http://player.youku.com/player.php/sid/XOTYyMTUxNzY4/v.swf&#34; allowFullScreen=&#34;true&#34; quality=&#34;high&#34; width=&#34;480&#34; height=&#34;400&#34; align=&#34;middle&#34; allowScriptAccess=&#34;always&#34; type=&#34;application/x-shockwave-flash&#34;&gt;&lt;/embed&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;中文版&#34;&gt;【中文版】&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;embed src=&#34;http://player.youku.com/player.php/sid/XOTQ3MDU3NzI0/v.swf&#34; allowFullScreen=&#34;true&#34; quality=&#34;high&#34; width=&#34;480&#34; height=&#34;400&#34; align=&#34;middle&#34; allowScriptAccess=&#34;always&#34; type=&#34;application/x-shockwave-flash&#34;&gt;&lt;/embed&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;再来个原版&#34;&gt;【再来个原版】&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;embed src=&#34;http://player.youku.com/player.php/sid/XOTI5NDM0MDk2/v.swf&#34; allowFullScreen=&#34;true&#34; quality=&#34;high&#34; width=&#34;480&#34; height=&#34;400&#34; align=&#34;middle&#34; allowScriptAccess=&#34;always&#34; type=&#34;application/x-shockwave-flash&#34;&gt;&lt;/embed&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
     </item>
     
   </channel>

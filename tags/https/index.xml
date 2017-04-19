@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Https on inorz.net</title>
-    <link>http://inorz.net/tags/https/</link>
+    <link>http://inorz.net/tags/https/index.xml</link>
     <description>Recent content in Https on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 13 Apr 2016 00:55:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/https/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/https/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>记录一次android上https无法正常访问</title>
@@ -22,7 +19,104 @@ A域名和B域名，在浏览器上打开，则是完全没问题的。于是在
 然后就开始一系列的排查过程。
 期间大神也过来帮忙一起排查。&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;排查过程&#34;&gt;排查过程&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在自己的Mac下用了以下命令去测试连接A.test.domain.com，发现请求异常。无法建议连接。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl s_client -connect A.test.domain.com:443
+openssl s_client -connect A.test.domain.com:443 -tls1
+openssl s_client -connect A.test.domain.com:443 -ssl3
+openssl s_client -connect A.test.domain.com:443 -debug
+...
+# 返回都是
+CONNECTED(00000003)
+write:errno=54
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;同样的命令，去请求B.test.domain.com，则没有任何问题。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;手机端请求异常的时候进行了抓包。发现连三次握手都没办法正常进行。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;开始对比两个域名之间的不同地方。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A域名和B域名的证书是在两个地方申请的，一个是沃通，一个是StartSSL
+
+&lt;ul&gt;
+&lt;li&gt;联系了沃通，对方技术反馈说通过&lt;a href=&#34;https://wosign.ssllabs.com/index.html&#34;&gt;【沃通提供的测试系统】&lt;/a&gt;，确定我们证书没有问题。包括证书链什么的都是正常。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A域名和B域名的证书链不一样
+
+&lt;ul&gt;
+&lt;li&gt;尝试了在沃通官网上找对应的根证书追加到A域名证书里，也是无果。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A域名和B域名的Nginx版本不一样
+
+&lt;ul&gt;
+&lt;li&gt;A机器用了openresty，B机用了最新的nginx&lt;/li&gt;
+&lt;li&gt;编译参数部分不一样&lt;/li&gt;
+&lt;li&gt;ldd nginx，发现两台机器也是一样的。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A域名和B域名对应的机器不一样&lt;/li&gt;
+&lt;li&gt;A域名和B域名长得不一样&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;开始思考人生&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;开始反过来测试：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;把A机的域名配置和证书拉到B机，重启nginx。用openssl命令连接，居然可以正常访问。排除证书问题。&lt;/li&gt;
+&lt;li&gt;定位到可能是A机这边的问题。
+
+&lt;ul&gt;
+&lt;li&gt;A机yum重新安装nginx：不行。&lt;/li&gt;
+&lt;li&gt;在A机重新编译nginx 1.4.4：不行。&lt;/li&gt;
+&lt;li&gt;直接把B机的nginx拉过去用：不行。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;在A机上用以前旧的nginx新开了一个1443的端口，指定A的域名。测试，可以连接。
+
+&lt;ul&gt;
+&lt;li&gt;把旧的nginx还原之前旧的配置，发现又不能连接了。&lt;/li&gt;
+&lt;li&gt;大神怀疑配置有问题。又开始了各种测试。&lt;/li&gt;
+&lt;li&gt;最终发现是“有问题”的nginx下配置了多个ssl站点。&lt;/li&gt;
+&lt;li&gt;把另外一些多配的ssl站点配置移走后，nginx reload后发现A站点的Https域名可以正常访问了。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;想到之前大神处理过SVN多ssl站点的问题。但最终是因为svn客户端1.6即之后的版本都默认支持&lt;a href=&#34;https://en.wikipedia.org/wiki/Server_Name_Indication&#34;&gt;SNI特性&lt;/a&gt;解决了。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在自己电脑上和手机上用openssl命令去连接失败，本地的Openssl版本是0.9.8的，手机的应该同样是旧版本。不支持SNI特性。openssl 1.0之后才会默认支持SNI特性。所以会连接失败。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;手机端升级openssl，明显不太现实。&lt;/li&gt;
+&lt;li&gt;服务端这边只开启这一个域名为https，这样也不太现实。&lt;/li&gt;
+&lt;li&gt;android这边修改代码去实现。因为A证书之前在手机浏览器上访问是正常的。
+
+&lt;ul&gt;
+&lt;li&gt;有两个相关的参考地址：
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://developer.android.com/training/articles/security-ssl.html&#34;&gt;http://developer.android.com/training/articles/security-ssl.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.dev001.net/post/67082904181/android-using-sni-and-tlsv12-with-apache&#34;&gt;http://blog.dev001.net/post/67082904181/android-using-sni-and-tlsv12-with-apache&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;后记&#34;&gt;后记&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;其实一开始沃通的技术发过来的测试站点上，有列出部分终端不能支持。并且也标识低版本不支持SNI。当时没仔细从这里入手，导致这里瞎测试了一段时间。&lt;/li&gt;
+&lt;li&gt;配置https的域名，需要在配置配上TLSv1，目前很多旧的手机还是只支持到v1的。否则会遇到和我一样的问题。&lt;/li&gt;
+&lt;li&gt;希望大家不要和我踩同样的坑&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

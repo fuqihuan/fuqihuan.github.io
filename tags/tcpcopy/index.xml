@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tcpcopy on inorz.net</title>
-    <link>http://inorz.net/tags/tcpcopy/</link>
+    <link>http://inorz.net/tags/tcpcopy/index.xml</link>
     <description>Recent content in Tcpcopy on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 20 May 2015 22:45:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/tcpcopy/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/tcpcopy/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>【工具】TcpCopy使用</title>
@@ -27,7 +24,141 @@
 &lt;li&gt;TCPCopy是一种请求复制（所有基于tcp的packets）工具 ，其功能是复制在线数据包，修改TCP/IP头部信息，发送给测试服务器，达到欺骗测试服务器的TCP 程序的目的，从而为欺骗上层应用打下坚实基础。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;tcpcopy七大功能&#34;&gt;【TCPCopy七大功能】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;分布式压力测试工具，利用在线数据，可以测试系统能够承受的压力大小（远比ab压力测试工具真实地多）,也可以提前发现一些bug&lt;/li&gt;
+&lt;li&gt;普通上线测试，可以发现新系统是否稳定，提前发现上线过程中会出现的诸多问题，让开发者有信心上线&lt;/li&gt;
+&lt;li&gt;对比试验，同样请求，针对不同或不同版本程序，可以做性能对比等试验&lt;/li&gt;
+&lt;li&gt;流量放大功能，可以利用多种手段构造无限在线压力，满足中小网站压力测试要求&lt;/li&gt;
+&lt;li&gt;利用TCPCopy转发传统压力测试工具发出的请求，可以增加网络延迟，使其压力测试更加真实&lt;/li&gt;
+&lt;li&gt;热备份&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;tcpcopy架构&#34;&gt;【TCPCopy架构】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;架构图
+&lt;img src=&#34;http://inorz.net/images/tcpcopy-jiagoutu.png&#34; alt=&#34;tcpcopy-jiagoutu&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;数据流向
+&amp;gt;
+① 一个访问到达线上机器；
+② socket数据包在ip层被拷贝了一份传给tcpcopy进程；
+③ tcpcopy修改包的目的及源地址，发给目标测试机；
+④ 拷贝的包到达目标测试机；
+⑤ 目标测试机的应用程处理访问，并返回结果；
+⑥ 返回结果在ip层被截获、丢弃，由intercpet进程拷贝返回结果的ip header并返回；
+⑦ ip header被发送给线上机器的tcpcopy进程。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;tcpcopy安装&#34;&gt;【TCPCopy安装】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;tcpcopy下载：&lt;a href=&#34;https://github.com/wangbin579/tcpcopy&#34;&gt;https://github.com/wangbin579/tcpcopy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;intercept下载：&lt;a href=&#34;https://github.com/session-replay-tools/intercept/releases&#34;&gt;https://github.com/session-replay-tools/intercept/releases&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;生产服安装tcpcop，这里下载的是0.9.6版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xf tcpcopy-0.9.6.tar.gz
+./configure
+make &amp;amp;&amp;amp; make install
+#　
+#做个软链接，方便使用
+ln -s /usr/local/tcpcopy/sbin/tcpcopy /usr/local/bin/
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;测试服安装 intercept，这里下载1.0.0版本：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xf intercept-1.0.0.tar.gz
+./configure
+make &amp;amp;&amp;amp; make install
+#做个软链接，方便使用
+ln -s /usr/local/intercept/sbin/intercept /usr/local/bin/
+#
+# 安装intercept时，如果遇到：checking for pcap.h ... not found。
+# 解决：yum install libpcap-devel -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;tcpcopy使用-实时&#34;&gt;【TCPCopy使用（实时）】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;测试服，运行intercept服务端程序，指定IP为生产服（源IP）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 1. 使用前要先启用内核模块ip_queue支持
+modprobe ip_queue
+#　
+# 2. 检查一下是否有启用
+lsmod|grep ip_queue
+　
+# 3. 运行 intercept
+intercept -i eth0 -F &#39;tcp and src port 80&#39; -d -l /data/logs/intercept.log
+　
+#参数：
+# -i 指定网卡
+# -F 指定源端口为80端口
+# -d 启动为守护进程
+# -l 指定log日志
+# 更多的参数可 intercept -h 来查看
+　
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpcopy -x 80-测试服IP:80 -s 测试服IP -l /data/logs/tcpcopy.log -d
+　
+# 参数
+# -d 是做为守护进程方式运行
+# -l 是记录日志 -l /data/logs/tcpcopy_log.log
+# -s 指定intercept服务器
+# -n 复制几倍流量，不加参数默认为1，最大值为1023
+# -r 复制部分流量，比如 -r 20，即为复制20%的流量。传参数范围为1-99，其他数值都是默认为全部流量复制
+　
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;测试：运行完可以通过tcpdump命令来抓包查看80端口的收发包情况。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpdump -S port 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;tcpcopy使用-离线&#34;&gt;【TCPCopy使用（离线）】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;测试服，使用tcpdump抓包，并保存抓包文件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpdump -i eth0 tcp and port 80 -s 0 -w /data/logs/online_80.pcap
+　
+#参数
+#-s 获取数据包，默认为68字节，设置成0，获取全部数据包
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;生产服，运行TcpCopy客户端程序，指定发送IP为测试服IP：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpcopy -x 80-测试服IP:80 -i /data/logs/online_80.pcap -l /data/logs/tcpcopy.log -d
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;注意事项&#34;&gt;【注意事项】&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;不支持域名，只支持IP地址。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果采用的是IP Queue模块来截获响应包，所以intercept程序密切跟ip queue内核模块相关，所以当压力很大的时候请求丢失率很高，需要优化sysctl系统参数才能达到好的效果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 查看ip queue运行情况，
+cat /proc/net/ip_queue
+#
+# 如果Queue dropped的数值不断增大，则需要修改ip_queue_maxlen参数
+# 比如echo 4096 &amp;gt; /proc/sys/net/ipv4/ip_queue_maxlen
+#
+# 如果Netlink dropped的数值不断增大，修改net.core.rmem_max和net.core.wmem_max参数
+# 比如 sysctl -w net.core.rmem_max=16777216和sysctl -w net.core.wmem_max=16777216）
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

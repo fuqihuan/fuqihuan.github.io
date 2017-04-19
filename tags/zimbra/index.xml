@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zimbra on inorz.net</title>
-    <link>http://inorz.net/tags/zimbra/</link>
+    <link>http://inorz.net/tags/zimbra/index.xml</link>
     <description>Recent content in Zimbra on inorz.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 11 Apr 2016 23:20:48 +0000</lastBuildDate>
-    
-	<atom:link href="http://inorz.net/tags/zimbra/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://inorz.net/tags/zimbra/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>zimbra添加微软雅黑字体</title>
@@ -21,7 +18,59 @@
 最近把zimbra从8.0.5升级到了8.6.0后，没留意又覆盖回去了。
 在这里做个记录&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置原理&#34;&gt;配置原理&lt;/h2&gt;
+
+&lt;p&gt;ZWC控制资源文件（properties文件）来实现国际化下的字体列表。在JAVA架构的系统下，通过资源文件来实现国际化是常用的技术，ZWC也不例外。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;经过搜索，ZWC中控制国际化下的字体列表的资源文件是:
+&lt;code&gt;zimbrahome/jetty/webapps/zimbra/WEB-INF/classes/messages/AjxMsg.properties&lt;/code&gt;
+按照Java的规则，中文简体对应的资源文件应该是:
+&lt;code&gt;zimbrahome/jetty/webapps/zimbra/WEB-INF/classes/messages/AjxMsg_zh_CN.properties&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;配置文件的写法大概是：
+
+&lt;ul&gt;
+&lt;li&gt;可以向列表中加入任意多的字体数量。&lt;/li&gt;
+&lt;li&gt;要添加一个新的字体，首先要添加一个键名类似fontFamilyBase{number}.display的条目和一个键名类似fontFamilyBase{number}.css的条目，分别表示字体显示名称和内部名称。&lt;/li&gt;
+&lt;li&gt;对于国际化环境而言，则应使用键名分别为fontFamilyIntl{number}.display和fontFamilyIntl{number}.css的条目。&lt;/li&gt;
+&lt;li&gt;这里的{number}是一个阿拉伯数字，从1开始，新建时应比当前最大的数字大1。要结束这些列表，将最后一个条目的值设为“###”。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;配置过程&#34;&gt;配置过程&lt;/h2&gt;
+
+&lt;p&gt;上面说了一通，其实修改方法比较简单，就修改两个地方即可：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;修改配置文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp zimbrahome/jetty/webapps/zimbra/WEB-INF/classes/messages/AjxMsg_zh_CN.properties /data/backup/
+vim zimbrahome/jetty/webapps/zimbra/WEB-INF/classes/messages/AjxMsg_zh_CN.properties
+# 找到fontFamilyIntl列表中第一个值为“###”的条目。根据不同的软件版本，那个{number}可能不同，在7.0上是4（即前面有3个字体）。
+# 修改fontFamilyIntl4值。可按情况修改
+# 微软雅黑转换为Unicode后是 \u5fae\u8f6f\u96c5\u9ed1
+fontFamilyIntl4.display = \u5fae\u8f6f\u96c5\u9ed1
+fontFamilyIntl4.css = \u5fae\u8f6f\u96c5\u9ed1, msyh
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;保存文件后重启Zimbra服务。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zmcontrol restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;注意事项&#34;&gt;注意事项&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;上面修改后的字体，需要客户端本地有对应的字体才能够正常使用。&lt;/li&gt;
+&lt;li&gt;windows平台: win7之后基本都自带微软雅黑了，应该不成问题。&lt;/li&gt;
+&lt;li&gt;MAC平台: mac用户的话就需要自己安装微软雅黑了。不过相信一般mac用户都用自带的邮件app的多些。也不是问题。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -45,7 +94,64 @@
 &amp;gt; 私钥：3_domain.com.key&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;替换证书&#34;&gt;替换证书&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;把上面解压出来的三个文件上传到服务器&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://www.wosign.com/root/startcom.crt&#34;&gt;下载&lt;/a&gt; 顶级根证书,然后把顶级根证书的内容加到公钥证书中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat startcom.crt &amp;gt;&amp;gt; 2_domain.com.crt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;替换服务器上旧的私钥文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mv /opt/zimbra/ssl/zimbra/commercial/commercial.key /data/backup/commercial.key.${RANDOM}
+cp 3_domain.com.key /opt/zimbra/ssl/zimbra/commercial/commercial.key
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;校验证书&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/zimbra/bin/zmcertmgr verifycrt comm /opt/zimbra/ssl/zimbra/commercial/commercial.key 2_domain.com.crt 1_root_bundle.crt
+    
+# 校验成功会有这样的提示
+** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
+Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
+Valid Certificate: 2_domain.com.crt: OK
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;更新证书&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/zimbra/bin/zmcertmgr deploycrt comm 2_domain.com.crt 1_root_bundle.crt
+    
+# 更新成功会有这样的提示
+** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
+Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
+Valid Certificate: 2_domain.com.crt: OK
+** Copying 2_domain.com.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
+** Appending ca chain 1_root_bundle.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
+** Importing certificate /opt/zimbra/ssl/zimbra/commercial/commercial_ca.crt to CACERTS as zcs-user-commercial_ca...done.
+** NOTE: mailboxd must be restarted in order to use the imported certificate.
+** Saving server config key zimbraSSLCertificate...done.
+** Saving server config key zimbraSSLPrivateKey...done.
+** Installing mta certificate and key...done.
+** Installing slapd certificate and key...done.
+** Installing proxy certificate and key...done.
+** Creating pkcs12 file /opt/zimbra/ssl/zimbra/jetty.pkcs12...done.
+** Creating keystore file /opt/zimbra/mailboxd/etc/keystore...done.
+** Installing CA to /opt/zimbra/conf/ca...done.
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重启zmcontrol&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;su - zimbra
+zmcontrol restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重启完了后重启登录页面,可以看到邮箱证书已经替换成功&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>
