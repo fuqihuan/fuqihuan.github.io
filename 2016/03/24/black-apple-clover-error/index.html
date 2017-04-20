@@ -4,10 +4,10 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="更换zimbra的ssl证书">
+  <meta name="description" content="">
   <meta name="generator" content="Hugo 0.19" />
 
-  <title>【Zimbra】更换邮箱SSL证书 &middot; inorz.net</title>
+  <title>黑苹果Clover无法引导安装镜像，反复重启 &middot; 找节拍</title>
 
   
   
@@ -227,8 +227,8 @@
 
 
 <div class="header">
-  <h1>【Zimbra】更换邮箱SSL证书</h1>
-  <h2>更换zimbra的ssl证书</h2>
+  <h1>黑苹果Clover无法引导安装镜像，反复重启</h1>
+  <h2></h2>
 </div>
 <div class="content">
 
@@ -236,7 +236,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2015-11-05 20:05:48</time>
+    <time>2016-03-24 11:15:48</time>
   </div>
 
   
@@ -249,7 +249,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/zimbra">zimbra</a>
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C">黑苹果</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/clover">Clover</a>
     
   </div>
   
@@ -257,91 +259,95 @@
 
 </div>
 
-  <p>有台用zimbra部署的邮箱服务器证书马上到期了，之前用的StartSSL突然抽风，不知为何不能申请证书了。于是临时换用了沃通的免费证书来应急一下。
-　　中间遇到了些困难，主要是被网上搜索的一些文章给误导了，失败了无数次。
-　　记录下更换过程。</p>
+  <h2 id="背景">背景</h2>
 
-<h3 id="申请证书">申请证书</h3>
-
-<ol>
-<li>先到沃通官网申请证书<a href="https://buy.wosign.com/free/#ssl">点此跳转</a></li>
-<li>按上面的要求一步步申请完证书</li>
-<li>证书下载回来后,打开文件选择解压for Other Apache.zip, 其中有3个文件:
-&gt; 根证书：1_root_bundle.crt
-&gt; 公钥证书：2_domain.com.crt
-&gt; 私钥：3_domain.com.key</li>
-</ol>
+<ul>
+<li>最近准备测试一下黑苹果用来做IOS调试机器的可行性，于是在一台主机上安装了黑苹果，然后在安装过程中，遇到Clover无法引导安装镜像，反复重启。</li>
+</ul>
 
 <p></p>
 
-<h3 id="替换证书">替换证书</h3>
+<h2 id="排查过程">排查过程</h2>
 
 <ol>
-<li>把上面解压出来的三个文件上传到服务器</li>
+<li>一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。</li>
+<li>然后发现所有镜像均是同一症状。反复重启。</li>
+<li>开始怀疑和思考人生</li>
+<li>最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。</li>
+</ol>
 
-<li><p><a href="http://www.wosign.com/root/startcom.crt">下载</a> 顶级根证书,然后把顶级根证书的内容加到公钥证书中</p>
+<pre><code class="language-xml">&lt;key&gt;Memory&lt;/key&gt;
+&lt;dict&gt;
+  &lt;key&gt;Channels&lt;/key&gt;
+  &lt;integer&gt;2&lt;/integer&gt; OR &lt;string&gt;1&lt;/string&gt;
+  &lt;key&gt;SlotCount&lt;/key&gt;
+  &lt;integer&gt;24&lt;/integer&gt; OR &lt;string&gt;4&lt;/string&gt;
+  &lt;key&gt;Modules&lt;/key&gt;
+  &lt;array&gt;
+    &lt;dict&gt;
+      &lt;key&gt;Slot&lt;/key&gt;
+      &lt;integer&gt;0&lt;/integer&gt; OR &lt;string&gt;5&lt;/string&gt;
+      &lt;key&gt;Size&lt;/key&gt;
+      &lt;integer&gt;2048&lt;/integer&gt; OR &lt;string&gt;4096&lt;/string&gt;
+      &lt;key&gt;Frequency&lt;/key&gt;
+      &lt;integer&gt;1600&lt;/integer&gt; OR &lt;string&gt;1333&lt;/string&gt;
+      &lt;key&gt;Vendor&lt;/key&gt;
+      &lt;string&gt;Some Company&lt;/string&gt;
+      &lt;key&gt;Part&lt;/key&gt;
+      &lt;string&gt;123456ABCDEF&lt;/string&gt;
+      &lt;key&gt;Serial&lt;/key&gt;
+      &lt;string&gt;ABCDEF123456&lt;/string&gt;
+      &lt;key&gt;Type&lt;/key&gt;
+      &lt;string&gt;DDR/DDR2/DDR3&lt;/string&gt;
+   &lt;/dict&gt;
+  &lt;/array&gt;
+&lt;/dict&gt;
+</code></pre>
 
-<pre><code class="language-bash">cat startcom.crt &gt;&gt; 2_domain.com.crt
-</code></pre></li>
+<blockquote>
+<p>Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.</p>
+</blockquote>
 
-<li><p>替换服务器上旧的私钥文件</p>
+<ul>
+<li><code>Channels</code> - Number of hardware channels supported by your memory chipset, usually two.</li>
+<li><code>SlotCount</code> - Total count of memory slots in your system. Max 24 (for now).</li>
+<li><code>Modules</code> - An array of INSTALLED modules, if your slot is empty don&rsquo;t include an entry for it.</li>
+</ul>
 
-<pre><code class="language-bash">mv /opt/zimbra/ssl/zimbra/commercial/commercial.key /data/backup/commercial.key.${RANDOM}
-cp 3_domain.com.key /opt/zimbra/ssl/zimbra/commercial/commercial.key
-</code></pre></li>
+<blockquote>
+<p>For each module:</p>
+</blockquote>
 
-<li><p>校验证书</p>
+<ul>
+<li><code>Slot</code> - Physical slot location in which the module is installed.</li>
+<li><code>Size</code> - Size of the module in megabytes.</li>
+<li><code>Frequency</code> - Speed of the module in megahertz.</li>
+<li><code>Vendor</code> - Memory manufacturer name</li>
+<li><code>Part</code> - The part number identifier.</li>
+<li><code>Serial</code> - The module&rsquo;s serial number.</li>
+<li><code>Type</code> - The memory module&rsquo;s type.</li>
+</ul>
 
-<pre><code class="language-bash">/opt/zimbra/bin/zmcertmgr verifycrt comm /opt/zimbra/ssl/zimbra/commercial/commercial.key 2_domain.com.crt 1_root_bundle.crt
-    
-# 校验成功会有这样的提示
-** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
-Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
-Valid Certificate: 2_domain.com.crt: OK
-</code></pre></li>
+<h2 id="解决问题">解决问题</h2>
 
-<li><p>更新证书</p>
-
-<pre><code class="language-bash">/opt/zimbra/bin/zmcertmgr deploycrt comm 2_domain.com.crt 1_root_bundle.crt
-    
-# 更新成功会有这样的提示
-** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
-Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
-Valid Certificate: 2_domain.com.crt: OK
-** Copying 2_domain.com.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
-** Appending ca chain 1_root_bundle.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
-** Importing certificate /opt/zimbra/ssl/zimbra/commercial/commercial_ca.crt to CACERTS as zcs-user-commercial_ca...done.
-** NOTE: mailboxd must be restarted in order to use the imported certificate.
-** Saving server config key zimbraSSLCertificate...done.
-** Saving server config key zimbraSSLPrivateKey...done.
-** Installing mta certificate and key...done.
-** Installing slapd certificate and key...done.
-** Installing proxy certificate and key...done.
-** Creating pkcs12 file /opt/zimbra/ssl/zimbra/jetty.pkcs12...done.
-** Creating keystore file /opt/zimbra/mailboxd/etc/keystore...done.
-** Installing CA to /opt/zimbra/conf/ca...done.
-</code></pre></li>
-
-<li><p>重启zmcontrol</p>
-
-<pre><code class="language-bash">su - zimbra
-zmcontrol restart
-</code></pre></li>
-
-<li><p>重启完了后重启登录页面,可以看到邮箱证书已经替换成功</p></li>
+<ol>
+<li>上面的配置中，发现是可以配置内存位置的。</li>
+<li>拆了主机，发现这台主机内存插在第二根插槽上，也就是第1槽。按正常的开机顺序，应该是先去引导第0槽，默认是离CPU最近的那根槽。</li>
+<li>抱着怀疑的态度把内存换到了第0槽，开机。</li>
+<li>卧槽，真的可以了！</li>
 </ol>
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="http://inorz.net/2015/09/06/resolv/"><i class="fa fa-chevron-left"></i></a>
+    <a href="http://inorz.net/2015/11/05/zimbra-change-ssl/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="http://inorz.net/2015/09/06/resolv/">【DNS】resolv.conf 配置说明[转]</a>
+      <a href="http://inorz.net/2015/11/05/zimbra-change-ssl/">【Zimbra】更换邮箱SSL证书</a>
     </nav>
     
   </div>
@@ -351,13 +357,13 @@ zmcontrol restart
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="http://inorz.net/2016/03/24/black_apple_clover_error/">黑苹果Clover无法引导安装镜像，反复重启</a>
+      <a href="http://inorz.net/2016/03/24/mac-sleep/">MAC查看休眠日志</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="http://inorz.net/2016/03/24/black_apple_clover_error/"><i class="fa fa-chevron-right"></i></a>
+    <a href="http://inorz.net/2016/03/24/mac-sleep/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

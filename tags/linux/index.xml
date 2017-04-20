@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on inorz.net</title>
+    <title>Linux on 找节拍</title>
     <link>http://inorz.net/tags/linux/index.xml</link>
-    <description>Recent content in Linux on inorz.net</description>
+    <description>Recent content in Linux on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
@@ -11,10 +11,10 @@
     
     <item>
       <title>Linux下恢复被格了硬盘的MySQL数据</title>
-      <link>http://inorz.net/2017/04/19/linux_restore_mysql_data/</link>
+      <link>http://inorz.net/2017/04/19/linux-restore-mysql-data/</link>
       <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2017/04/19/linux_restore_mysql_data/</guid>
+      <guid>http://inorz.net/2017/04/19/linux-restore-mysql-data/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 
 &lt;ul&gt;

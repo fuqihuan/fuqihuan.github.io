@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Clover on inorz.net</title>
+    <title>Clover on 找节拍</title>
     <link>http://inorz.net/tags/clover/index.xml</link>
-    <description>Recent content in Clover on inorz.net</description>
+    <description>Recent content in Clover on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
@@ -11,10 +11,10 @@
     
     <item>
       <title>黑苹果Clover无法引导安装镜像，反复重启</title>
-      <link>http://inorz.net/2016/03/24/black_apple_clover_error/</link>
+      <link>http://inorz.net/2016/03/24/black-apple-clover-error/</link>
       <pubDate>Thu, 24 Mar 2016 11:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/03/24/black_apple_clover_error/</guid>
+      <guid>http://inorz.net/2016/03/24/black-apple-clover-error/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 
 &lt;ul&gt;

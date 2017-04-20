@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>字体 on inorz.net</title>
+    <title>字体 on 找节拍</title>
     <link>http://inorz.net/tags/%E5%AD%97%E4%BD%93/index.xml</link>
-    <description>Recent content in 字体 on inorz.net</description>
+    <description>Recent content in 字体 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
@@ -11,10 +11,10 @@
     
     <item>
       <title>zimbra添加微软雅黑字体</title>
-      <link>http://inorz.net/2016/04/11/zimbra_add_msyh/</link>
+      <link>http://inorz.net/2016/04/11/zimbra-add-msyh/</link>
       <pubDate>Mon, 11 Apr 2016 23:20:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/04/11/zimbra_add_msyh/</guid>
+      <guid>http://inorz.net/2016/04/11/zimbra-add-msyh/</guid>
       <description>&lt;p&gt;很多同鞋都习惯了在zimbra上面使用雅黑字体来写邮件
 最近把zimbra从8.0.5升级到了8.6.0后，没留意又覆盖回去了。
 在这里做个记录&lt;/p&gt;

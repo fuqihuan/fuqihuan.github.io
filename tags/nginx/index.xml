@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nginx on inorz.net</title>
+    <title>Nginx on 找节拍</title>
     <link>http://inorz.net/tags/nginx/index.xml</link>
-    <description>Recent content in Nginx on inorz.net</description>
+    <description>Recent content in Nginx on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
@@ -122,10 +122,10 @@ write:errno=54
     
     <item>
       <title>使用nginx的limit模块限制并发</title>
-      <link>http://inorz.net/2015/08/19/nginx_module_limit/</link>
+      <link>http://inorz.net/2015/08/19/nginx-module-limit/</link>
       <pubDate>Wed, 19 Aug 2015 22:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/08/19/nginx_module_limit/</guid>
+      <guid>http://inorz.net/2015/08/19/nginx-module-limit/</guid>
       <description>&lt;h2 id=&#34;遇到的问题&#34;&gt;【遇到的问题】&lt;/h2&gt;
 
 &lt;ol&gt;

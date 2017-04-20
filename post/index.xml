@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on inorz.net</title>
+    <title>Posts on 找节拍</title>
     <link>http://inorz.net/post/index.xml</link>
-    <description>Recent content in Posts on inorz.net</description>
+    <description>Recent content in Posts on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
@@ -12,10 +12,10 @@
     
     <item>
       <title>Linux下恢复被格了硬盘的MySQL数据</title>
-      <link>http://inorz.net/2017/04/19/linux_restore_mysql_data/</link>
+      <link>http://inorz.net/2017/04/19/linux-restore-mysql-data/</link>
       <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2017/04/19/linux_restore_mysql_data/</guid>
+      <guid>http://inorz.net/2017/04/19/linux-restore-mysql-data/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -265,10 +265,10 @@ echo $?
     
     <item>
       <title>InfluxDB、Glances和Grafana构建现代化监控系统</title>
-      <link>http://inorz.net/2016/05/22/influxdb_grafana_glances_monitor/</link>
+      <link>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</link>
       <pubDate>Sun, 22 May 2016 23:55:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/05/22/influxdb_grafana_glances_monitor/</guid>
+      <guid>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</guid>
       <description>&lt;p&gt;今天的主角是InfluxDB、Glances、Grafana这三个工具，三个工作都非常强大。可以用于组件一个比较强大的分布式监控系统了，关键是文档也比较齐全。&lt;/p&gt;
 
 &lt;p&gt;简单介绍一下这三款软件：&lt;/p&gt;
@@ -540,10 +540,10 @@ write:errno=54
     
     <item>
       <title>zimbra添加微软雅黑字体</title>
-      <link>http://inorz.net/2016/04/11/zimbra_add_msyh/</link>
+      <link>http://inorz.net/2016/04/11/zimbra-add-msyh/</link>
       <pubDate>Mon, 11 Apr 2016 23:20:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/04/11/zimbra_add_msyh/</guid>
+      <guid>http://inorz.net/2016/04/11/zimbra-add-msyh/</guid>
       <description>&lt;p&gt;很多同鞋都习惯了在zimbra上面使用雅黑字体来写邮件
 最近把zimbra从8.0.5升级到了8.6.0后，没留意又覆盖回去了。
 在这里做个记录&lt;/p&gt;
@@ -691,10 +691,10 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
     
     <item>
       <title>MAC查看休眠日志</title>
-      <link>http://inorz.net/2016/03/24/mac_sleep/</link>
+      <link>http://inorz.net/2016/03/24/mac-sleep/</link>
       <pubDate>Thu, 24 Mar 2016 11:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/03/24/mac_sleep/</guid>
+      <guid>http://inorz.net/2016/03/24/mac-sleep/</guid>
       <description>&lt;ol&gt;
 &lt;li&gt;有同鞋反馈说MAC开发机经常无故连不上，失去响应。&lt;/li&gt;
 &lt;li&gt;每次我这边远程桌面一连，那边就反馈登录正常了。于是怀疑是系统自动休眠了。&lt;/li&gt;
@@ -733,10 +733,10 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
     
     <item>
       <title>黑苹果Clover无法引导安装镜像，反复重启</title>
-      <link>http://inorz.net/2016/03/24/black_apple_clover_error/</link>
+      <link>http://inorz.net/2016/03/24/black-apple-clover-error/</link>
       <pubDate>Thu, 24 Mar 2016 11:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/03/24/black_apple_clover_error/</guid>
+      <guid>http://inorz.net/2016/03/24/black-apple-clover-error/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -818,10 +818,10 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
     
     <item>
       <title>【Zimbra】更换邮箱SSL证书</title>
-      <link>http://inorz.net/2015/11/05/zimbra_change_ssl/</link>
+      <link>http://inorz.net/2015/11/05/zimbra-change-ssl/</link>
       <pubDate>Thu, 05 Nov 2015 20:05:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/11/05/zimbra_change_ssl/</guid>
+      <guid>http://inorz.net/2015/11/05/zimbra-change-ssl/</guid>
       <description>&lt;p&gt;有台用zimbra部署的邮箱服务器证书马上到期了，之前用的StartSSL突然抽风，不知为何不能申请证书了。于是临时换用了沃通的免费证书来应急一下。
 　　中间遇到了些困难，主要是被网上搜索的一些文章给误导了，失败了无数次。
 　　记录下更换过程。&lt;/p&gt;
@@ -945,10 +945,10 @@ search  baidu.com inorz.net.cn
     
     <item>
       <title>使用nginx的limit模块限制并发</title>
-      <link>http://inorz.net/2015/08/19/nginx_module_limit/</link>
+      <link>http://inorz.net/2015/08/19/nginx-module-limit/</link>
       <pubDate>Wed, 19 Aug 2015 22:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/08/19/nginx_module_limit/</guid>
+      <guid>http://inorz.net/2015/08/19/nginx-module-limit/</guid>
       <description>&lt;h2 id=&#34;遇到的问题&#34;&gt;【遇到的问题】&lt;/h2&gt;
 
 &lt;ol&gt;
@@ -1016,10 +1016,10 @@ search  baidu.com inorz.net.cn
     
     <item>
       <title>See you Again</title>
-      <link>http://inorz.net/2015/05/24/see_you_again/</link>
+      <link>http://inorz.net/2015/05/24/see-you-again/</link>
       <pubDate>Sun, 24 May 2015 14:35:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/05/24/see_you_again/</guid>
+      <guid>http://inorz.net/2015/05/24/see-you-again/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;看过速度7的朋友一定会对这首see you again印象非常深刻。这里找了几个版本的歌曲，可以一饱耳福了。
 废话不多说了，下面的视频献上。&lt;/p&gt;
@@ -1048,10 +1048,10 @@ search  baidu.com inorz.net.cn
     
     <item>
       <title>Centos下Privoxy的安装与配置</title>
-      <link>http://inorz.net/2015/05/24/init_privoxy_to_centos/</link>
+      <link>http://inorz.net/2015/05/24/init-privoxy-to-centos/</link>
       <pubDate>Sun, 24 May 2015 13:25:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/05/24/init_privoxy_to_centos/</guid>
+      <guid>http://inorz.net/2015/05/24/init-privoxy-to-centos/</guid>
       <description>&lt;h3 id=&#34;一-背景&#34;&gt;一、【背景】&lt;/h3&gt;
 
 &lt;p&gt;　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。&lt;/p&gt;
@@ -1156,10 +1156,10 @@ PS：检查一下端口和防火墙有没有添加上对应的规则&lt;/p&gt;&l
     
     <item>
       <title>【安全】PHP Multipartform-data 远程DOS攻击漏洞</title>
-      <link>http://inorz.net/2015/05/21/php_multipartform-data/</link>
+      <link>http://inorz.net/2015/05/21/php-multipartform-data/</link>
       <pubDate>Thu, 21 May 2015 14:45:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/05/21/php_multipartform-data/</guid>
+      <guid>http://inorz.net/2015/05/21/php-multipartform-data/</guid>
       <description>&lt;h3 id=&#34;漏洞摘要&#34;&gt;【漏洞摘要】&lt;/h3&gt;
 
 &lt;p&gt;　　PHP解析multipart/form-datahttp请求的body part请求头时，重复拷贝字符串导致DOS。远程攻击者通过发送恶意构造的multipart/form-data请求，导致服务器CPU资源被耗尽，从而远程DOS服务器。
