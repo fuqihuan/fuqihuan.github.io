@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mac on 找节拍</title>
-    <link>http://inorz.net/tags/mac.xml</link>
+    <link>http://inorz.net/tags/mac/index.xml</link>
     <description>Recent content in Mac on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/mac.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/mac/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>InfluxDB、Glances和Grafana构建现代化监控系统</title>

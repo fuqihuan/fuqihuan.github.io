@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>字体 on 找节拍</title>
-    <link>http://inorz.net/tags/%E5%AD%97%E4%BD%93.xml</link>
+    <link>http://inorz.net/tags/%E5%AD%97%E4%BD%93/index.xml</link>
     <description>Recent content in 字体 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E5%AD%97%E4%BD%93.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/%E5%AD%97%E4%BD%93/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>zimbra添加微软雅黑字体</title>

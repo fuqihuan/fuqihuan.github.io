@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>科学上网 on 找节拍</title>
-    <link>http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91.xml</link>
+    <link>http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/index.xml</link>
     <description>Recent content in 科学上网 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Centos下Privoxy的安装与配置</title>

@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nginx on 找节拍</title>
-    <link>http://inorz.net/tags/nginx.xml</link>
+    <link>http://inorz.net/tags/nginx/index.xml</link>
     <description>Recent content in Nginx on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/nginx.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>记录一次android上https无法正常访问</title>
