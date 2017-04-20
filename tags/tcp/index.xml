@@ -11,10 +11,10 @@
     
     <item>
       <title>【工具】TcpCopy使用</title>
-      <link>http://inorz.net/2015/05/20/%E5%B7%A5%E5%85%B7tcpcopy%E4%BD%BF%E7%94%A8/</link>
+      <link>http://inorz.net/2015/05/20/tcpcopy/</link>
       <pubDate>Wed, 20 May 2015 22:45:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/05/20/%E5%B7%A5%E5%85%B7tcpcopy%E4%BD%BF%E7%94%A8/</guid>
+      <guid>http://inorz.net/2015/05/20/tcpcopy/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;有台服务器的MySQL内存，经常内涨跑涨高，所以为了调试，在一台测试机器上搭建了同样的服务，部署了同样的代码，用TcpCopy做引流做测试。&lt;/p&gt;
 &lt;/blockquote&gt;

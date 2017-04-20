@@ -4,10 +4,10 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="简单说明一下 resolv.conf 配置">
+  <meta name="description" content="">
   <meta name="generator" content="Hugo 0.19" />
 
-  <title>【DNS】resolv.conf 配置说明[转] &middot; inorz.net</title>
+  <title>黑苹果Clover无法引导安装镜像，反复重启 &middot; inorz.net</title>
 
   
   
@@ -227,8 +227,8 @@
 
 
 <div class="header">
-  <h1>【DNS】resolv.conf 配置说明[转]</h1>
-  <h2>简单说明一下 resolv.conf 配置</h2>
+  <h1>黑苹果Clover无法引导安装镜像，反复重启</h1>
+  <h2></h2>
 </div>
 <div class="content">
 
@@ -236,7 +236,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2015-09-06 12:05:48</time>
+    <time>2016-03-24 11:15:48</time>
   </div>
 
   
@@ -249,13 +249,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/dns">dns</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C">黑苹果</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/dns">DNS</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/resolv.conf">resolv.conf</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/resolv">resolv</a>
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/clover">Clover</a>
     
   </div>
   
@@ -263,56 +259,95 @@
 
 </div>
 
-  <p>对这个一开始是一种半解的，看了<a href="http://www.lnmpy.com/resolv.conf-search-domain/">这篇文章</a>后觉得有用，就转了过来记录一下。</p>
+  <h2 id="背景">背景</h2>
 
-<h3 id="配置说明">配置说明</h3>
-
-<ol>
-<li>&ldquo;nameserver&rdquo; 指定要进行域名解析的dnsserver的IP地址。可以定义多个IP地址，按照顺序来请求</li>
-<li>&ldquo;domain&rdquo; 指定本地的domain，如果查询时的域名没有包含&rdquo;.&ldquo;，则会在此后面加上domain的值来进行解析</li>
-<li>&ldquo;search&rdquo; 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。</li>
-</ol>
+<ul>
+<li>最近准备测试一下黑苹果用来做IOS调试机器的可行性，于是在一台主机上安装了黑苹果，然后在安装过程中，遇到Clover无法引导安装镜像，反复重启。</li>
+</ul>
 
 <p></p>
 
-<p>现实中有&rdquo;qh.inorz.net&rdquo;，下面就以这个来说明，主要是说明&rdquo;domain&rdquo;和&rdquo;search&rdquo;的意义。</p>
-
-<pre><code class="language-bash">cat /etc/resolv.conf
-
-########
-nameserver 192.168.1.1
-nameserver 8.8.8.8
-domain  inorz.net
-search  baidu.com inorz.net.cn
-</code></pre>
-
-<h3 id="测试">测试</h3>
+<h2 id="排查过程">排查过程</h2>
 
 <ol>
-<li><p>ping inorz.net
-&gt; 这里是直接走的 nameserver</p></li>
+<li>一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。</li>
+<li>然后发现所有镜像均是同一症状。反复重启。</li>
+<li>开始怀疑和思考人生</li>
+<li>最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。</li>
+</ol>
 
-<li><p>ping qh
-&gt; 按顺序查找 qh, qh.inorz.net, qh.baidu.com 和 qh.inorz.net.cn
-&gt; 这里的顺序是nameserver -&gt; domain -&gt; search</p></li>
+<pre><code class="language-xml">&lt;key&gt;Memory&lt;/key&gt;
+&lt;dict&gt;
+  &lt;key&gt;Channels&lt;/key&gt;
+  &lt;integer&gt;2&lt;/integer&gt; OR &lt;string&gt;1&lt;/string&gt;
+  &lt;key&gt;SlotCount&lt;/key&gt;
+  &lt;integer&gt;24&lt;/integer&gt; OR &lt;string&gt;4&lt;/string&gt;
+  &lt;key&gt;Modules&lt;/key&gt;
+  &lt;array&gt;
+    &lt;dict&gt;
+      &lt;key&gt;Slot&lt;/key&gt;
+      &lt;integer&gt;0&lt;/integer&gt; OR &lt;string&gt;5&lt;/string&gt;
+      &lt;key&gt;Size&lt;/key&gt;
+      &lt;integer&gt;2048&lt;/integer&gt; OR &lt;string&gt;4096&lt;/string&gt;
+      &lt;key&gt;Frequency&lt;/key&gt;
+      &lt;integer&gt;1600&lt;/integer&gt; OR &lt;string&gt;1333&lt;/string&gt;
+      &lt;key&gt;Vendor&lt;/key&gt;
+      &lt;string&gt;Some Company&lt;/string&gt;
+      &lt;key&gt;Part&lt;/key&gt;
+      &lt;string&gt;123456ABCDEF&lt;/string&gt;
+      &lt;key&gt;Serial&lt;/key&gt;
+      &lt;string&gt;ABCDEF123456&lt;/string&gt;
+      &lt;key&gt;Type&lt;/key&gt;
+      &lt;string&gt;DDR/DDR2/DDR3&lt;/string&gt;
+   &lt;/dict&gt;
+  &lt;/array&gt;
+&lt;/dict&gt;
+</code></pre>
 
-<li><p>ping qh.inorz
-&gt; 此处就只查找 qh.inorz，qh.inorz.inorz.net 和 qh.inorz.baidu.com
-&gt; 这里的顺序是nameserver -&gt; domain -&gt; search
-&gt; domain此时没有起到作用，因为其定义是当搜索的domain没有&rdquo;.&ldquo;时，则优先搜索domain，否则跳过</p></li>
+<blockquote>
+<p>Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.</p>
+</blockquote>
+
+<ul>
+<li><code>Channels</code> - Number of hardware channels supported by your memory chipset, usually two.</li>
+<li><code>SlotCount</code> - Total count of memory slots in your system. Max 24 (for now).</li>
+<li><code>Modules</code> - An array of INSTALLED modules, if your slot is empty don&rsquo;t include an entry for it.</li>
+</ul>
+
+<blockquote>
+<p>For each module:</p>
+</blockquote>
+
+<ul>
+<li><code>Slot</code> - Physical slot location in which the module is installed.</li>
+<li><code>Size</code> - Size of the module in megabytes.</li>
+<li><code>Frequency</code> - Speed of the module in megahertz.</li>
+<li><code>Vendor</code> - Memory manufacturer name</li>
+<li><code>Part</code> - The part number identifier.</li>
+<li><code>Serial</code> - The module&rsquo;s serial number.</li>
+<li><code>Type</code> - The memory module&rsquo;s type.</li>
+</ul>
+
+<h2 id="解决问题">解决问题</h2>
+
+<ol>
+<li>上面的配置中，发现是可以配置内存位置的。</li>
+<li>拆了主机，发现这台主机内存插在第二根插槽上，也就是第1槽。按正常的开机顺序，应该是先去引导第0槽，默认是离CPU最近的那根槽。</li>
+<li>抱着怀疑的态度把内存换到了第0槽，开机。</li>
+<li>卧槽，真的可以了！</li>
 </ol>
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="http://inorz.net/2015/08/19/%E4%BD%BF%E7%94%A8nginx%E7%9A%84limit%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91/"><i class="fa fa-chevron-left"></i></a>
+    <a href="http://inorz.net/2015/11/05/zimbra_change_ssl/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="http://inorz.net/2015/08/19/%E4%BD%BF%E7%94%A8nginx%E7%9A%84limit%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91/">使用nginx的limit模块限制并发</a>
+      <a href="http://inorz.net/2015/11/05/zimbra_change_ssl/">【Zimbra】更换邮箱SSL证书</a>
     </nav>
     
   </div>
@@ -322,13 +357,13 @@ search  baidu.com inorz.net.cn
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/">【Zimbra】更换邮箱SSL证书</a>
+      <a href="http://inorz.net/2016/03/24/mac_sleep/">MAC查看休眠日志</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/"><i class="fa fa-chevron-right"></i></a>
+    <a href="http://inorz.net/2016/03/24/mac_sleep/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

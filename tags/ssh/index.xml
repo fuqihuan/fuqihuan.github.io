@@ -11,10 +11,10 @@
     
     <item>
       <title>MAC开机启动ssh，并指定端口</title>
-      <link>http://inorz.net/2016/04/10/mac%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8ssh%E5%B9%B6%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/</link>
+      <link>http://inorz.net/2016/04/10/mac-startup-ssh/</link>
       <pubDate>Sun, 10 Apr 2016 12:35:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/04/10/mac%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8ssh%E5%B9%B6%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3/</guid>
+      <guid>http://inorz.net/2016/04/10/mac-startup-ssh/</guid>
       <description>&lt;p&gt;MAC开机启用SSH，比较简单。
 偏好设置-共享-选中远程登录就可以了。&lt;/p&gt;
 

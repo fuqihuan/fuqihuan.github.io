@@ -11,10 +11,10 @@
     
     <item>
       <title>【DNS】resolv.conf 配置说明[转]</title>
-      <link>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</link>
+      <link>http://inorz.net/2015/09/06/resolv/</link>
       <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/09/06/dnsresolv.conf-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E%E8%BD%AC/</guid>
+      <guid>http://inorz.net/2015/09/06/resolv/</guid>
       <description>&lt;p&gt;对这个一开始是一种半解的，看了&lt;a href=&#34;http://www.lnmpy.com/resolv.conf-search-domain/&#34;&gt;这篇文章&lt;/a&gt;后觉得有用，就转了过来记录一下。&lt;/p&gt;
 
 &lt;h3 id=&#34;配置说明&#34;&gt;配置说明&lt;/h3&gt;

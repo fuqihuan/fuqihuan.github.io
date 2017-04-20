@@ -4,10 +4,10 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
+  <meta name="description" content="See you Again各种版本">
   <meta name="generator" content="Hugo 0.19" />
 
-  <title>黑苹果Clover无法引导安装镜像，反复重启 &middot; inorz.net</title>
+  <title>See you Again &middot; inorz.net</title>
 
   
   
@@ -227,8 +227,8 @@
 
 
 <div class="header">
-  <h1>黑苹果Clover无法引导安装镜像，反复重启</h1>
-  <h2></h2>
+  <h1>See you Again</h1>
+  <h2>See you Again各种版本</h2>
 </div>
 <div class="content">
 
@@ -236,7 +236,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2016-03-24 11:15:48</time>
+    <time>2015-05-24 14:35:48</time>
   </div>
 
   
@@ -249,9 +249,13 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C">黑苹果</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E9%9F%B3%E4%B9%90">音乐</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/clover">Clover</a>
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E9%80%9F7">速7</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2">主题曲</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E5%88%86%E4%BA%AB">分享</a>
     
   </div>
   
@@ -259,95 +263,42 @@
 
 </div>
 
-  <h2 id="背景">背景</h2>
-
-<ul>
-<li>最近准备测试一下黑苹果用来做IOS调试机器的可行性，于是在一台主机上安装了黑苹果，然后在安装过程中，遇到Clover无法引导安装镜像，反复重启。</li>
-</ul>
+  <blockquote>
+<p>看过速度7的朋友一定会对这首see you again印象非常深刻。这里找了几个版本的歌曲，可以一饱耳福了。
+废话不多说了，下面的视频献上。</p>
+</blockquote>
 
 <p></p>
 
-<h2 id="排查过程">排查过程</h2>
-
-<ol>
-<li>一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。</li>
-<li>然后发现所有镜像均是同一症状。反复重启。</li>
-<li>开始怀疑和思考人生</li>
-<li>最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。</li>
-</ol>
-
-<pre><code class="language-xml">&lt;key&gt;Memory&lt;/key&gt;
-&lt;dict&gt;
-  &lt;key&gt;Channels&lt;/key&gt;
-  &lt;integer&gt;2&lt;/integer&gt; OR &lt;string&gt;1&lt;/string&gt;
-  &lt;key&gt;SlotCount&lt;/key&gt;
-  &lt;integer&gt;24&lt;/integer&gt; OR &lt;string&gt;4&lt;/string&gt;
-  &lt;key&gt;Modules&lt;/key&gt;
-  &lt;array&gt;
-    &lt;dict&gt;
-      &lt;key&gt;Slot&lt;/key&gt;
-      &lt;integer&gt;0&lt;/integer&gt; OR &lt;string&gt;5&lt;/string&gt;
-      &lt;key&gt;Size&lt;/key&gt;
-      &lt;integer&gt;2048&lt;/integer&gt; OR &lt;string&gt;4096&lt;/string&gt;
-      &lt;key&gt;Frequency&lt;/key&gt;
-      &lt;integer&gt;1600&lt;/integer&gt; OR &lt;string&gt;1333&lt;/string&gt;
-      &lt;key&gt;Vendor&lt;/key&gt;
-      &lt;string&gt;Some Company&lt;/string&gt;
-      &lt;key&gt;Part&lt;/key&gt;
-      &lt;string&gt;123456ABCDEF&lt;/string&gt;
-      &lt;key&gt;Serial&lt;/key&gt;
-      &lt;string&gt;ABCDEF123456&lt;/string&gt;
-      &lt;key&gt;Type&lt;/key&gt;
-      &lt;string&gt;DDR/DDR2/DDR3&lt;/string&gt;
-   &lt;/dict&gt;
-  &lt;/array&gt;
-&lt;/dict&gt;
-</code></pre>
+<h3 id="粤语版">【粤语版】</h3>
 
 <blockquote>
-<p>Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.</p>
+<p><embed src="http://player.youku.com/player.php/sid/XOTYyMTUxNzY4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
 </blockquote>
 
-<ul>
-<li><code>Channels</code> - Number of hardware channels supported by your memory chipset, usually two.</li>
-<li><code>SlotCount</code> - Total count of memory slots in your system. Max 24 (for now).</li>
-<li><code>Modules</code> - An array of INSTALLED modules, if your slot is empty don&rsquo;t include an entry for it.</li>
-</ul>
+<h3 id="中文版">【中文版】</h3>
 
 <blockquote>
-<p>For each module:</p>
+<p><embed src="http://player.youku.com/player.php/sid/XOTQ3MDU3NzI0/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
 </blockquote>
 
-<ul>
-<li><code>Slot</code> - Physical slot location in which the module is installed.</li>
-<li><code>Size</code> - Size of the module in megabytes.</li>
-<li><code>Frequency</code> - Speed of the module in megahertz.</li>
-<li><code>Vendor</code> - Memory manufacturer name</li>
-<li><code>Part</code> - The part number identifier.</li>
-<li><code>Serial</code> - The module&rsquo;s serial number.</li>
-<li><code>Type</code> - The memory module&rsquo;s type.</li>
-</ul>
+<h3 id="再来个原版">【再来个原版】</h3>
 
-<h2 id="解决问题">解决问题</h2>
-
-<ol>
-<li>上面的配置中，发现是可以配置内存位置的。</li>
-<li>拆了主机，发现这台主机内存插在第二根插槽上，也就是第1槽。按正常的开机顺序，应该是先去引导第0槽，默认是离CPU最近的那根槽。</li>
-<li>抱着怀疑的态度把内存换到了第0槽，开机。</li>
-<li>卧槽，真的可以了！</li>
-</ol>
+<blockquote>
+<p><embed src="http://player.youku.com/player.php/sid/XOTI5NDM0MDk2/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
+</blockquote>
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/"><i class="fa fa-chevron-left"></i></a>
+    <a href="http://inorz.net/2015/05/24/init_privoxy_to_centos/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="http://inorz.net/2015/11/05/zimbra%E6%9B%B4%E6%8D%A2%E9%82%AE%E7%AE%B1ssl%E8%AF%81%E4%B9%A6/">【Zimbra】更换邮箱SSL证书</a>
+      <a href="http://inorz.net/2015/05/24/init_privoxy_to_centos/">Centos下Privoxy的安装与配置</a>
     </nav>
     
   </div>
@@ -357,13 +308,13 @@
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="http://inorz.net/2016/03/24/mac%E6%9F%A5%E7%9C%8B%E4%BC%91%E7%9C%A0%E6%97%A5%E5%BF%97/">MAC查看休眠日志</a>
+      <a href="http://inorz.net/2015/08/19/nginx_module_limit/">使用nginx的limit模块限制并发</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="http://inorz.net/2016/03/24/mac%E6%9F%A5%E7%9C%8B%E4%BC%91%E7%9C%A0%E6%97%A5%E5%BF%97/"><i class="fa fa-chevron-right"></i></a>
+    <a href="http://inorz.net/2015/08/19/nginx_module_limit/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

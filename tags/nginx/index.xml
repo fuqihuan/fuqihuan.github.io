@@ -11,10 +11,10 @@
     
     <item>
       <title>记录一次android上https无法正常访问</title>
-      <link>http://inorz.net/2016/04/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1android%E4%B8%8Ahttps%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE/</link>
+      <link>http://inorz.net/2016/04/13/notes-android_https_error/</link>
       <pubDate>Wed, 13 Apr 2016 00:55:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/04/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1android%E4%B8%8Ahttps%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE/</guid>
+      <guid>http://inorz.net/2016/04/13/notes-android_https_error/</guid>
       <description>&lt;p&gt;有同鞋反馈过来说，A域名通过Https去访问，完全无法建立连接。用B域名则没有任何问题。于是排除了代码这块的问题。
 A域名和B域名，在浏览器上打开，则是完全没问题的。于是在小猜会不会是代码有问题。
 然后就开始一系列的排查过程。
@@ -122,10 +122,10 @@ write:errno=54
     
     <item>
       <title>使用nginx的limit模块限制并发</title>
-      <link>http://inorz.net/2015/08/19/%E4%BD%BF%E7%94%A8nginx%E7%9A%84limit%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91/</link>
+      <link>http://inorz.net/2015/08/19/nginx_module_limit/</link>
       <pubDate>Wed, 19 Aug 2015 22:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2015/08/19/%E4%BD%BF%E7%94%A8nginx%E7%9A%84limit%E6%A8%A1%E5%9D%97%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91/</guid>
+      <guid>http://inorz.net/2015/08/19/nginx_module_limit/</guid>
       <description>&lt;h2 id=&#34;遇到的问题&#34;&gt;【遇到的问题】&lt;/h2&gt;
 
 &lt;ol&gt;

@@ -11,10 +11,10 @@
     
     <item>
       <title>MAC查看休眠日志</title>
-      <link>http://inorz.net/2016/03/24/mac%E6%9F%A5%E7%9C%8B%E4%BC%91%E7%9C%A0%E6%97%A5%E5%BF%97/</link>
+      <link>http://inorz.net/2016/03/24/mac_sleep/</link>
       <pubDate>Thu, 24 Mar 2016 11:15:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/03/24/mac%E6%9F%A5%E7%9C%8B%E4%BC%91%E7%9C%A0%E6%97%A5%E5%BF%97/</guid>
+      <guid>http://inorz.net/2016/03/24/mac_sleep/</guid>
       <description>&lt;ol&gt;
 &lt;li&gt;有同鞋反馈说MAC开发机经常无故连不上，失去响应。&lt;/li&gt;
 &lt;li&gt;每次我这边远程桌面一连，那边就反馈登录正常了。于是怀疑是系统自动休眠了。&lt;/li&gt;

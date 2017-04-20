@@ -11,10 +11,10 @@
     
     <item>
       <title>Linux下恢复被格了硬盘的MySQL数据</title>
-      <link>http://inorz.net/2017/04/19/linux%E4%B8%8B%E6%81%A2%E5%A4%8D%E8%A2%AB%E6%A0%BC%E4%BA%86%E7%A1%AC%E7%9B%98%E7%9A%84mysql%E6%95%B0%E6%8D%AE/</link>
+      <link>http://inorz.net/2017/04/19/linux_restore_mysql_data/</link>
       <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2017/04/19/linux%E4%B8%8B%E6%81%A2%E5%A4%8D%E8%A2%AB%E6%A0%BC%E4%BA%86%E7%A1%AC%E7%9B%98%E7%9A%84mysql%E6%95%B0%E6%8D%AE/</guid>
+      <guid>http://inorz.net/2017/04/19/linux_restore_mysql_data/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 
 &lt;ul&gt;

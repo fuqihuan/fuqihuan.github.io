@@ -4,10 +4,10 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="将ss的socks5代理转换为HTTP代理">
+  <meta name="description" content="">
   <meta name="generator" content="Hugo 0.19" />
 
-  <title>Centos下Privoxy的安装与配置 &middot; inorz.net</title>
+  <title>MAC开机启动ssh，并指定端口 &middot; inorz.net</title>
 
   
   
@@ -227,8 +227,8 @@
 
 
 <div class="header">
-  <h1>Centos下Privoxy的安装与配置</h1>
-  <h2>将ss的socks5代理转换为HTTP代理</h2>
+  <h1>MAC开机启动ssh，并指定端口</h1>
+  <h2></h2>
 </div>
 <div class="content">
 
@@ -236,7 +236,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2015-05-24 13:25:48</time>
+    <time>2016-04-10 12:35:48</time>
   </div>
 
   
@@ -249,13 +249,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/privoxy">Privoxy</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/mac">MAC</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E4%BB%A3%E7%90%86">代理</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91">科学上网</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/shadowsocks">shadowsocks</a>
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/ssh">ssh</a>
     
   </div>
   
@@ -263,118 +259,96 @@
 
 </div>
 
-  <h3 id="一-背景">一、【背景】</h3>
+  <p>MAC开机启用SSH，比较简单。
+偏好设置-共享-选中远程登录就可以了。</p>
 
-<p>　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。</p>
-
-<p>步骤如下：
-&gt; 1. 国外VPS机器分别安装ss服务端和客户端
-&gt; 2. 客户端直接连本机服务端
-&gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
-&gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
-PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</p>
+<p>但是想要指定端口去启用就比较恶心了。
+网上搜了一圈后，可以按以下的方式去指定端口配置。</p>
 
 <p></p>
 
-<p>　　ss的安装和配置这里就不叙述了，因为过程和配置比较简单。这篇主要还是说说负责 Privoxy 安装与设置吧。</p>
+<h2 id="系统环境">【系统环境】</h2>
 
-<h3 id="二-安装">二、【安装】</h3>
+<p>OS: 10.11.4</p>
 
-<p>　　Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：
-&gt; Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。</p>
-
-<p>　　你可以在 <a href="http://sourceforge.net/projects/ijbswa/files/">这里</a> 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式</p>
-
-<pre><code class="language-bash"># 添加一个用户给 Privoxy
-echo 'privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell' &gt;&gt; /etc/passwd
-# 分配个组给 Privoxy
-echo 'privoxy:*:7777:' &gt;&gt; /etc/group
-# 开始编译安装...
-autoheader
-autoconf
-./configure      # (--help to see options)
-make             # (the make from GNU, sometimes called gmake)
-make -s install  # (to really install, -s to silence output)
-</code></pre>
-
-<p>　　默认安装后相应的配置在 /usr/local/etc/privoxy 目录下</p>
-
-<pre><code class="language-bash"># 运行
-/etc/init.d/privoxy start
-</code></pre>
-
-<h3 id="三-定制">三、【定制】</h3>
-
-<blockquote>
-<p>根据我们的需求来定制一下配置（将ss的sock5转换为HTTP代理），加上用户密码。</p>
-</blockquote>
+<h2 id="配置过程">【配置过程】</h2>
 
 <ol>
-<li><p>配置HTTP代理端口</p>
+<li>因为10.11开启了SIP，所以不能直接修改/System/下的文件。</li>
 
-<pre><code class="language-bash">vi /usr/local/etc/privoxy/config
-#找到listen-address，配置HTTP代理的端口
-listen-address  127.0.0.1:31904
+<li><p>把下面配置文件配置到用户级目录下。</p>
+
+<pre><code class="language-bash">mkdir -p ~/Library/LaunchDaemons/
+sudo cp /System/Library/LaunchDaemons/ssh.plist ~/Library/LaunchDaemons/ssh.plist
 </code></pre></li>
 
-<li><p>向对应端口转发</p>
+<li><p>修改配置文件<code>vi ~/Library/LaunchDaemons/ssh.plist</code></p>
 
-<pre><code class="language-bash">vi /usr/local/etc/privoxy/config
-# 找到forward-socks5，配置要转发的端口，及特地规则。具体使用场景可以参考官方配置里写上。
-# 这里我们配置全局转发，目前是49879端口(ss客户端)
-forward-socks5t   /         127.0.0.1:49879 .
-    
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+    &lt;key&gt;Enabled&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.openssh.sshd.xxxxx（随便起个名字，目的是不被共享设置里面的开关影响到）&lt;/string&gt;
+    &lt;key&gt;Program&lt;/key&gt;
+    &lt;string&gt;/usr/libexec/sshd-keygen-wrapper&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/usr/sbin/sshd&lt;/string&gt;
+        &lt;string&gt;-i&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;Sockets&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Listeners&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;SockServiceName&lt;/key&gt;
+            &lt;string&gt;SSH端口&lt;/string&gt;
+            &lt;key&gt;Bonjour&lt;/key&gt;
+            &lt;array&gt;
+                &lt;string&gt;ssh&lt;/string&gt;
+                &lt;string&gt;sftp-ssh&lt;/string&gt;
+            &lt;/array&gt;
+        &lt;/dict&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;inetdCompatibility&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Wait&lt;/key&gt;
+        &lt;false/&gt;
+        &lt;key&gt;Instances&lt;/key&gt;
+        &lt;integer&gt;42&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/dev/null&lt;/string&gt;
+    &lt;key&gt;SHAuthorizationRight&lt;/key&gt;
+    &lt;string&gt;system.preferences&lt;/string&gt;
+    &lt;key&gt;POSIXSpawnType&lt;/key&gt;
+    &lt;string&gt;Interactive&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
 </code></pre></li>
 
-<li><p>配置用户名和密码（如果做了防火墙只允许内部IP访问，或是免费开放给大家使用。可以无视这条）</p>
+<li><p>重新载入配置</p>
 
-<pre><code class="language-bash"># 生成用户名和密码对应的base64密文
-perl -e &quot;use MIME::Base64; print encode_base64('用户名:密码');&quot;
-    
-# 修改config文件，添加actionsfile user.action，编辑 user.action 文件中的 alias
-proxy = +forward-override{forward 127.0.0.1:808} +add-header{Proxy-authorization: Basic &lt;auth&gt;}
-    
-# 也可以IP段过滤, 打开配置，找到 permit-access,里面有对应的配置模板。
+<pre><code class="language-bash">sudo launchctl unload ~/Library/LaunchDaemons/ssh.plist
+sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
 </code></pre></li>
 
-<li><p>配置完了，重启下privoxy</p>
-
-<pre><code class="language-bash">/etc/init.d/privoxy restart
-</code></pre></li>
-</ol>
-
-<h3 id="四-如何使用http代理">四、【如何使用HTTP代理】</h3>
-
-<ol>
-<li><p>RSYNC代理</p>
-
-<pre><code class="language-bash">export RSYNC_PROXY='IP:PORT'
-</code></pre></li>
-
-<li><p>IOS上使用
-&gt; 设置-WIFI-点中你连接的WIFI旁边的(i)进入WIFI设置-最下方HTTP代理-输入对应信息</p></li>
-</ol>
-
-<h3 id="五-faq">五、【FAQ】</h3>
-
-<ol>
-<li><p>按上面的配置好了，还是连接不上
-PS：检查一下端口和防火墙有没有添加上对应的规则</p></li>
-
-<li><p>欢迎补充。</p></li>
+<li><p>可以用telnet或是lsof来检查一下修改并启用的端口有没有开起来。或是直接ssh连一下测试即可。</p></li>
 </ol>
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="http://inorz.net/2015/05/21/%E5%AE%89%E5%85%A8php-multipartform-data-%E8%BF%9C%E7%A8%8Bdos%E6%94%BB%E5%87%BB%E6%BC%8F%E6%B4%9E/"><i class="fa fa-chevron-left"></i></a>
+    <a href="http://inorz.net/2016/03/24/mac_sleep/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="http://inorz.net/2015/05/21/%E5%AE%89%E5%85%A8php-multipartform-data-%E8%BF%9C%E7%A8%8Bdos%E6%94%BB%E5%87%BB%E6%BC%8F%E6%B4%9E/">【安全】PHP Multipartform-data 远程DOS攻击漏洞</a>
+      <a href="http://inorz.net/2016/03/24/mac_sleep/">MAC查看休眠日志</a>
     </nav>
     
   </div>
@@ -384,13 +358,13 @@ PS：检查一下端口和防火墙有没有添加上对应的规则</p></li>
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="http://inorz.net/2015/05/24/see-you-again/">See you Again</a>
+      <a href="http://inorz.net/2016/04/11/zimbra_add_msyh/">zimbra添加微软雅黑字体</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="http://inorz.net/2015/05/24/see-you-again/"><i class="fa fa-chevron-right"></i></a>
+    <a href="http://inorz.net/2016/04/11/zimbra_add_msyh/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
