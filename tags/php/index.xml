@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Php on 找节拍</title>
-    <link>http://inorz.net/tags/php/index.xml</link>
+    <link>http://inorz.net/tags/php.xml</link>
     <description>Recent content in Php on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/php.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>【安全】PHP Multipartform-data 远程DOS攻击漏洞</title>

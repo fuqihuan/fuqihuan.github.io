@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Resolv on 找节拍</title>
-    <link>http://inorz.net/tags/resolv/index.xml</link>
+    <link>http://inorz.net/tags/resolv.xml</link>
     <description>Recent content in Resolv on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/resolv/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/resolv.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>【DNS】resolv.conf 配置说明[转]</title>
+      <title>【DNS】resolv.conf配置说明[转]</title>
       <link>http://inorz.net/2015/09/06/resolv/</link>
       <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
       

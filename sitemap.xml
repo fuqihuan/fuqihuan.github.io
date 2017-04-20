@@ -7,7 +7,7 @@
   </url>
   
   <url>
-    <loc>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</loc>
+    <loc>http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
   </url>
   
@@ -77,226 +77,220 @@
   </url>
   
   <url>
-    <loc>http://inorz.net/404/</loc>
+    <loc>http://inorz.net/404.html</loc>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/android/</loc>
+    <loc>http://inorz.net/tags/android.html</loc>
     <lastmod>2016-04-13T00:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/clover/</loc>
+    <loc>http://inorz.net/tags/clover.html</loc>
     <lastmod>2016-03-24T11:15:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/dns/</loc>
+    <loc>http://inorz.net/tags/dns.html</loc>
     <lastmod>2015-09-06T12:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/extundelete/</loc>
+    <loc>http://inorz.net/tags/extundelete.html</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/glances/</loc>
+    <loc>http://inorz.net/tags/glances.html</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/grafana/</loc>
+    <loc>http://inorz.net/tags/grafana.html</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/https/</loc>
+    <loc>http://inorz.net/tags/https.html</loc>
     <lastmod>2016-04-13T00:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/influxdb/</loc>
+    <loc>http://inorz.net/tags/influxdb.html</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/limit/</loc>
+    <loc>http://inorz.net/tags/limit.html</loc>
     <lastmod>2015-08-19T22:15:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/linux/</loc>
+    <loc>http://inorz.net/tags/linux.html</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/mac/</loc>
+    <loc>http://inorz.net/tags/mac.html</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/msyh/</loc>
+    <loc>http://inorz.net/tags/msyh.html</loc>
     <lastmod>2016-04-11T23:20:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/mysql/</loc>
+    <loc>http://inorz.net/tags/mysql.html</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/nginx/</loc>
+    <loc>http://inorz.net/tags/nginx.html</loc>
     <lastmod>2016-04-13T00:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/openssl/</loc>
+    <loc>http://inorz.net/tags/openssl.html</loc>
     <lastmod>2016-04-13T00:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/php/</loc>
+    <loc>http://inorz.net/tags/php.html</loc>
     <lastmod>2015-05-21T14:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/post/</loc>
+    <loc>http://inorz.net/post.html</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/privoxy/</loc>
+    <loc>http://inorz.net/tags/privoxy.html</loc>
     <lastmod>2015-05-24T13:25:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/resolv/</loc>
+    <loc>http://inorz.net/tags/resolv.html</loc>
     <lastmod>2015-09-06T12:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/resolv/index.conf/</loc>
-    <lastmod>2015-09-06T12:05:48+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://inorz.net/tags/shadowsocks/</loc>
+    <loc>http://inorz.net/tags/shadowsocks.html</loc>
     <lastmod>2015-05-24T13:25:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/sni/</loc>
+    <loc>http://inorz.net/tags/sni.html</loc>
     <lastmod>2016-04-13T00:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/ssh/</loc>
+    <loc>http://inorz.net/tags/ssh.html</loc>
     <lastmod>2016-04-10T12:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/</loc>
+    <loc>http://inorz.net/tags.html</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/tcp/</loc>
+    <loc>http://inorz.net/tags/tcp.html</loc>
     <lastmod>2015-05-20T22:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/tcpcopy/</loc>
+    <loc>http://inorz.net/tags/tcpcopy.html</loc>
     <lastmod>2015-05-20T22:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/zimbra/</loc>
+    <loc>http://inorz.net/tags/zimbra.html</loc>
     <lastmod>2016-04-11T23:20:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2/</loc>
+    <loc>http://inorz.net/tags/%E4%B8%BB%E9%A2%98%E6%9B%B2.html</loc>
     <lastmod>2015-05-24T14:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E4%B9%B1%E7%A0%81/</loc>
+    <loc>http://inorz.net/tags/%E4%B9%B1%E7%A0%81.html</loc>
     <lastmod>2015-05-20T23:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E4%BB%A3%E7%90%86/</loc>
+    <loc>http://inorz.net/tags/%E4%BB%A3%E7%90%86.html</loc>
     <lastmod>2015-05-24T13:25:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E4%BC%91%E7%9C%A0/</loc>
+    <loc>http://inorz.net/tags/%E4%BC%91%E7%9C%A0.html</loc>
     <lastmod>2016-03-24T11:15:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E5%88%86%E4%BA%AB/</loc>
+    <loc>http://inorz.net/tags/%E5%88%86%E4%BA%AB.html</loc>
     <lastmod>2015-05-24T14:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E5%A4%87%E4%BB%BD/</loc>
+    <loc>http://inorz.net/tags/%E5%A4%87%E4%BB%BD.html</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E5%AD%97%E4%BD%93/</loc>
+    <loc>http://inorz.net/tags/%E5%AD%97%E4%BD%93.html</loc>
     <lastmod>2016-04-11T23:20:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E5%AE%89%E5%85%A8/</loc>
+    <loc>http://inorz.net/tags/%E5%AE%89%E5%85%A8.html</loc>
     <lastmod>2015-05-21T14:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E5%B9%B6%E5%8F%91/</loc>
+    <loc>http://inorz.net/tags/%E5%B9%B6%E5%8F%91.html</loc>
     <lastmod>2015-08-19T22:15:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E6%89%93%E5%8C%85/</loc>
+    <loc>http://inorz.net/tags/%E6%89%93%E5%8C%85.html</loc>
     <lastmod>2015-05-20T23:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -308,41 +302,41 @@
   </url>
   
   <url>
-    <loc>http://inorz.net/search/</loc>
+    <loc>http://inorz.net/search.html</loc>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <loc>http://inorz.net/tags/%E6%B5%8B%E8%AF%95.html</loc>
     <lastmod>2015-05-20T22:45:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E7%9B%91%E6%8E%A7/</loc>
+    <loc>http://inorz.net/tags/%E7%9B%91%E6%8E%A7.html</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <loc>http://inorz.net/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91.html</loc>
     <lastmod>2015-05-24T13:25:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E9%80%9F7/</loc>
+    <loc>http://inorz.net/tags/%E9%80%9F7.html</loc>
     <lastmod>2015-05-24T14:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E9%9F%B3%E4%B9%90/</loc>
+    <loc>http://inorz.net/tags/%E9%9F%B3%E4%B9%90.html</loc>
     <lastmod>2015-05-24T14:35:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</loc>
+    <loc>http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C.html</loc>
     <lastmod>2016-03-24T11:15:48+00:00</lastmod>
     <priority>0</priority>
   </url>

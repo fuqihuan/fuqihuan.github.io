@@ -265,10 +265,10 @@ echo $?
     
     <item>
       <title>InfluxDB、Glances和Grafana构建现代化监控系统</title>
-      <link>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</link>
+      <link>http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/</link>
       <pubDate>Sun, 22 May 2016 23:55:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</guid>
+      <guid>http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/</guid>
       <description>&lt;p&gt;今天的主角是InfluxDB、Glances、Grafana这三个工具，三个工作都非常强大。可以用于组件一个比较强大的分布式监控系统了，关键是文档也比较齐全。&lt;/p&gt;
 
 &lt;p&gt;简单介绍一下这三款软件：&lt;/p&gt;
@@ -898,7 +898,7 @@ zmcontrol restart
     </item>
     
     <item>
-      <title>【DNS】resolv.conf 配置说明[转]</title>
+      <title>【DNS】resolv.conf配置说明[转]</title>
       <link>http://inorz.net/2015/09/06/resolv/</link>
       <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
       

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Glances on 找节拍</title>
-    <link>http://inorz.net/tags/glances/index.xml</link>
+    <link>http://inorz.net/tags/glances.xml</link>
     <description>Recent content in Glances on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/glances/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://inorz.net/tags/glances.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>InfluxDB、Glances和Grafana构建现代化监控系统</title>
-      <link>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</link>
+      <link>http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/</link>
       <pubDate>Sun, 22 May 2016 23:55:48 +0000</pubDate>
       
-      <guid>http://inorz.net/2016/05/22/influxdb-grafana-glances-monitor/</guid>
+      <guid>http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/</guid>
       <description>&lt;p&gt;今天的主角是InfluxDB、Glances、Grafana这三个工具，三个工作都非常强大。可以用于组件一个比较强大的分布式监控系统了，关键是文档也比较齐全。&lt;/p&gt;
 
 &lt;p&gt;简单介绍一下这三款软件：&lt;/p&gt;
