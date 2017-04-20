@@ -279,44 +279,45 @@
 
 <h2 id="配置方法">【配置方法】</h2>
 
-<p>1、 <code>vi nginx/conf/limit/black_ip.conf</code></p>
+<ol>
+<li><p><code>vi nginx/conf/limit/black_ip.conf</code></p>
 
 <pre><code class="language-bash">192.168.8.xxx 1;
 192.168.8.xxx 1;
-</code></pre>
+</code></pre></li>
 
-<p>2、 <code>vi nginx/conf/limit/limit_zone.conf</code></p>
+<li><p><code>vi nginx/conf/limit/limit_zone.conf</code></p>
 
-<pre><code class="language-bash">    geo $blackiplist  {
-        default 0;
-        include limit/black_ip.conf;
-    }
+<pre><code class="language-bash">geo $blackiplist  {
+  default 0;
+  include limit/black_ip.conf;
+}
+        
+map $blackiplist $limit {
+  1 $binary_remote_addr;
+  0 &quot;&quot;;
+}
+        
+limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
+limit_conn_zone $limit zone=perip:100m; 
+</code></pre></li>
 
-    map $blackiplist $limit {
-        1 $binary_remote_addr;
-        0 &quot;&quot;;
-    }
+<li><p><code>vi nginx/conf/limit/limit_location.conf</code></p>
 
-    limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
-    limit_conn_zone $limit zone=perip:100m; 
-</code></pre>
+<pre><code class="language-bash">limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
+limit_req zone=perreq nodelay;
+</code></pre></li>
 
-<p>3、 <code>vi nginx/conf/limit/limit_location.conf</code></p>
-
-<pre><code class="language-bash">    limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
-    limit_req zone=perreq nodelay;
-</code></pre>
-
-<p>4、 修改 <code>nginx/conf/nginx.conf</code>，http { &hellip; } 区域添加下面配置：</p>
+<li><p>修改 <code>nginx/conf/nginx.conf</code>，http { &hellip; } 区域添加下面配置：</p>
 
 <pre><code class="language-bash">include limit/limit_zone.conf;
-</code></pre>
+</code></pre></li>
 
-<p>5、 最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。</p>
+<li><p>最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。</p>
 
 <pre><code class="language-bash">include limit/limit_location.conf;
-
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h3 id="配置说明">【配置说明】</h3>
 

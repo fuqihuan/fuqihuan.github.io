@@ -33,44 +33,45 @@
 
 &lt;h2 id=&#34;配置方法&#34;&gt;【配置方法】&lt;/h2&gt;
 
-&lt;p&gt;1、 &lt;code&gt;vi nginx/conf/limit/black_ip.conf&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/black_ip.conf&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.8.xxx 1;
 192.168.8.xxx 1;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;2、 &lt;code&gt;vi nginx/conf/limit/limit_zone.conf&lt;/code&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_zone.conf&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    geo $blackiplist  {
-        default 0;
-        include limit/black_ip.conf;
-    }
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;geo $blackiplist  {
+  default 0;
+  include limit/black_ip.conf;
+}
+        
+map $blackiplist $limit {
+  1 $binary_remote_addr;
+  0 &amp;quot;&amp;quot;;
+}
+        
+limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
+limit_conn_zone $limit zone=perip:100m; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-    map $blackiplist $limit {
-        1 $binary_remote_addr;
-        0 &amp;quot;&amp;quot;;
-    }
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_location.conf&lt;/code&gt;&lt;/p&gt;
 
-    limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
-    limit_conn_zone $limit zone=perip:100m; 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
+limit_req zone=perreq nodelay;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;3、 &lt;code&gt;vi nginx/conf/limit/limit_location.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
-    limit_req zone=perreq nodelay;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4、 修改 &lt;code&gt;nginx/conf/nginx.conf&lt;/code&gt;，http { &amp;hellip; } 区域添加下面配置：&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;nginx/conf/nginx.conf&lt;/code&gt;，http { &amp;hellip; } 区域添加下面配置：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_zone.conf;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;5、 最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_location.conf;
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&#34;配置说明&#34;&gt;【配置说明】&lt;/h3&gt;
 

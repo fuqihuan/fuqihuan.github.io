@@ -24,14 +24,12 @@
 &lt;p&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;执行下面这条命令&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;执行下面这条命令&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;syslog |grep -Ei &amp;quot;Wake reason|sleep&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码（红色字），那么这些代码表示什么意思呢？
+&lt;li&gt;&lt;p&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码(红色字),那么这些代码表示什么意思呢？&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;OHC&lt;/code&gt;：表示开放式主机控制器（Open Host Controller），它通常和USB或火线有关，如果你看到的是OHC1或OHC2则基本上是USB外接键盘或鼠标导致唤醒了您的Mac。&lt;/li&gt;

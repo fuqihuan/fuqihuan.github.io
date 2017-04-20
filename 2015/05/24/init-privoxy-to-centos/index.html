@@ -267,12 +267,18 @@
 
 <p>　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。</p>
 
-<p>步骤如下：
-&gt; 1. 国外VPS机器分别安装ss服务端和客户端
-&gt; 2. 客户端直接连本机服务端
-&gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
-&gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
-PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</p>
+<blockquote>
+<p><strong>步骤如下：</strong></p>
+
+<ol>
+<li>国外VPS机器分别安装ss服务端和客户端</li>
+<li>客户端直接连本机服务端</li>
+<li>部署Privoxy将ss客户端生成的sock5代理转成HTTP代理</li>
+<li>rsync或IOS端直接连接国外VPS上的HTTP代理。</li>
+</ol>
+
+<p>PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</p>
+</blockquote>
 
 <p></p>
 
@@ -280,10 +286,14 @@ PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VP
 
 <h3 id="二-安装">二、【安装】</h3>
 
-<p>　　Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：
-&gt; Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。</p>
+<ol>
+<li><p>Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：</p>
 
-<p>　　你可以在 <a href="http://sourceforge.net/projects/ijbswa/files/">这里</a> 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式</p>
+<blockquote>
+<p>Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。</p>
+</blockquote></li>
+
+<li><p>你可以在 <a href="http://sourceforge.net/projects/ijbswa/files/">这里</a> 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式。</p>
 
 <pre><code class="language-bash"># 添加一个用户给 Privoxy
 echo 'privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell' &gt;&gt; /etc/passwd
@@ -295,13 +305,14 @@ autoconf
 ./configure      # (--help to see options)
 make             # (the make from GNU, sometimes called gmake)
 make -s install  # (to really install, -s to silence output)
-</code></pre>
+</code></pre></li>
 
-<p>　　默认安装后相应的配置在 /usr/local/etc/privoxy 目录下</p>
+<li><p>默认安装后相应的配置在 /usr/local/etc/privoxy 目录下</p>
 
 <pre><code class="language-bash"># 运行
 /etc/init.d/privoxy start
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h3 id="三-定制">三、【定制】</h3>
 

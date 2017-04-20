@@ -299,51 +299,43 @@ echo $?
 &lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;CentOS 6.2
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;CentOS 6.2&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#下载：
 wget https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm
 #安装：
 sudo yum localinstall influxdb-0.13.0.x86_64.rpm
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;其他操作系统: &lt;a href=&#34;https://influxdata.com/downloads/#influxdb&#34;&gt;详见官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;其他操作系统: &lt;a href=&#34;https://influxdata.com/downloads/#influxdb&#34;&gt;详见官方文档&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行influxdb
 sudo /etc/init.d/influxdb start
-    
+        
 # 创建数据库
 curl &#39;http://192.168.8.172:8086/query?q=CREATE+DATABASE+&amp;quot;inorz_db_name&amp;quot;&#39;
-
+    
 # 查询已经创建的数据库
 curl &#39;http://localhost:8086/query?q=SHOW+DATABASES&#39;
-    
+        
 # 也可以直接登录WEB界面进行操作和查询
 # 访问地址：http://192.168.99.9:8083
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Glances&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install glances --user
 pip install influxdb --user
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;配置和启动
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo vim /etc/glances.conf
 # 输入以下内容后保存退出
@@ -352,44 +344,39 @@ port=8086
 ser=root
 password=root
 db=inorz_db_name
-    
+        
 # 运行
 glances --export-influxdb -C /etc/glances.conf
-    
+        
 # 如果需要后台运行，挂掉又可自动拉启。可以用supervisor来托管服务
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl &#39;http://192.168.99.9:8086/query?q=SHOW+MEASUREMENTS&amp;amp;db=glances&#39;
 # 反馈来的是一串json
 {&amp;quot;results&amp;quot;:[{&amp;quot;series&amp;quot;:[{&amp;quot;name&amp;quot;:&amp;quot;measurements&amp;quot;,&amp;quot;columns&amp;quot;:[&amp;quot;name&amp;quot;],&amp;quot;values&amp;quot;:[[&amp;quot;cpu&amp;quot;],[&amp;quot;diskio&amp;quot;],[&amp;quot;fs&amp;quot;],[&amp;quot;load&amp;quot;],[&amp;quot;mem&amp;quot;],[&amp;quot;memswap&amp;quot;],[&amp;quot;network&amp;quot;],[&amp;quot;percpu&amp;quot;],[&amp;quot;processcount&amp;quot;],[&amp;quot;system&amp;quot;]]}]}]}
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Grafana(192.168.99.9)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;安装
+&lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;CentOS 6.2
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;CentOS 6.2&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   # 下载：
-   wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
-   # 解压并启动
-   tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
-   cd grafana-3.0.2-1463383025/bin/
-   ./grafana-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 下载：
+wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
+# 解压并启动
+tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
+cd grafana-3.0.2-1463383025/bin/
+./grafana-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;其他操作系统: &lt;a href=&#34;http://grafana.org/download/&#34;&gt;详见官方文档&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;配置&lt;/p&gt;
 
@@ -419,11 +406,13 @@ glances --export-influxdb -C /etc/glances.conf
 &lt;h2 id=&#34;faq&#34;&gt;FAQ&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。&lt;/p&gt;
+&lt;li&gt;连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;&lt;/li&gt;
+&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;
 
-&lt;li&gt;&lt;p&gt;以上为个人的一个安装和配置过程，如有不对，请多多指正。&lt;/p&gt;&lt;/li&gt;
+&lt;ol&gt;
+&lt;li&gt;以上为个人的一个安装和配置过程，如有不对，请多多指正。&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
     
@@ -619,7 +608,9 @@ fontFamilyIntl4.css = \u5fae\u8f6f\u96c5\u9ed1, msyh
 
 &lt;h2 id=&#34;系统环境&#34;&gt;【系统环境】&lt;/h2&gt;
 
-&lt;p&gt;OS: 10.11.4&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;OS: 10.11.4&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&#34;配置过程&#34;&gt;【配置过程】&lt;/h2&gt;
 
@@ -704,14 +695,12 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
 &lt;p&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;执行下面这条命令&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;执行下面这条命令&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;syslog |grep -Ei &amp;quot;Wake reason|sleep&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码（红色字），那么这些代码表示什么意思呢？
+&lt;li&gt;&lt;p&gt;执行了上面这条命令，可以看到“Wake reason=”旁边的一些代码(红色字),那么这些代码表示什么意思呢？&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;OHC&lt;/code&gt;：表示开放式主机控制器（Open Host Controller），它通常和USB或火线有关，如果你看到的是OHC1或OHC2则基本上是USB外接键盘或鼠标导致唤醒了您的Mac。&lt;/li&gt;
@@ -751,8 +740,8 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
 &lt;li&gt;一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。&lt;/li&gt;
 &lt;li&gt;然后发现所有镜像均是同一症状。反复重启。&lt;/li&gt;
 &lt;li&gt;开始怀疑和思考人生&lt;/li&gt;
-&lt;li&gt;最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。&lt;/li&gt;
-&lt;/ol&gt;
+
+&lt;li&gt;&lt;p&gt;最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;key&amp;gt;Memory&amp;lt;/key&amp;gt;
 &amp;lt;dict&amp;gt;
@@ -780,21 +769,19 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
    &amp;lt;/dict&amp;gt;
   &amp;lt;/array&amp;gt;
 &amp;lt;/dict&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Channels&lt;/code&gt; - Number of hardware channels supported by your memory chipset, usually two.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;SlotCount&lt;/code&gt; - Total count of memory slots in your system. Max 24 (for now).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Modules&lt;/code&gt; - An array of INSTALLED modules, if your slot is empty don&amp;rsquo;t include an entry for it.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;For each module:&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;li&gt;&lt;p&gt;For each module:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Slot&lt;/code&gt; - Physical slot location in which the module is installed.&lt;/li&gt;
@@ -804,6 +791,7 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
 &lt;li&gt;&lt;code&gt;Part&lt;/code&gt; - The part number identifier.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Serial&lt;/code&gt; - The module&amp;rsquo;s serial number.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Type&lt;/code&gt; - The memory module&amp;rsquo;s type.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;解决问题&#34;&gt;解决问题&lt;/h2&gt;
@@ -967,44 +955,45 @@ search  baidu.com inorz.net.cn
 
 &lt;h2 id=&#34;配置方法&#34;&gt;【配置方法】&lt;/h2&gt;
 
-&lt;p&gt;1、 &lt;code&gt;vi nginx/conf/limit/black_ip.conf&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/black_ip.conf&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.8.xxx 1;
 192.168.8.xxx 1;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;2、 &lt;code&gt;vi nginx/conf/limit/limit_zone.conf&lt;/code&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_zone.conf&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    geo $blackiplist  {
-        default 0;
-        include limit/black_ip.conf;
-    }
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;geo $blackiplist  {
+  default 0;
+  include limit/black_ip.conf;
+}
+        
+map $blackiplist $limit {
+  1 $binary_remote_addr;
+  0 &amp;quot;&amp;quot;;
+}
+        
+limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
+limit_conn_zone $limit zone=perip:100m; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-    map $blackiplist $limit {
-        1 $binary_remote_addr;
-        0 &amp;quot;&amp;quot;;
-    }
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_location.conf&lt;/code&gt;&lt;/p&gt;
 
-    limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
-    limit_conn_zone $limit zone=perip:100m; 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
+limit_req zone=perreq nodelay;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;3、 &lt;code&gt;vi nginx/conf/limit/limit_location.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
-    limit_req zone=perreq nodelay;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4、 修改 &lt;code&gt;nginx/conf/nginx.conf&lt;/code&gt;，http { &amp;hellip; } 区域添加下面配置：&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;nginx/conf/nginx.conf&lt;/code&gt;，http { &amp;hellip; } 区域添加下面配置：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_zone.conf;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;5、 最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_location.conf;
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&#34;配置说明&#34;&gt;【配置说明】&lt;/h3&gt;
 
@@ -1056,12 +1045,18 @@ search  baidu.com inorz.net.cn
 
 &lt;p&gt;　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。&lt;/p&gt;
 
-&lt;p&gt;步骤如下：
-&amp;gt; 1. 国外VPS机器分别安装ss服务端和客户端
-&amp;gt; 2. 客户端直接连本机服务端
-&amp;gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
-&amp;gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
-PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;步骤如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;国外VPS机器分别安装ss服务端和客户端&lt;/li&gt;
+&lt;li&gt;客户端直接连本机服务端&lt;/li&gt;
+&lt;li&gt;部署Privoxy将ss客户端生成的sock5代理转成HTTP代理&lt;/li&gt;
+&lt;li&gt;rsync或IOS端直接连接国外VPS上的HTTP代理。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -1069,10 +1064,14 @@ PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VP
 
 &lt;h3 id=&#34;二-安装&#34;&gt;二、【安装】&lt;/h3&gt;
 
-&lt;p&gt;　　Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：
-&amp;gt; Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：&lt;/p&gt;
 
-&lt;p&gt;　　你可以在 &lt;a href=&#34;http://sourceforge.net/projects/ijbswa/files/&#34;&gt;这里&lt;/a&gt; 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;你可以在 &lt;a href=&#34;http://sourceforge.net/projects/ijbswa/files/&#34;&gt;这里&lt;/a&gt; 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 添加一个用户给 Privoxy
 echo &#39;privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell&#39; &amp;gt;&amp;gt; /etc/passwd
@@ -1084,13 +1083,14 @@ autoconf
 ./configure      # (--help to see options)
 make             # (the make from GNU, sometimes called gmake)
 make -s install  # (to really install, -s to silence output)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;　　默认安装后相应的配置在 /usr/local/etc/privoxy 目录下&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;默认安装后相应的配置在 /usr/local/etc/privoxy 目录下&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行
 /etc/init.d/privoxy start
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&#34;三-定制&#34;&gt;三、【定制】&lt;/h3&gt;
 
@@ -1327,9 +1327,11 @@ if __name__==&amp;quot;__main__&amp;quot;:
 
 &lt;h3 id=&#34;参考&#34;&gt;【参考】&lt;/h3&gt;
 
-&lt;p&gt;　　1. &lt;a href=&#34;https://bugs.php.net/bug.php?id=69364&#34;&gt;https://bugs.php.net/bug.php?id=69364&lt;/a&gt;
-　　2. &lt;a href=&#34;http://php.net/ChangeLog-5.php#5.5.25&#34;&gt;http://php.net/ChangeLog-5.php#5.5.25&lt;/a&gt;
-　　3. &lt;a href=&#34;http://drops.wooyun.org/papers/6077&#34;&gt;http://drops.wooyun.org/papers/6077&lt;/a&gt;&lt;/p&gt;</description>
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://bugs.php.net/bug.php?id=69364&#34;&gt;https://bugs.php.net/bug.php?id=69364&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://php.net/ChangeLog-5.php#5.5.25&#34;&gt;http://php.net/ChangeLog-5.php#5.5.25&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://drops.wooyun.org/papers/6077&#34;&gt;http://drops.wooyun.org/papers/6077&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>

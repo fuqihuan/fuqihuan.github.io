@@ -182,9 +182,11 @@ if __name__==&amp;quot;__main__&amp;quot;:
 
 &lt;h3 id=&#34;参考&#34;&gt;【参考】&lt;/h3&gt;
 
-&lt;p&gt;　　1. &lt;a href=&#34;https://bugs.php.net/bug.php?id=69364&#34;&gt;https://bugs.php.net/bug.php?id=69364&lt;/a&gt;
-　　2. &lt;a href=&#34;http://php.net/ChangeLog-5.php#5.5.25&#34;&gt;http://php.net/ChangeLog-5.php#5.5.25&lt;/a&gt;
-　　3. &lt;a href=&#34;http://drops.wooyun.org/papers/6077&#34;&gt;http://drops.wooyun.org/papers/6077&lt;/a&gt;&lt;/p&gt;</description>
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://bugs.php.net/bug.php?id=69364&#34;&gt;https://bugs.php.net/bug.php?id=69364&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://php.net/ChangeLog-5.php#5.5.25&#34;&gt;http://php.net/ChangeLog-5.php#5.5.25&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://drops.wooyun.org/papers/6077&#34;&gt;http://drops.wooyun.org/papers/6077&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

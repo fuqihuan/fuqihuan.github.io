@@ -45,51 +45,43 @@
 &lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;CentOS 6.2
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;CentOS 6.2&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#下载：
 wget https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm
 #安装：
 sudo yum localinstall influxdb-0.13.0.x86_64.rpm
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;其他操作系统: &lt;a href=&#34;https://influxdata.com/downloads/#influxdb&#34;&gt;详见官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;其他操作系统: &lt;a href=&#34;https://influxdata.com/downloads/#influxdb&#34;&gt;详见官方文档&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行influxdb
 sudo /etc/init.d/influxdb start
-    
+        
 # 创建数据库
 curl &#39;http://192.168.8.172:8086/query?q=CREATE+DATABASE+&amp;quot;inorz_db_name&amp;quot;&#39;
-
+    
 # 查询已经创建的数据库
 curl &#39;http://localhost:8086/query?q=SHOW+DATABASES&#39;
-    
+        
 # 也可以直接登录WEB界面进行操作和查询
 # 访问地址：http://192.168.99.9:8083
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Glances&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install glances --user
 pip install influxdb --user
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;配置和启动
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;配置和启动&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo vim /etc/glances.conf
 # 输入以下内容后保存退出
@@ -98,44 +90,39 @@ port=8086
 ser=root
 password=root
 db=inorz_db_name
-    
+        
 # 运行
 glances --export-influxdb -C /etc/glances.conf
-    
+        
 # 如果需要后台运行，挂掉又可自动拉启。可以用supervisor来托管服务
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl &#39;http://192.168.99.9:8086/query?q=SHOW+MEASUREMENTS&amp;amp;db=glances&#39;
 # 反馈来的是一串json
 {&amp;quot;results&amp;quot;:[{&amp;quot;series&amp;quot;:[{&amp;quot;name&amp;quot;:&amp;quot;measurements&amp;quot;,&amp;quot;columns&amp;quot;:[&amp;quot;name&amp;quot;],&amp;quot;values&amp;quot;:[[&amp;quot;cpu&amp;quot;],[&amp;quot;diskio&amp;quot;],[&amp;quot;fs&amp;quot;],[&amp;quot;load&amp;quot;],[&amp;quot;mem&amp;quot;],[&amp;quot;memswap&amp;quot;],[&amp;quot;network&amp;quot;],[&amp;quot;percpu&amp;quot;],[&amp;quot;processcount&amp;quot;],[&amp;quot;system&amp;quot;]]}]}]}
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Grafana(192.168.99.9)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;安装
+&lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;CentOS 6.2
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;CentOS 6.2&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   # 下载：
-   wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
-   # 解压并启动
-   tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
-   cd grafana-3.0.2-1463383025/bin/
-   ./grafana-server
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 下载：
+wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
+# 解压并启动
+tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
+cd grafana-3.0.2-1463383025/bin/
+./grafana-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;其他操作系统: &lt;a href=&#34;http://grafana.org/download/&#34;&gt;详见官方文档&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;配置&lt;/p&gt;
 
@@ -165,11 +152,13 @@ glances --export-influxdb -C /etc/glances.conf
 &lt;h2 id=&#34;faq&#34;&gt;FAQ&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。&lt;/p&gt;
+&lt;li&gt;连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;&lt;/li&gt;
+&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;
 
-&lt;li&gt;&lt;p&gt;以上为个人的一个安装和配置过程，如有不对，请多多指正。&lt;/p&gt;&lt;/li&gt;
+&lt;ol&gt;
+&lt;li&gt;以上为个人的一个安装和配置过程，如有不对，请多多指正。&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
     

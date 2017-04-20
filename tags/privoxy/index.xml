@@ -19,12 +19,18 @@
 
 &lt;p&gt;　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。&lt;/p&gt;
 
-&lt;p&gt;步骤如下：
-&amp;gt; 1. 国外VPS机器分别安装ss服务端和客户端
-&amp;gt; 2. 客户端直接连本机服务端
-&amp;gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
-&amp;gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
-PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;步骤如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;国外VPS机器分别安装ss服务端和客户端&lt;/li&gt;
+&lt;li&gt;客户端直接连本机服务端&lt;/li&gt;
+&lt;li&gt;部署Privoxy将ss客户端生成的sock5代理转成HTTP代理&lt;/li&gt;
+&lt;li&gt;rsync或IOS端直接连接国外VPS上的HTTP代理。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -32,10 +38,14 @@ PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VP
 
 &lt;h3 id=&#34;二-安装&#34;&gt;二、【安装】&lt;/h3&gt;
 
-&lt;p&gt;　　Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：
-&amp;gt; Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：&lt;/p&gt;
 
-&lt;p&gt;　　你可以在 &lt;a href=&#34;http://sourceforge.net/projects/ijbswa/files/&#34;&gt;这里&lt;/a&gt; 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;你可以在 &lt;a href=&#34;http://sourceforge.net/projects/ijbswa/files/&#34;&gt;这里&lt;/a&gt; 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 添加一个用户给 Privoxy
 echo &#39;privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell&#39; &amp;gt;&amp;gt; /etc/passwd
@@ -47,13 +57,14 @@ autoconf
 ./configure      # (--help to see options)
 make             # (the make from GNU, sometimes called gmake)
 make -s install  # (to really install, -s to silence output)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;p&gt;　　默认安装后相应的配置在 /usr/local/etc/privoxy 目录下&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;默认安装后相应的配置在 /usr/local/etc/privoxy 目录下&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行
 /etc/init.d/privoxy start
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&#34;三-定制&#34;&gt;三、【定制】&lt;/h3&gt;
 

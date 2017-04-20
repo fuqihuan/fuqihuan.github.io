@@ -273,8 +273,8 @@
 <li>一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。</li>
 <li>然后发现所有镜像均是同一症状。反复重启。</li>
 <li>开始怀疑和思考人生</li>
-<li>最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。</li>
-</ol>
+
+<li><p>最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。</p>
 
 <pre><code class="language-xml">&lt;key&gt;Memory&lt;/key&gt;
 &lt;dict&gt;
@@ -302,21 +302,19 @@
    &lt;/dict&gt;
   &lt;/array&gt;
 &lt;/dict&gt;
-</code></pre>
+</code></pre></li>
+</ol>
 
-<blockquote>
-<p>Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.</p>
-</blockquote>
+<ul>
+<li><p>Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.</p>
 
 <ul>
 <li><code>Channels</code> - Number of hardware channels supported by your memory chipset, usually two.</li>
 <li><code>SlotCount</code> - Total count of memory slots in your system. Max 24 (for now).</li>
 <li><code>Modules</code> - An array of INSTALLED modules, if your slot is empty don&rsquo;t include an entry for it.</li>
-</ul>
+</ul></li>
 
-<blockquote>
-<p>For each module:</p>
-</blockquote>
+<li><p>For each module:</p>
 
 <ul>
 <li><code>Slot</code> - Physical slot location in which the module is installed.</li>
@@ -326,6 +324,7 @@
 <li><code>Part</code> - The part number identifier.</li>
 <li><code>Serial</code> - The module&rsquo;s serial number.</li>
 <li><code>Type</code> - The memory module&rsquo;s type.</li>
+</ul></li>
 </ul>
 
 <h2 id="解决问题">解决问题</h2>

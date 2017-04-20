@@ -280,12 +280,18 @@
 
 <p>　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。</p>
 
-<p>步骤如下：
-&gt; 1. 国外VPS机器分别安装ss服务端和客户端
-&gt; 2. 客户端直接连本机服务端
-&gt; 3. 部署Privoxy将ss客户端生成的sock5代理转成HTTP代理
-&gt; 4. rsync或IOS端直接连接国外VPS上的HTTP代理。
-PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</p>
+<blockquote>
+<p><strong>步骤如下：</strong></p>
+
+<ol>
+<li>国外VPS机器分别安装ss服务端和客户端</li>
+<li>客户端直接连本机服务端</li>
+<li>部署Privoxy将ss客户端生成的sock5代理转成HTTP代理</li>
+<li>rsync或IOS端直接连接国外VPS上的HTTP代理。</li>
+</ol>
+
+<p>PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。</p>
+</blockquote>
 
 <p></p>
   </p>

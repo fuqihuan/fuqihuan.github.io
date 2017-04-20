@@ -295,51 +295,43 @@
 <li><p>安装</p>
 
 <ul>
-<li>CentOS 6.2
-<br /></li>
-</ul>
+<li><p>CentOS 6.2</p>
 
 <pre><code class="language-bash">#下载：
 wget https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm
 #安装：
 sudo yum localinstall influxdb-0.13.0.x86_64.rpm
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>其他操作系统: <a href="https://influxdata.com/downloads/#influxdb">详见官方文档</a></li>
+<li><p>其他操作系统: <a href="https://influxdata.com/downloads/#influxdb">详见官方文档</a></p></li>
 </ul></li>
 
-<li><p>配置和启动</p></li>
-</ul>
+<li><p>配置和启动</p>
 
 <pre><code class="language-bash"># 运行influxdb
 sudo /etc/init.d/influxdb start
-    
+        
 # 创建数据库
 curl 'http://192.168.8.172:8086/query?q=CREATE+DATABASE+&quot;inorz_db_name&quot;'
-
+    
 # 查询已经创建的数据库
 curl 'http://localhost:8086/query?q=SHOW+DATABASES'
-    
+        
 # 也可以直接登录WEB界面进行操作和查询
 # 访问地址：http://192.168.99.9:8083
 </code></pre></li>
+</ul></li>
 
 <li><p>Glances</p>
 
 <ul>
-<li>安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。
-<br /></li>
-</ul>
+<li><p>安装: 在被监控机器上安装，这里我们要监控的机器是一台MAC机器。</p>
 
 <pre><code class="language-bash">pip install glances --user
 pip install influxdb --user
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>配置和启动
-<br /></li>
-</ul>
+<li><p>配置和启动</p>
 
 <pre><code class="language-bash">sudo vim /etc/glances.conf
 # 输入以下内容后保存退出
@@ -348,44 +340,39 @@ port=8086
 ser=root
 password=root
 db=inorz_db_name
-    
+        
 # 运行
 glances --export-influxdb -C /etc/glances.conf
-    
+        
 # 如果需要后台运行，挂掉又可自动拉启。可以用supervisor来托管服务
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：
-<br /></li>
-</ul>
+<li><p>如果客户端和监控端之间防火墙已经配置互通了的话，这回数据应该是可以正常发送到influxdb去了的。可以通过以下命令来查询有没有指标入库：</p>
 
 <pre><code class="language-bash">curl 'http://192.168.99.9:8086/query?q=SHOW+MEASUREMENTS&amp;db=glances'
 # 反馈来的是一串json
 {&quot;results&quot;:[{&quot;series&quot;:[{&quot;name&quot;:&quot;measurements&quot;,&quot;columns&quot;:[&quot;name&quot;],&quot;values&quot;:[[&quot;cpu&quot;],[&quot;diskio&quot;],[&quot;fs&quot;],[&quot;load&quot;],[&quot;mem&quot;],[&quot;memswap&quot;],[&quot;network&quot;],[&quot;percpu&quot;],[&quot;processcount&quot;],[&quot;system&quot;]]}]}]}
 </code></pre></li>
+</ul></li>
 
 <li><p>Grafana(192.168.99.9)</p>
 
 <ul>
-<li>安装
+<li><p>安装</p>
 
 <ul>
-<li>CentOS 6.2
-<br /></li>
-</ul></li>
-</ul>
+<li><p>CentOS 6.2</p>
 
-<pre><code class="language-bash">   # 下载：
-   wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
-   # 解压并启动
-   tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
-   cd grafana-3.0.2-1463383025/bin/
-   ./grafana-server
-</code></pre>
+<pre><code class="language-bash"># 下载：
+wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.0.2-1463383025.linux-x64.tar.gz
+# 解压并启动
+tar xf grafana-3.0.2-1463383025.linux-x64.tar.gz
+cd grafana-3.0.2-1463383025/bin/
+./grafana-server
+</code></pre></li>
 
-<ul>
 <li><p>其他操作系统: <a href="http://grafana.org/download/">详见官方文档</a></p></li>
+</ul></li>
 
 <li><p>配置</p>
 
@@ -415,11 +402,13 @@ glances --export-influxdb -C /etc/glances.conf
 <h2 id="faq">FAQ</h2>
 
 <ol>
-<li><p>连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。</p>
+<li>连接不上数据库，访问页面超时。首先检查一下安装过程以及配置，启动时是否有报错，另外看防火墙是否配置正确。</li>
+</ol>
 
-<h2 id="其他">其他</h2></li>
+<h2 id="其他">其他</h2>
 
-<li><p>以上为个人的一个安装和配置过程，如有不对，请多多指正。</p></li>
+<ol>
+<li>以上为个人的一个安装和配置过程，如有不对，请多多指正。</li>
 </ol>
 
   
