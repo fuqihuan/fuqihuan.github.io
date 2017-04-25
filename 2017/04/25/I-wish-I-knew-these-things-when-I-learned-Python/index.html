@@ -315,17 +315,14 @@ c = dict(chain(a.items(), b.items()))
 c # {'y': 5, 's': 10, 'x': 3, 'z': 6}
 </code></pre>
 
-<p>这样看起来还不错，但是不够简明。看看我们是否能做得更好：</p></li>
-</ol>
+<p>这样看起来还不错，但是不够简明。看看我们是否能做得更好：</p>
 
 <pre><code class="language-python">   c = a.copy()
    c.update(b)
 </code></pre>
 
-<pre><code>更清晰而且更有可读性了！
-</code></pre>
+<p>更清晰而且更有可读性了！</p></li>
 
-<ol>
 <li><p>从一个字典获得最大值</p>
 
 <p>如果你想获取一个字典中的最大值，可能会像这样直接：</p>

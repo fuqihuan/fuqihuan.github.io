@@ -67,17 +67,14 @@ c = dict(chain(a.items(), b.items()))
 c # {&#39;y&#39;: 5, &#39;s&#39;: 10, &#39;x&#39;: 3, &#39;z&#39;: 6}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;这样看起来还不错，但是不够简明。看看我们是否能做得更好：&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;这样看起来还不错，但是不够简明。看看我们是否能做得更好：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;   c = a.copy()
    c.update(b)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;更清晰而且更有可读性了！
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;更清晰而且更有可读性了！&lt;/p&gt;&lt;/li&gt;
 
-&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;从一个字典获得最大值&lt;/p&gt;
 
 &lt;p&gt;如果你想获取一个字典中的最大值，可能会像这样直接：&lt;/p&gt;
