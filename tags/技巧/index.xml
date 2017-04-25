@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技巧 on 找节拍</title>
+    <link>http://inorz.net/tags/%E6%8A%80%E5%B7%A7/index.xml</link>
+    <description>Recent content in 技巧 on 找节拍</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2015-2017 ღ fuqihuan</copyright>
+    <atom:link href="http://inorz.net/tags/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>我希望初学Python时就能知道的一些用法</title>
+      <link>http://inorz.net/2017/04/25/I-wish-I-knew-these-things-when-I-learned-Python/</link>
+      <pubDate>Tue, 25 Apr 2017 22:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2017/04/25/I-wish-I-knew-these-things-when-I-learned-Python/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;有时候我反问我自己，怎么不知道在Python 3中用更简单的方式做“这样”的事，当我寻求答案时，随着时间的推移，我当然发现更简洁、有效并且bug更少的代码。
+总的来说（不仅仅是这篇文章），“那些”事情总共数量是超过我想象的，但这里是第一批不明显的特性，后来我寻求到了更有效，更简单且可维护的代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;字典中的keys()和items()
+你能在字典的keys和items中做很多有意思的操作，它们类似于集合（set）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;aa = {&#39;mike&#39;: &#39;male&#39;, &#39;kathy&#39;: &#39;female&#39;, &#39;steve&#39;: &#39;male&#39;, &#39;hillary&#39;: &#39;female&#39;}
+    
+bb = {&#39;mike&#39;: &#39;male&#39;, &#39;ben&#39;: &#39;male&#39;, &#39;hillary&#39;: &#39;female&#39;}
+    
+aa.keys() &amp;amp; bb.keys() # {&#39;mike&#39;, &#39;hillary&#39;} # these are set-like
+aa.keys() - bb.keys() # {&#39;kathy&#39;, &#39;steve&#39;}
+# If you want to get the common key-value pairs in the two dictionaries
+aa.items() &amp;amp; bb.items() # {(&#39;mike&#39;, &#39;male&#39;), (&#39;hillary&#39;, &#39;female&#39;)}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;太简洁啦！&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在字典中校验一个key的存在。下面这段代码你写了多少遍了？&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dictionary = {}
+for k, v in ls:
+    if not k in dictionary:
+        dictionary[k] = []
+    dictionary[k].append(v)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这段代码其实没有那么糟糕，但是为什么你一直都需要用if语句呢？&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from collections import defaultdict
+dictionary = defaultdict(list) # defaults to list
+for k, v in ls:
+    dictionary[k].append(v)
+这样就更清晰了，没有一个多余而模糊的if语句。
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;用另一个字典来更新一个字典&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from itertools import chain
+a = {&#39;x&#39;: 1, &#39;y&#39;:2, &#39;z&#39;:3}
+b = {&#39;y&#39;: 5, &#39;s&#39;: 10, &#39;x&#39;: 3, &#39;z&#39;: 6}
+    
+# Update a with b 
+c = dict(chain(a.items(), b.items()))
+c # {&#39;y&#39;: 5, &#39;s&#39;: 10, &#39;x&#39;: 3, &#39;z&#39;: 6}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样看起来还不错，但是不够简明。看看我们是否能做得更好：&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;   c = a.copy()
+   c.update(b)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;更清晰而且更有可读性了！
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;从一个字典获得最大值&lt;/p&gt;
+
+&lt;p&gt;如果你想获取一个字典中的最大值，可能会像这样直接：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;aa = {k: sum(range(k)) for k in range(10)}
+aa # {0: 0, 1: 0, 2: 1, 3: 3, 4: 6, 5: 10, 6: 15, 7: 21, 8: 28, 9: 36}
+max(aa.values()) #36
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这么做是有效的，但是如果你需要key，那么你就需要在value的基础上再找到key。然而，我们可以用过zip来让展现更扁平化，并返回一个如下这样的key-value形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;max(zip(aa.values(), aa.keys()))
+# (36, 9) =&amp;gt; value, key pair
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同样地，如果你想从最大到最小地去遍历一个字典，你可以这么干：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sorted(zip(aa.values(), aa.keys()), reverse=True)
+# [(36, 9), (28, 8), (21, 7), (15, 6), (10, 5), (6, 4), (3, 3), (1, 2), (0, 1), (0, 0)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在一个list中打开任意数量的items
+我们可以运用*的魔法，获取任意的items放到list中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def compute_average_salary(person_salary):
+    person, *salary = person_salary
+    return person, (sum(salary) / float(len(salary)))
+    
+person, average_salary = compute_average_salary([“mike”, 40000, 50000, 60000])
+person # &#39;mike&#39;
+average_salary # 50000.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这不是那么有趣，但是如果我告诉你也可以像下面这样呢：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def compute_average_salary(person_salary_age):
+    person, *salary, age = person_salary_age
+    return person, (sum(salary) / float(len(salary))), age
+    
+person, average_salary, age = compute_average_salary([“mike”, 40000, 50000, 60000, 42])
+age # 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看起来很简洁嘛!&lt;/p&gt;
+
+&lt;p&gt;当你想到有一个字符串类型的key和一个list的value的字典，而不是遍历一个字典，然后顺序地处理value，你可以使用一个更扁平的展现(list中套list)，像下面这样:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Instead of doing this
+for k, v in dictionary.items():
+    process(v)
+    
+# we are separating head and the rest, and process the values
+# as a list similar to the above. head becomes the key value
+for head, *rest in ls:
+    process(rest)
+    
+# if not very clear, consider the following example
+aa = {k: list(range(k)) for k in range(5)} # range returns an iterator
+aa # {0: [], 1: [0], 2: [0, 1], 3: [0, 1, 2], 4: [0, 1, 2, 3]}
+for k, v in aa.items():
+    sum(v)
+    
+#0
+#0
+#1
+#3
+#6
+    
+# Instead
+aa = [[ii] + list(range(jj)) for ii, jj in enumerate(range(5))]
+for head, *rest in aa:
+    print(sum(rest))
+    
+#0
+#0
+#1
+#3
+#6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你可以把list解压成head，*rest,tail等等。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Collections用作计数器
+Collections是我在python中最喜欢的库之一，在python中，除了原始的默认的，如果你还需要其他的数据结构，你就应该看看这个。&lt;/p&gt;
+
+&lt;p&gt;我日常基本工作的一部分就是计算大量而又不是很重要的词。可能有人会说，你可以把这些词作为一个字典的key，他们分别的值作为value，在我没有接触到collections中的Counter时，我可能会同意你的做法（是的，做这么多介绍就是因为Counter）。&lt;/p&gt;
+
+&lt;p&gt;假设你读的python语言的维基百科，转化为一个字符串，放到一个list中（标记好顺序）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
+word_list = list(map(lambda k: k.lower().strip(), re.split(r&#39;[;,:(.s)]s*&#39;, python_string)))
+word_list[:10] # [&#39;python&#39;, &#39;is&#39;, &#39;a&#39;, &#39;widely&#39;, &#39;used&#39;, &#39;general-purpose&#39;, &#39;high-level&#39;, &#39;programming&#39;, &#39;language&#39;, &#39;[17][18][19]&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;到目前为止看起来都不错，但是如果你想计算这个list中的单词：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from collections import defaultdict # again, collections!
+dictionary = defaultdict(int)
+for word in word_list:
+    dictionary[word] += 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个没有那么糟糕，但是如果你有了Counter，你将会节约下你的时间做更有意义的事情。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from collections import Counter
+counter = Counter(word_list)
+# Getting the most common 10 words
+counter.most_common(10)
+[(&#39;the&#39;, 164), (&#39;and&#39;, 161), (&#39;a&#39;, 138), (&#39;python&#39;, 138), 
+(&#39;of&#39;, 131), (&#39;is&#39;, 102), (&#39;to&#39;, 91), (&#39;in&#39;, 88), (&#39;&#39;, 56)]
+counter.keys()[:10] # just like a dictionary
+[&#39;&#39;, &#39;limited&#39;, &#39;all&#39;, &#39;code&#39;, &#39;managed&#39;, &#39;multi-paradigm&#39;, 
+&#39;exponentiation&#39;, &#39;fromosing&#39;, &#39;dynamic&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;很简洁吧，但是如果我们看看在Counter中包含的可用的方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dir(counter)
+[&#39;__add__&#39;, &#39;__and__&#39;, &#39;__class__&#39;, &#39;__cmp__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;, &#39;__delitem__&#39;, &#39;__dict__&#39;, 
+&#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, 
+&#39;__init__&#39;, &#39;__iter__&#39;, &#39;__le__&#39;, &#39;__len__&#39;, &#39;__lt__&#39;, &#39;__missing__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, 
+&#39;__or__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__setitem__&#39;, &#39;__sizeof__&#39;, 
+&#39;__str__&#39;, &#39;__sub__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;clear&#39;, &#39;copy&#39;, &#39;elements&#39;, &#39;fromkeys&#39;, &#39;get&#39;, 
+&#39;has_key&#39;, &#39;items&#39;, &#39;iteritems&#39;, &#39;iterkeys&#39;, &#39;itervalues&#39;, &#39;keys&#39;, &#39;most_common&#39;, &#39;pop&#39;, &#39;popitem&#39;, &#39;setdefault&#39;, 
+&#39;subtract&#39;, &#39;update&#39;, &#39;values&#39;, &#39;viewitems&#39;, &#39;viewkeys&#39;, &#39;viewvalues&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;你看到add和sub方法了吗，是的，Counter支持加减运算。因此，如果你有很多文本想要去计算单词，你不必需要Hadoop，你可以运用Counter(作为map)然后把它们加起来（相当于reduce）。这样你就有构建在Counter上的mapreduce了，你可能以后还会感谢我。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;扁平嵌套lists
+Collections也有_chain函数，其可被用作扁平嵌套lists&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from collections import chain
+ls = [[kk] + list(range(kk)) for kk in range(5)]
+flattened_list = list(collections._chain(*ls))
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;同时打开两个文件
+如果你在处理一个文件（比如一行一行地），而且要把这些处理好的行写入到另一个文件中，你可能情不自禁地像下面这么去写：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;with open(input_file_path) as inputfile:
+    with open(output_file_path, &#39;w&#39;) as outputfile:
+        for line in inputfile:
+            outputfile.write(process(line))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除此之外，你可以在相同的一行里打开多个文件，就像下面这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;with open(input_file_path) as inputfile, open(output_file_path, &#39;w&#39;) as outputfile:
+    for line in inputfile:
+        outputfile.write(process(line))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就更简洁啦！&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;从一堆数据中找到星期一
+如果你有一个数据想去标准化（比如周一之前或是之后），你也许会像下面这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import datetime
+previous_monday = some_date - datetime.timedelta(days=some_date.weekday())
+# Similarly, you could map to next monday as well
+next_monday = some_date + date_time.timedelta(days=-some_date.weekday(), weeks=1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;处理HTML
+如果你出于兴趣或是利益要爬一个站点，你可能会一直面临着html标签。为了去解析各种各样的html标签，你可以运用html.parer：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from html.parser import HTMLParser
+    
+class HTMLStrip(HTMLParser):
+    
+    def __init__(self):
+        self.reset()
+        self.ls = []
+    
+    def handle_data(self, d):
+        self.ls.append(d)
+    
+    def get_data(self):
+        return &#39;&#39;.join(self.ls)
+    
+    @staticmethod
+    def strip(snippet):
+        html_strip = HTMLStrip()
+        html_strip.feed(snippet)
+        clean_text = html_strip.get_data()
+        return clean_text
+    
+snippet = HTMLStrip.strip(html_snippet)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果你仅仅想避开html：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;escaped_snippet = html.escape(html_snippet)
+    
+# Back to html snippets(this is new in Python 3.4)
+html_snippet = html.unescape(escaped_snippet)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;本文为转载: &lt;a href=&#34;http://www.opscoder.info/python_learner.html&#34;&gt;译文地址&lt;/a&gt; |  &lt;a href=&#34;http://bugra.github.io/work/notes/2015-01-03/i-wish-i-knew-these-things-when-i-first-learned-python/&#34;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
