@@ -10,7 +10,7 @@
     <atom:link href="http://inorz.net/tags/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>【安全】PHP Multipartform-data 远程DOS攻击漏洞</title>
+      <title>PHP Multipartform-data 远程DOS攻击漏洞</title>
       <link>http://inorz.net/2015/05/21/php-multipartform-data/</link>
       <pubDate>Thu, 21 May 2015 14:45:48 +0000</pubDate>
       

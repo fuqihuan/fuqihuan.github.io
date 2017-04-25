@@ -10,7 +10,7 @@
     <atom:link href="http://inorz.net/tags/resolv/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>【DNS】resolv.conf配置说明[转]</title>
+      <title>resolv.conf配置说明</title>
       <link>http://inorz.net/2015/09/06/resolv/</link>
       <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
       

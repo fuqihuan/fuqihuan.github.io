@@ -1082,7 +1082,7 @@ sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
     </item>
     
     <item>
-      <title>【Zimbra】更换邮箱SSL证书</title>
+      <title>Zimbra更换邮箱SSL证书</title>
       <link>http://inorz.net/2015/11/05/zimbra-change-ssl/</link>
       <pubDate>Thu, 05 Nov 2015 20:05:48 +0000</pubDate>
       
@@ -1163,7 +1163,7 @@ zmcontrol restart
     </item>
     
     <item>
-      <title>【DNS】resolv.conf配置说明[转]</title>
+      <title>resolv.conf配置说明</title>
       <link>http://inorz.net/2015/09/06/resolv/</link>
       <pubDate>Sun, 06 Sep 2015 12:05:48 +0000</pubDate>
       
@@ -1432,7 +1432,7 @@ PS：检查一下端口和防火墙有没有添加上对应的规则&lt;/p&gt;&l
     </item>
     
     <item>
-      <title>【安全】PHP Multipartform-data 远程DOS攻击漏洞</title>
+      <title>PHP Multipartform-data 远程DOS攻击漏洞</title>
       <link>http://inorz.net/2015/05/21/php-multipartform-data/</link>
       <pubDate>Thu, 21 May 2015 14:45:48 +0000</pubDate>
       
