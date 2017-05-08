@@ -18,7 +18,7 @@
       <pubDate>Sun, 07 May 2017 14:05:48 +0000</pubDate>
       
       <guid>http://inorz.net/2017/05/07/python-InsecurePlatformWarning/</guid>
-      <description>&lt;h2 id=&#34;问题&#34;&gt;【问题】&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;在使用Python的requests去请求一些 https 资源的时候，会遇到以下报错信息，虽然不影响使用，但老是在屏幕上输出也不是很爽。&lt;/p&gt;
