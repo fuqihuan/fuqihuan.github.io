@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ssh on 找节拍</title>
-    <link>http://inorz.net/tags/ssh/index.xml</link>
+    <link>http://inorz.net/tags/ssh/</link>
     <description>Recent content in Ssh on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Apr 2016 12:35:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>MAC开机启动ssh，并指定端口</title>
@@ -21,80 +24,7 @@
 &lt;p&gt;但是想要指定端口去启用就比较恶心了。
 网上搜了一圈后，可以按以下的方式去指定端口配置。&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;系统环境&#34;&gt;【系统环境】&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;OS: 10.11.4&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;配置过程&#34;&gt;【配置过程】&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;因为10.11开启了SIP，所以不能直接修改/System/下的文件。&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;把下面配置文件配置到用户级目录下。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p ~/Library/LaunchDaemons/
-sudo cp /System/Library/LaunchDaemons/ssh.plist ~/Library/LaunchDaemons/ssh.plist
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;修改配置文件&lt;code&gt;vi ~/Library/LaunchDaemons/ssh.plist&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
-&amp;lt;!DOCTYPE plist PUBLIC &amp;quot;-//Apple//DTD PLIST 1.0//EN&amp;quot; &amp;quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;quot;&amp;gt;
-&amp;lt;plist version=&amp;quot;1.0&amp;quot;&amp;gt;
-&amp;lt;dict&amp;gt;
-    &amp;lt;key&amp;gt;Enabled&amp;lt;/key&amp;gt;
-    &amp;lt;true/&amp;gt;
-    &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;com.openssh.sshd.xxxxx（随便起个名字，目的是不被共享设置里面的开关影响到）&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;Program&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;/usr/libexec/sshd-keygen-wrapper&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
-    &amp;lt;array&amp;gt;
-        &amp;lt;string&amp;gt;/usr/sbin/sshd&amp;lt;/string&amp;gt;
-        &amp;lt;string&amp;gt;-i&amp;lt;/string&amp;gt;
-    &amp;lt;/array&amp;gt;
-    &amp;lt;key&amp;gt;Sockets&amp;lt;/key&amp;gt;
-    &amp;lt;dict&amp;gt;
-        &amp;lt;key&amp;gt;Listeners&amp;lt;/key&amp;gt;
-        &amp;lt;dict&amp;gt;
-            &amp;lt;key&amp;gt;SockServiceName&amp;lt;/key&amp;gt;
-            &amp;lt;string&amp;gt;SSH端口&amp;lt;/string&amp;gt;
-            &amp;lt;key&amp;gt;Bonjour&amp;lt;/key&amp;gt;
-            &amp;lt;array&amp;gt;
-                &amp;lt;string&amp;gt;ssh&amp;lt;/string&amp;gt;
-                &amp;lt;string&amp;gt;sftp-ssh&amp;lt;/string&amp;gt;
-            &amp;lt;/array&amp;gt;
-        &amp;lt;/dict&amp;gt;
-    &amp;lt;/dict&amp;gt;
-    &amp;lt;key&amp;gt;inetdCompatibility&amp;lt;/key&amp;gt;
-    &amp;lt;dict&amp;gt;
-        &amp;lt;key&amp;gt;Wait&amp;lt;/key&amp;gt;
-        &amp;lt;false/&amp;gt;
-        &amp;lt;key&amp;gt;Instances&amp;lt;/key&amp;gt;
-        &amp;lt;integer&amp;gt;42&amp;lt;/integer&amp;gt;
-    &amp;lt;/dict&amp;gt;
-    &amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;/dev/null&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;SHAuthorizationRight&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;system.preferences&amp;lt;/string&amp;gt;
-    &amp;lt;key&amp;gt;POSIXSpawnType&amp;lt;/key&amp;gt;
-    &amp;lt;string&amp;gt;Interactive&amp;lt;/string&amp;gt;
-&amp;lt;/dict&amp;gt;
-&amp;lt;/plist&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;重新载入配置&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo launchctl unload ~/Library/LaunchDaemons/ssh.plist
-sudo launchctl load -w ~/Library/LaunchDaemons/ssh.plist
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;可以用telnet或是lsof来检查一下修改并启用的端口有没有开起来。或是直接ssh连一下测试即可。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

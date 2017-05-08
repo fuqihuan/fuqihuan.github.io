@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dns on 找节拍</title>
-    <link>http://inorz.net/tags/dns/index.xml</link>
+    <link>http://inorz.net/tags/dns/</link>
     <description>Recent content in Dns on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Sep 2015 12:05:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>resolv.conf配置说明</title>
@@ -25,34 +28,7 @@
 &lt;li&gt;&amp;ldquo;search&amp;rdquo; 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;现实中有&amp;rdquo;qh.inorz.net&amp;rdquo;，下面就以这个来说明，主要是说明&amp;rdquo;domain&amp;rdquo;和&amp;rdquo;search&amp;rdquo;的意义。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /etc/resolv.conf
-
-########
-nameserver 192.168.1.1
-nameserver 8.8.8.8
-domain  inorz.net
-search  baidu.com inorz.net.cn
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;测试&#34;&gt;测试&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;ping inorz.net
-&amp;gt; 这里是直接走的 nameserver&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ping qh
-&amp;gt; 按顺序查找 qh, qh.inorz.net, qh.baidu.com 和 qh.inorz.net.cn
-&amp;gt; 这里的顺序是nameserver -&amp;gt; domain -&amp;gt; search&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ping qh.inorz
-&amp;gt; 此处就只查找 qh.inorz，qh.inorz.inorz.net 和 qh.inorz.baidu.com
-&amp;gt; 这里的顺序是nameserver -&amp;gt; domain -&amp;gt; search
-&amp;gt; domain此时没有起到作用，因为其定义是当搜索的domain没有&amp;rdquo;.&amp;ldquo;时，则优先搜索domain，否则跳过&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -71,34 +47,7 @@ search  baidu.com inorz.net.cn
 &lt;li&gt;&amp;ldquo;search&amp;rdquo; 若搜索的域名没有找到，则将域名拼接上search来搜索。下面会有例子来说明。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;现实中有&amp;rdquo;qh.inorz.net&amp;rdquo;，下面就以这个来说明，主要是说明&amp;rdquo;domain&amp;rdquo;和&amp;rdquo;search&amp;rdquo;的意义。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /etc/resolv.conf
-
-########
-nameserver 192.168.1.1
-nameserver 8.8.8.8
-domain  inorz.net
-search  baidu.com inorz.net.cn
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;测试&#34;&gt;测试&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;ping inorz.net
-&amp;gt; 这里是直接走的 nameserver&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ping qh
-&amp;gt; 按顺序查找 qh, qh.inorz.net, qh.baidu.com 和 qh.inorz.net.cn
-&amp;gt; 这里的顺序是nameserver -&amp;gt; domain -&amp;gt; search&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ping qh.inorz
-&amp;gt; 此处就只查找 qh.inorz，qh.inorz.inorz.net 和 qh.inorz.baidu.com
-&amp;gt; 这里的顺序是nameserver -&amp;gt; domain -&amp;gt; search
-&amp;gt; domain此时没有起到作用，因为其定义是当搜索的domain没有&amp;rdquo;.&amp;ldquo;时，则优先搜索domain，否则跳过&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

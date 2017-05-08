@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>乱码 on 找节拍</title>
-    <link>http://inorz.net/tags/%E4%B9%B1%E7%A0%81/index.xml</link>
+    <link>http://inorz.net/tags/%E4%B9%B1%E7%A0%81/</link>
     <description>Recent content in 乱码 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E4%B9%B1%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 May 2015 23:45:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/%E4%B9%B1%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>解决MAC打包压缩文件在Windows下乱码</title>
@@ -27,27 +30,7 @@
 &lt;li&gt;是文件编码的问题，Mac 下默认是UTF-8，windows下默认为GBK&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;解决&#34;&gt;【解决】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;在Windows上用新版WinRAR(5.0) 以上版本直接解压即可&lt;/li&gt;
-&lt;li&gt;用第三方打包软件Keka(开源、免费)，打包成.7z&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;keka下载&#34;&gt;【Keka下载】：&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Keka: &lt;a href=&#34;http://www.kekaosx.com/zh-cn/&#34;&gt;http://www.kekaosx.com/zh-cn/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;注意&#34;&gt;【注意】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;用的2345好压 直接解压不能解决此文件，，&lt;/li&gt;
-&lt;li&gt;可以通过设置2345好压 的代码页 为UTF-8 来解压即可 （预览的时候还是乱码），不过解压出来就都正常了&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

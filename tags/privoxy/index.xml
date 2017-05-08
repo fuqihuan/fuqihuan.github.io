@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Privoxy on 找节拍</title>
-    <link>http://inorz.net/tags/privoxy/index.xml</link>
+    <link>http://inorz.net/tags/privoxy/</link>
     <description>Recent content in Privoxy on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/privoxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 May 2015 13:25:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/privoxy/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Centos下Privoxy的安装与配置</title>
@@ -32,100 +35,7 @@
 &lt;p&gt;PS：如果手头还有国内VPS的话最好是客户端和Privoxy都在国内VPS上。代理这块就比较少被检验。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;　　ss的安装和配置这里就不叙述了，因为过程和配置比较简单。这篇主要还是说说负责 Privoxy 安装与设置吧。&lt;/p&gt;
-
-&lt;h3 id=&#34;二-安装&#34;&gt;二、【安装】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Privoxy是一款带过滤功能的代理服务器，针对HTTP、HTTPS协议，经常跟Tor组合使用。通过Privoxy的超级过滤功能，用户从而可以保护隐私、对网页内容进行过滤、管理cookies，以及拦阻各种广告等。Privoxy可以用作单机，也可以应用到多用户的网络。&lt;/p&gt;
-&lt;/blockquote&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;你可以在 &lt;a href=&#34;http://sourceforge.net/projects/ijbswa/files/&#34;&gt;这里&lt;/a&gt; 选择适合你的版本，目前基本可以算常用桌面全版本（Unix众，Win，MacOS）。这里我选择了源码安装的方式。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 添加一个用户给 Privoxy
-echo &#39;privoxy:*:7777:7777:privoxy proxy:/no/home:/no/shell&#39; &amp;gt;&amp;gt; /etc/passwd
-# 分配个组给 Privoxy
-echo &#39;privoxy:*:7777:&#39; &amp;gt;&amp;gt; /etc/group
-# 开始编译安装...
-autoheader
-autoconf
-./configure      # (--help to see options)
-make             # (the make from GNU, sometimes called gmake)
-make -s install  # (to really install, -s to silence output)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;默认安装后相应的配置在 /usr/local/etc/privoxy 目录下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 运行
-/etc/init.d/privoxy start
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;三-定制&#34;&gt;三、【定制】&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;根据我们的需求来定制一下配置（将ss的sock5转换为HTTP代理），加上用户密码。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;配置HTTP代理端口&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vi /usr/local/etc/privoxy/config
-#找到listen-address，配置HTTP代理的端口
-listen-address  127.0.0.1:31904
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;向对应端口转发&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vi /usr/local/etc/privoxy/config
-# 找到forward-socks5，配置要转发的端口，及特地规则。具体使用场景可以参考官方配置里写上。
-# 这里我们配置全局转发，目前是49879端口(ss客户端)
-forward-socks5t   /         127.0.0.1:49879 .
-    
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;配置用户名和密码（如果做了防火墙只允许内部IP访问，或是免费开放给大家使用。可以无视这条）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 生成用户名和密码对应的base64密文
-perl -e &amp;quot;use MIME::Base64; print encode_base64(&#39;用户名:密码&#39;);&amp;quot;
-    
-# 修改config文件，添加actionsfile user.action，编辑 user.action 文件中的 alias
-proxy = +forward-override{forward 127.0.0.1:808} +add-header{Proxy-authorization: Basic &amp;lt;auth&amp;gt;}
-    
-# 也可以IP段过滤, 打开配置，找到 permit-access,里面有对应的配置模板。
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;配置完了，重启下privoxy&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/etc/init.d/privoxy restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;四-如何使用http代理&#34;&gt;四、【如何使用HTTP代理】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;RSYNC代理&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export RSYNC_PROXY=&#39;IP:PORT&#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;IOS上使用
-&amp;gt; 设置-WIFI-点中你连接的WIFI旁边的(i)进入WIFI设置-最下方HTTP代理-输入对应信息&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;五-faq&#34;&gt;五、【FAQ】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;按上面的配置好了，还是连接不上
-PS：检查一下端口和防火墙有没有添加上对应的规则&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;欢迎补充。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

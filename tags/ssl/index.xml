@@ -2,12 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ssl on 找节拍</title>
-    <link>http://inorz.net/tags/ssl/index.xml</link>
+    <link>http://inorz.net/tags/ssl/</link>
     <description>Recent content in Ssl on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 May 2017 14:05:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python 解决 InsecurePlatformWarning: A true SSLContext object is not available</title>
+      <link>http://inorz.net/2017/05/07/python-InsecurePlatformWarning/</link>
+      <pubDate>Sun, 07 May 2017 14:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2017/05/07/python-InsecurePlatformWarning/</guid>
+      <description>&lt;h2 id=&#34;问题&#34;&gt;【问题】&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在使用Python的requests去请求一些 https 资源的时候，会遇到以下报错信息，虽然不影响使用，但老是在屏幕上输出也不是很爽。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/local/lib/python2.7/site-packages/requests/packages/urllib3/util/ssl_.py:132: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecurePlatformWarning
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Zimbra更换邮箱SSL证书</title>
@@ -30,64 +52,7 @@
 &amp;gt; 私钥：3_domain.com.key&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;替换证书&#34;&gt;替换证书&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;把上面解压出来的三个文件上传到服务器&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://www.wosign.com/root/startcom.crt&#34;&gt;下载&lt;/a&gt; 顶级根证书,然后把顶级根证书的内容加到公钥证书中&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat startcom.crt &amp;gt;&amp;gt; 2_domain.com.crt
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;替换服务器上旧的私钥文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mv /opt/zimbra/ssl/zimbra/commercial/commercial.key /data/backup/commercial.key.${RANDOM}
-cp 3_domain.com.key /opt/zimbra/ssl/zimbra/commercial/commercial.key
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;校验证书&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/zimbra/bin/zmcertmgr verifycrt comm /opt/zimbra/ssl/zimbra/commercial/commercial.key 2_domain.com.crt 1_root_bundle.crt
-    
-# 校验成功会有这样的提示
-** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
-Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
-Valid Certificate: 2_domain.com.crt: OK
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;更新证书&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/zimbra/bin/zmcertmgr deploycrt comm 2_domain.com.crt 1_root_bundle.crt
-    
-# 更新成功会有这样的提示
-** Verifying 2_domain.com.crt against /opt/zimbra/ssl/zimbra/commercial/commercial.key
-Certificate (2_domain.com.crt) and private key (/opt/zimbra/ssl/zimbra/commercial/commercial.key) match.
-Valid Certificate: 2_domain.com.crt: OK
-** Copying 2_domain.com.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
-** Appending ca chain 1_root_bundle.crt to /opt/zimbra/ssl/zimbra/commercial/commercial.crt
-** Importing certificate /opt/zimbra/ssl/zimbra/commercial/commercial_ca.crt to CACERTS as zcs-user-commercial_ca...done.
-** NOTE: mailboxd must be restarted in order to use the imported certificate.
-** Saving server config key zimbraSSLCertificate...done.
-** Saving server config key zimbraSSLPrivateKey...done.
-** Installing mta certificate and key...done.
-** Installing slapd certificate and key...done.
-** Installing proxy certificate and key...done.
-** Creating pkcs12 file /opt/zimbra/ssl/zimbra/jetty.pkcs12...done.
-** Creating keystore file /opt/zimbra/mailboxd/etc/keystore...done.
-** Installing CA to /opt/zimbra/conf/ca...done.
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;重启zmcontrol&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;su - zimbra
-zmcontrol restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;重启完了后重启登录页面,可以看到邮箱证书已经替换成功&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

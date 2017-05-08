@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>黑苹果 on 找节拍</title>
-    <link>http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/index.xml</link>
+    <link>http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/</link>
     <description>Recent content in 黑苹果 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Mar 2016 11:15:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>黑苹果Clover无法引导安装镜像，反复重启</title>
@@ -21,76 +24,7 @@
 &lt;li&gt;最近准备测试一下黑苹果用来做IOS调试机器的可行性，于是在一台主机上安装了黑苹果，然后在安装过程中，遇到Clover无法引导安装镜像，反复重启。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;排查过程&#34;&gt;排查过程&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;一开始以为是主板或BIOS不行，反复换了不少镜像，包括各种懒人版。&lt;/li&gt;
-&lt;li&gt;然后发现所有镜像均是同一症状。反复重启。&lt;/li&gt;
-&lt;li&gt;开始怀疑和思考人生&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;最后翻了一下Clover的配置文件和官方文档，发现是可以配置内存位置的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;key&amp;gt;Memory&amp;lt;/key&amp;gt;
-&amp;lt;dict&amp;gt;
-  &amp;lt;key&amp;gt;Channels&amp;lt;/key&amp;gt;
-  &amp;lt;integer&amp;gt;2&amp;lt;/integer&amp;gt; OR &amp;lt;string&amp;gt;1&amp;lt;/string&amp;gt;
-  &amp;lt;key&amp;gt;SlotCount&amp;lt;/key&amp;gt;
-  &amp;lt;integer&amp;gt;24&amp;lt;/integer&amp;gt; OR &amp;lt;string&amp;gt;4&amp;lt;/string&amp;gt;
-  &amp;lt;key&amp;gt;Modules&amp;lt;/key&amp;gt;
-  &amp;lt;array&amp;gt;
-    &amp;lt;dict&amp;gt;
-      &amp;lt;key&amp;gt;Slot&amp;lt;/key&amp;gt;
-      &amp;lt;integer&amp;gt;0&amp;lt;/integer&amp;gt; OR &amp;lt;string&amp;gt;5&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Size&amp;lt;/key&amp;gt;
-      &amp;lt;integer&amp;gt;2048&amp;lt;/integer&amp;gt; OR &amp;lt;string&amp;gt;4096&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Frequency&amp;lt;/key&amp;gt;
-      &amp;lt;integer&amp;gt;1600&amp;lt;/integer&amp;gt; OR &amp;lt;string&amp;gt;1333&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Vendor&amp;lt;/key&amp;gt;
-      &amp;lt;string&amp;gt;Some Company&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Part&amp;lt;/key&amp;gt;
-      &amp;lt;string&amp;gt;123456ABCDEF&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Serial&amp;lt;/key&amp;gt;
-      &amp;lt;string&amp;gt;ABCDEF123456&amp;lt;/string&amp;gt;
-      &amp;lt;key&amp;gt;Type&amp;lt;/key&amp;gt;
-      &amp;lt;string&amp;gt;DDR/DDR2/DDR3&amp;lt;/string&amp;gt;
-   &amp;lt;/dict&amp;gt;
-  &amp;lt;/array&amp;gt;
-&amp;lt;/dict&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Inject custom memory module tables into SMBIOS if original SPD and SMBIOS provide incorrect or incomplete information.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Channels&lt;/code&gt; - Number of hardware channels supported by your memory chipset, usually two.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SlotCount&lt;/code&gt; - Total count of memory slots in your system. Max 24 (for now).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Modules&lt;/code&gt; - An array of INSTALLED modules, if your slot is empty don&amp;rsquo;t include an entry for it.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;For each module:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Slot&lt;/code&gt; - Physical slot location in which the module is installed.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Size&lt;/code&gt; - Size of the module in megabytes.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Frequency&lt;/code&gt; - Speed of the module in megahertz.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Vendor&lt;/code&gt; - Memory manufacturer name&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Part&lt;/code&gt; - The part number identifier.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Serial&lt;/code&gt; - The module&amp;rsquo;s serial number.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Type&lt;/code&gt; - The memory module&amp;rsquo;s type.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;解决问题&#34;&gt;解决问题&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;上面的配置中，发现是可以配置内存位置的。&lt;/li&gt;
-&lt;li&gt;拆了主机，发现这台主机内存插在第二根插槽上，也就是第1槽。按正常的开机顺序，应该是先去引导第0槽，默认是离CPU最近的那根槽。&lt;/li&gt;
-&lt;li&gt;抱着怀疑的态度把内存换到了第0槽，开机。&lt;/li&gt;
-&lt;li&gt;卧槽，真的可以了！&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

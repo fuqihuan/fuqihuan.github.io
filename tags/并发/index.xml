@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>并发 on 找节拍</title>
-    <link>http://inorz.net/tags/%E5%B9%B6%E5%8F%91/index.xml</link>
+    <link>http://inorz.net/tags/%E5%B9%B6%E5%8F%91/</link>
     <description>Recent content in 并发 on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
-    <atom:link href="http://inorz.net/tags/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Aug 2015 22:15:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>使用nginx的limit模块限制并发</title>
@@ -29,56 +32,7 @@
 &lt;li&gt;只限制部分地址或是只限制部分IP（白名单或黑名单）&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;配置方法&#34;&gt;【配置方法】&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/black_ip.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.8.xxx 1;
-192.168.8.xxx 1;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_zone.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;geo $blackiplist  {
-  default 0;
-  include limit/black_ip.conf;
-}
-        
-map $blackiplist $limit {
-  1 $binary_remote_addr;
-  0 &amp;quot;&amp;quot;;
-}
-        
-limit_req_zone $limit zone=perreq:100m rate=3000r/s;     #黑名单内的IP每秒最多处理 3000 个请求
-limit_conn_zone $limit zone=perip:100m; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;vi nginx/conf/limit/limit_location.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;limit_conn perip 3000;        # 黑名单的IP,每个IP最大并发为2000
-limit_req zone=perreq nodelay;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;nginx/conf/nginx.conf&lt;/code&gt;，http { &amp;hellip; } 区域添加下面配置：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_zone.conf;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;最后在需要限制的虚拟主机里，对应要限制的路径下面添加配置用于限制。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;include limit/limit_location.conf;
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;配置说明&#34;&gt;【配置说明】&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;里面使用到了 geo指令定义黑名单 \$blackiplist 的变量，默认值为0，如果客户端IP在上面的范围内，\$blackiplist 的值为1&lt;/li&gt;
-&lt;li&gt;使用map指令映射【黑名单里IP】显示为真实的IP，如果不是黑名单里的IP就为空，这样【除了黑名单里的IP】都不能存到limit_req_zone内存session中，所以不会限制黑名单之外的ip访问&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
