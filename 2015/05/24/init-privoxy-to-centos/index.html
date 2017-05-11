@@ -265,7 +265,7 @@
 
 </div>
 
-  <h3 id="一-背景">一、【背景】</h3>
+  <h3 id="一-背景">一、背景</h3>
 
 <p>　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。</p>
 
@@ -286,7 +286,7 @@
 
 <p>　　ss的安装和配置这里就不叙述了，因为过程和配置比较简单。这篇主要还是说说负责 Privoxy 安装与设置吧。</p>
 
-<h3 id="二-安装">二、【安装】</h3>
+<h3 id="二-安装">二、安装</h3>
 
 <ol>
 <li><p>Privoxy 是一个轻量级的代理服务，不需要大量的内存进行缓存，是开源项目，官方介绍如下：</p>
@@ -316,10 +316,10 @@ make -s install  # (to really install, -s to silence output)
 </code></pre></li>
 </ol>
 
-<h3 id="三-定制">三、【定制】</h3>
+<h3 id="三-定制">三、定制</h3>
 
 <blockquote>
-<p>根据我们的需求来定制一下配置（将ss的sock5转换为HTTP代理），加上用户密码。</p>
+<p>根据我们的需求来定制一下配置（将ss的sock5转换为HTTP代理）。</p>
 </blockquote>
 
 <ol>
@@ -339,7 +339,20 @@ forward-socks5t   /         127.0.0.1:49879 .
     
 </code></pre></li>
 
-<li><p>配置用户名和密码（如果做了防火墙只允许内部IP访问，或是免费开放给大家使用。可以无视这条）</p>
+<li><p>配置完了，重启下privoxy</p>
+
+<pre><code class="language-bash">/etc/init.d/privoxy restart
+</code></pre></li>
+</ol>
+
+<h2 id="四-关于用户认证">四、关于用户认证</h2>
+
+<ul>
+<li><p>有不少人发邮件有问这个用户认证的事。从官方文档说明来看，privoxy本身是不支持用户认证的。但支持认证的转发。在以下场景可以用得到</p>
+
+<blockquote>
+<p>当用privoxy来代理了其他需要认证的代理时，就可以按以下配置来设置认证转发。</p>
+</blockquote>
 
 <pre><code class="language-bash"># 生成用户名和密码对应的base64密文
 perl -e &quot;use MIME::Base64; print encode_base64('用户名:密码');&quot;
@@ -349,14 +362,9 @@ proxy = +forward-override{forward 127.0.0.1:808} +add-header{Proxy-authorization
     
 # 也可以IP段过滤, 打开配置，找到 permit-access,里面有对应的配置模板。
 </code></pre></li>
+</ul>
 
-<li><p>配置完了，重启下privoxy</p>
-
-<pre><code class="language-bash">/etc/init.d/privoxy restart
-</code></pre></li>
-</ol>
-
-<h3 id="四-如何使用http代理">四、【如何使用HTTP代理】</h3>
+<h3 id="五-如何使用http代理">五、如何使用HTTP代理</h3>
 
 <ol>
 <li><p>RSYNC代理</p>
@@ -368,7 +376,7 @@ proxy = +forward-override{forward 127.0.0.1:808} +add-header{Proxy-authorization
 &gt; 设置-WIFI-点中你连接的WIFI旁边的(i)进入WIFI设置-最下方HTTP代理-输入对应信息</p></li>
 </ol>
 
-<h3 id="五-faq">五、【FAQ】</h3>
+<h3 id="六-faq">六、FAQ</h3>
 
 <ol>
 <li><p>按上面的配置好了，还是连接不上

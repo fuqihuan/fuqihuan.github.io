@@ -18,7 +18,7 @@
       <pubDate>Sun, 24 May 2015 13:25:48 +0000</pubDate>
       
       <guid>http://inorz.net/2015/05/24/init-privoxy-to-centos/</guid>
-      <description>&lt;h3 id=&#34;一-背景&#34;&gt;一、【背景】&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;一-背景&#34;&gt;一、背景&lt;/h3&gt;
 
 &lt;p&gt;　　手上有墙外的VPS可用，部署了shadowsocks（以下简称ss），从墙外使用rsync拉文件或是IOS（未越狱）想出墙时。都比较麻烦。于是看上了Privoxy这货。可以把socks5转换为HTTP代理，也就是俗称的APN。&lt;/p&gt;
 
