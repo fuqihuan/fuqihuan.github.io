@@ -275,14 +275,14 @@
 
 <ul>
 <li>经常有很多人需要在同时测试，这时候没办法，有多少人有需求就要建多少台虚拟机。很多时候部分虚拟机属于空闲状态的，比较浪费资源。</li>
-<li>考虑过用docker，docker的时间是跟宿主机一起的，也可以docker通过调整时区来修改时间，但只能修改24小时内，不能跨多天调整。但也算是一种方案了</li>
+<li>考虑过用Docker，Docker的时间是跟宿主机一起的，也可以用Docker通过调整时区来修改时间，但只能修改24小时内，不能跨多天调整。但也算是一种方案了</li>
 </ul>
 
 <h2 id="faketime">Faketime</h2>
 
 <ul>
 <li>放狗搜索时找到个神器 <a href="https://github.com/wolfcw/libfaketime/">libfaketime</a></li>
-<li>github上的介绍：libfaketime modifies the system time for a single application</li>
+<li>GitHub上的介绍：libfaketime modifies the system time for a single application</li>
 </ul>
 
 <h2 id="使用">使用</h2>
@@ -295,7 +295,7 @@ cd libfaketime
 make &amp;&amp; make install
 </code></pre></li>
 
-<li><p>github页面上有了非常详细的使用说明了。举个很简单的粟子。</p>
+<li><p>GitHub页面上有了非常详细的使用说明了。举个很简单的粟子。</p>
 
 <ul>
 <li><p>指定动态链接库</p>
@@ -315,6 +315,8 @@ Mon Mar 26 21:04:42 CST 2018
 [root@inorz.net ~]# faketime '2018-03-27 21:04:52' date
 Tue Mar 27 21:04:52 CST 2018
 </code></pre></li>
+
+<li><p>功能非常多，很强大。更多用法可参考 GitHub 上的说明</p></li>
 </ul></li>
 </ol>
 
