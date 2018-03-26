@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on 找节拍</title>
-    <link>http://inorz.net/tags/linux/</link>
-    <description>Recent content in Linux on 找节拍</description>
+    <title>Docker on 找节拍</title>
+    <link>http://inorz.net/tags/docker/</link>
+    <description>Recent content in Docker on 找节拍</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2015-2017 ღ fuqihuan</copyright>
     <lastBuildDate>Mon, 26 Mar 2018 20:05:48 +0000</lastBuildDate>
     
-	<atom:link href="http://inorz.net/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://inorz.net/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -23,29 +23,6 @@ git clone https://github.com/wolfcw/libfaketime.git cd libfaketime make &amp;amp
  指定动态链接库
 # 正常时间 [root@inorz.net ~]# date Mon Mar 26 21:01:46 CST 2018 [root@inorz.net ~]# LD_PRELOAD=/usr/local/lib/faketime/libfaketime.so.1 FAKETIME=&amp;quot;-1d&amp;quot; date Sun Mar 25 21:01:48 CST 2018  faketime 命令
 [root@inorz.net ~]# date Mon Mar 26 21:04:42 CST 2018 [root@inorz.</description>
-    </item>
-    
-    <item>
-      <title>Linux下恢复被格了硬盘的MySQL数据</title>
-      <link>http://inorz.net/2017/04/19/linux-restore-mysql-data/</link>
-      <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
-      
-      <guid>http://inorz.net/2017/04/19/linux-restore-mysql-data/</guid>
-      <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;前段时间运维事故也不少，大都是删库无备份到跑路这种级别的事故，于是模拟了一次这样的灾难，做了次恢复实验。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;前期准备&#34;&gt;前期准备&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;找了个有数据的后台数据机器，将整台机器的 MySQL 数据恢复到一台测试机里。&lt;/li&gt;
-&lt;li&gt;验证数据都进来后，对测试机进行一个可怕的操作: mkfs.ext4&lt;/li&gt;
-&lt;li&gt;开始模拟恢复数据。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

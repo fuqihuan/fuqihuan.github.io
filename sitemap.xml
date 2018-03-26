@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://inorz.net/2018/03/26/modifies-the-system-time-for-a-single-application/</loc>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
+  </url>
   
   <url>
     <loc>http://inorz.net/2017/05/07/python-InsecurePlatformWarning/</loc>
@@ -109,8 +115,20 @@
   </url>
   
   <url>
+    <loc>http://inorz.net/tags/docker/</loc>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://inorz.net/tags/extundelete/</loc>
     <lastmod>2017-04-19T18:35:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://inorz.net/tags/faketime/</loc>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -146,7 +164,7 @@
   
   <url>
     <loc>http://inorz.net/tags/linux/</loc>
-    <lastmod>2017-04-19T18:35:48+00:00</lastmod>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -188,7 +206,7 @@
   
   <url>
     <loc>http://inorz.net/post/</loc>
-    <lastmod>2017-05-07T14:05:48+00:00</lastmod>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -329,7 +347,7 @@
   
   <url>
     <loc>http://inorz.net/</loc>
-    <lastmod>2017-05-07T14:05:48+00:00</lastmod>
+    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   

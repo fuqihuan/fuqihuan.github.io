@@ -40,11 +40,29 @@
     </item>
     
     <item>
+      <title>Docker</title>
+      <link>http://inorz.net/tags/docker/</link>
+      <pubDate>Mon, 26 Mar 2018 20:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Extundelete</title>
       <link>http://inorz.net/tags/extundelete/</link>
       <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
       
       <guid>http://inorz.net/tags/extundelete/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Faketime</title>
+      <link>http://inorz.net/tags/faketime/</link>
+      <pubDate>Mon, 26 Mar 2018 20:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/tags/faketime/</guid>
       <description></description>
     </item>
     
@@ -96,7 +114,7 @@
     <item>
       <title>Linux</title>
       <link>http://inorz.net/tags/linux/</link>
-      <pubDate>Wed, 19 Apr 2017 18:35:48 +0000</pubDate>
+      <pubDate>Mon, 26 Mar 2018 20:05:48 +0000</pubDate>
       
       <guid>http://inorz.net/tags/linux/</guid>
       <description></description>

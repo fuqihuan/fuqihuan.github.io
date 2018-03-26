@@ -4,12 +4,12 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="找节拍,个人的技术博客,时不时记录一些东西">
-  <meta content="" name="keywords">
+  <meta name="description" content="">
+  <meta content="linux, time, faketime, libfaketime, docker" name="keywords">
   <meta name="generator" content="Hugo 0.22.1" />
-  <meta content="打包 | 找节拍" property="og:title">
+  <meta content="使用faketime修改单个应用程序的系统时间 | 找节拍" property="og:title">
   <meta content="找节拍,个人的技术博客,时不时记录一些东西 - " property="og:description">
-  <title>打包 | 找节拍 - inorz.net </title>
+  <title>使用faketime修改单个应用程序的系统时间 | 找节拍 - inorz.net </title>
 
   
   
@@ -38,8 +38,6 @@
   
 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="找节拍" href="http://inorz.net/tags/%E6%89%93%E5%8C%85/index.xml" />
   
 
   
@@ -121,10 +119,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="http://inorz.net/tags/%E6%89%93%E5%8C%85/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -235,20 +229,16 @@
 
 
 <div class="header">
-  <h1>打包</h1>
+  <h1>使用faketime修改单个应用程序的系统时间</h1>
+  <h2></h2>
 </div>
-
 <div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="http://inorz.net/2015/05/20/mac-dabao-luanma-windows/">解决MAC打包压缩文件在Windows下乱码</a></h2>
 
-    <div class="post-meta">
+  <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2015-05-20 23:45:48</time>
+    <time>2018-03-26 20:05:48</time>
   </div>
 
   
@@ -261,11 +251,11 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/MAC">MAC</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/linux">linux</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E6%89%93%E5%8C%85">打包</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/faketime">faketime</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="http://inorz.net/tags/%E4%B9%B1%E7%A0%81">乱码</a>
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/docker">docker</a>
     
   </div>
   
@@ -273,32 +263,113 @@
 
 </div>
 
-  </header>
+  
 
-  <p>
-  <h3 id="问题">【问题】</h3>
+<h2 id="背景">背景</h2>
 
 <ul>
-<li>用Mac自带的归档程序打包的zip，发到windows端，显示会乱码。里面对应的文件夹的文件目录也发生变化</li>
+<li>我们有业务程序在测试时，需要把时间设置到指定时间去做一些测试，像这些程序，我们之前的做法都是分配一台低配置的虚拟机，然后可以独立修改系统时间。来解决这类需求</li>
 </ul>
 
-<h3 id="原因">【原因】</h3>
+<h2 id="问题">问题</h2>
 
 <ul>
-<li>是文件编码的问题，Mac 下默认是UTF-8，windows下默认为GBK</li>
+<li>经常有很多人需要在同时测试，这时候没办法，有多少人有需求就要建多少台虚拟机。很多时候部分虚拟机属于空闲状态的，比较浪费资源。</li>
+<li>考虑过用docker，docker的时间是跟宿主机一起的，也可以docker通过调整时区来修改时间，但只能修改24小时内，不能跨多天调整。但也算是一种方案了</li>
 </ul>
 
-<p></p>
-  </p>
+<h2 id="faketime">【Faketime】</h2>
+
+<ul>
+<li>放狗上github搜索时找到个神器【faketime】</li>
+<li>github上的介绍：libfaketime modifies the system time for a single application</li>
+</ul>
+
+<h2 id="使用">使用</h2>
+
+<ol>
+<li><p>安装，非常简单。</p>
+
+<pre><code class="language-bash">git clone https://github.com/wolfcw/libfaketime.git
+cd libfaketime
+make &amp;&amp; make install
+</code></pre></li>
+
+<li><p>github页面上有了非常详细的使用说明了。举个很简单的粟子。</p>
+
+<ul>
+<li><p>指定动态链接库</p>
+
+<pre><code class="language-bash"># 正常时间
+[root@inorz.net ~]# date
+Mon Mar 26 21:01:46 CST 2018
+        
+[root@inorz.net ~]# LD_PRELOAD=/usr/local/lib/faketime/libfaketime.so.1 FAKETIME=&quot;-1d&quot; date
+Sun Mar 25 21:01:48 CST 2018
+</code></pre></li>
+
+<li><p>faketime 命令</p>
+
+<pre><code class="language-bash">[root@inorz.net ~]# date
+Mon Mar 26 21:04:42 CST 2018
+[root@inorz.net ~]# faketime '2018-03-27 21:04:52' date
+Tue Mar 27 21:04:52 CST 2018
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="其他用法">其他用法</h2>
+
+<ol>
+<li>Docker：集成在容器中，初始化时按需指定时间。可以实现容器内时间和宿主机不一致</li>
+<li>Mac OS X下可以用来无限延长某些未注册软件的使用时间（有能力还是希望多多支持正版）</li>
+<li>欢迎补充</li>
+</ol>
+
 
   
-  <footer>
-    <a href="/2015/05/20/mac-dabao-luanma-windows/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="http://inorz.net/2017/05/07/python-InsecurePlatformWarning/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="http://inorz.net/2017/05/07/python-InsecurePlatformWarning/">Python 解决 InsecurePlatformWarning: A true SSLContext object is not available</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
 
   
+
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: document.location.href, 
+    sourceId: "",
+    productKey: "de1a5b94d5fe4396b496193d30655d0d",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+
 </div>
 
 </div>
@@ -310,3 +381,4 @@
 
 </body>
 </html>
+
