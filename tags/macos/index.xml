@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Macos on 找节拍</title>
+    <link>http://inorz.net/tags/macos/</link>
+    <description>Recent content in Macos on 找节拍</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>©2015-2017 ღ fuqihuan</copyright>
+    <lastBuildDate>Wed, 26 Feb 2020 15:05:48 +0000</lastBuildDate>
+    
+	<atom:link href="http://inorz.net/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>解决 Ubuntu 无法安装 Parallel Tools 问题</title>
+      <link>http://inorz.net/2020/02/26/ubuntu-install-parallel-tools/</link>
+      <pubDate>Wed, 26 Feb 2020 15:05:48 +0000</pubDate>
+      
+      <guid>http://inorz.net/2020/02/26/ubuntu-install-parallel-tools/</guid>
+      <description>&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在Parallel Desktop 中装好了 Ubuntu 18.04，在安装Parallel Tools 时报错无法安装。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;宿主机系统：macOS 10.15&lt;/li&gt;
+&lt;li&gt;Parallel Desktop: 14.1&lt;/li&gt;
+&lt;li&gt;虚拟机操作系统: Ubuntu 18.04&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://inorz.net/2020/02/26/ubuntu-install-parallel-tools/</loc>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://inorz.net/2018/03/26/modifies-the-system-time-for-a-single-application/</loc>
     <lastmod>2018-03-26T20:05:48+00:00</lastmod>
   </url>
@@ -164,13 +169,19 @@
   
   <url>
     <loc>http://inorz.net/tags/linux/</loc>
-    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://inorz.net/tags/mac/</loc>
     <lastmod>2016-05-22T23:55:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://inorz.net/tags/macos/</loc>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -199,6 +210,12 @@
   </url>
   
   <url>
+    <loc>http://inorz.net/tags/parallel/</loc>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://inorz.net/tags/php/</loc>
     <lastmod>2015-05-21T14:45:48+00:00</lastmod>
     <priority>0</priority>
@@ -206,7 +223,7 @@
   
   <url>
     <loc>http://inorz.net/post/</loc>
-    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -272,6 +289,12 @@
   
   <url>
     <loc>http://inorz.net/topics/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://inorz.net/tags/ubuntu/</loc>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -347,7 +370,7 @@
   
   <url>
     <loc>http://inorz.net/</loc>
-    <lastmod>2018-03-26T20:05:48+00:00</lastmod>
+    <lastmod>2020-02-26T15:05:48+00:00</lastmod>
     <priority>0</priority>
   </url>
   

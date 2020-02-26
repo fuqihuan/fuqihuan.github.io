@@ -4,12 +4,12 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="找节拍,个人的技术博客,时不时记录一些东西">
-  <meta content="" name="keywords">
+  <meta name="description" content="">
+  <meta content="linux, ubuntu, macos, parallel" name="keywords">
   <meta name="generator" content="Hugo 0.22.1" />
-  <meta content="Posts | 找节拍" property="og:title">
+  <meta content="解决 Ubuntu 无法安装 Parallel Tools 问题 | 找节拍" property="og:title">
   <meta content="找节拍,个人的技术博客,时不时记录一些东西 - " property="og:description">
-  <title>Posts | 找节拍 - inorz.net </title>
+  <title>解决 Ubuntu 无法安装 Parallel Tools 问题 | 找节拍 - inorz.net </title>
 
   
   
@@ -38,8 +38,6 @@
   
 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="找节拍" href="http://inorz.net/post/index.xml" />
   
 
   
@@ -121,10 +119,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="http://inorz.net/post/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -235,92 +229,152 @@
 
 
 <div class="header">
-  <h1>Posts</h1>
+  <h1>解决 Ubuntu 无法安装 Parallel Tools 问题</h1>
+  <h2></h2>
 </div>
 <div class="content">
-  
-  <h2>2020</h2>
-  <ul>
-  
-    <li><time>2020-02-26 15:05:48</time> - <a href="http://inorz.net/2020/02/26/ubuntu-install-parallel-tools/">解决 Ubuntu 无法安装 Parallel Tools 问题</a></li>
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2020-02-26 15:05:48</time>
+  </div>
 
   
-  </ul>
-  
-  <h2>2018</h2>
-  <ul>
-  
-    <li><time>2018-03-26 20:05:48</time> - <a href="http://inorz.net/2018/03/26/modifies-the-system-time-for-a-single-application/">使用faketime修改单个应用程序的系统时间</a></li>
 
   
-  </ul>
-  
-  <h2>2017</h2>
-  <ul>
-  
-    <li><time>2017-05-07 14:05:48</time> - <a href="http://inorz.net/2017/05/07/python-InsecurePlatformWarning/">Python 解决 InsecurePlatformWarning: A true SSLContext object is not available</a></li>
 
   
-    <li><time>2017-04-25 22:05:48</time> - <a href="http://inorz.net/2017/04/25/I-wish-I-knew-these-things-when-I-learned-Python/">我希望初学Python时就能知道的一些用法</a></li>
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/linux">linux</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/ubuntu">ubuntu</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/macos">macos</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://inorz.net/tags/parallel">parallel</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h2 id="问题">问题</h2>
+
+<ul>
+<li>在Parallel Desktop 中装好了 Ubuntu 18.04，在安装Parallel Tools 时报错无法安装。</li>
+</ul>
+
+<h2 id="环境">环境</h2>
+
+<ul>
+<li>宿主机系统：macOS 10.15</li>
+<li>Parallel Desktop: 14.1</li>
+<li>虚拟机操作系统: Ubuntu 18.04</li>
+</ul>
+
+<p></p>
+
+<h2 id="解决">解决</h2>
+
+<ol>
+<li>安装对应依赖工具:
+<code>bash
+apt-get install gcc libelf-dev make dkms
+</code></li>
+<li>运行虚拟机，菜单栏-操作-安装Parallel Tools。此时虚拟机内部会挂载一个安装光盘。</li>
+<li>本地创建一个目录，将挂载盘里面的文件复制过来
+<code>bash
+mkdir -pv ~/ptool_fix/
+/bin/cp -a /media/&lt;用户名&gt;/Parallel Tools/* ~/ptool_fix/
+</code></li>
+<li>cd ~/ptool_fix/kmods 回到我们刚刚复制文件过来的目录里，我们修改一下文件。</li>
+<li>检查prl_mod.tar.gz，存在的话则解压，解压完后把原文件 mv 到/tmp/。
+<code>bash
+test -f prl_mod.tar.gz &amp;&amp; tar xf prl_mod.tar.gz &amp;&amp; mv prl_mod.tar.gz /tmp/
+</code></li>
+<li>找到 <code>~/ptool_fix/kmods/prl_fs/SharedFolders/Guest/Linux/prl_fs/prlfs.h</code> 文件并修改
+
+<ul>
+<li>打开文件后定位到第16行，添加一行： <code>#include &lt;uapi/linux/mount.h&gt;</code></li>
+<li>修改后的文件内容为：
+<code>
+..
+#include &lt;linux/fs.h&gt;
+#include &lt;linux/types.h&gt;
+#include &lt;uapi/linux/mount.h&gt;
+..
+</code></li>
+</ul></li>
+<li>返回 kmods 目录：<code>cd ~/ptool_fix/kmods/</code> 将文件重新打包
+<code>bash
+tar -zcvf prl_mod.tar.gz . dkms.conf Makefile.kmods
+</code></li>
+<li>回到安装目录： <code>cd ~/ptool_fix/installer/</code></li>
+<li>给对应脚本文件可执行权限：
+<code>bash
+sudo chmod 777 *.sh
+sudo chmod 777 prl*
+</code></li>
+<li>运行安装脚本: <code>sudo ./install-cli.sh -i --verbose</code></li>
+</ol>
+
+<h2 id="其他">其他</h2>
+
+<ol>
+<li>该方法同样适用于 Ubunto 18.04、19.10、20.04</li>
+<li>其他方法: <a href="https://gist.github.com/rudolfratusinski/a4d9e3caff11a4d9d81d2e84abc9afbf">https://gist.github.com/rudolfratusinski/a4d9e3caff11a4d9d81d2e84abc9afbf</a></li>
+</ol>
 
   
-    <li><time>2017-04-19 18:35:48</time> - <a href="http://inorz.net/2017/04/19/linux-restore-mysql-data/">Linux下恢复被格了硬盘的MySQL数据</a></li>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="http://inorz.net/2018/03/26/modifies-the-system-time-for-a-single-application/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="http://inorz.net/2018/03/26/modifies-the-system-time-for-a-single-application/">使用faketime修改单个应用程序的系统时间</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
 
   
-  </ul>
-  
-  <h2>2016</h2>
-  <ul>
-  
-    <li><time>2016-05-22 23:55:48</time> - <a href="http://inorz.net/2016/05/22/InfluxDB-Grafana-Glances-monitor/">InfluxDB、Glances和Grafana构建现代化监控系统</a></li>
 
-  
-    <li><time>2016-04-13 00:55:48</time> - <a href="http://inorz.net/2016/04/13/notes-android_https_error/">记录一次android上https无法正常访问</a></li>
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: document.location.href, 
+    sourceId: "",
+    productKey: "de1a5b94d5fe4396b496193d30655d0d",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
 
-  
-    <li><time>2016-04-11 23:20:48</time> - <a href="http://inorz.net/2016/04/11/zimbra-add-msyh/">zimbra添加微软雅黑字体</a></li>
 
-  
-    <li><time>2016-04-10 12:35:48</time> - <a href="http://inorz.net/2016/04/10/mac-startup-ssh/">MAC开机启动ssh，并指定端口</a></li>
 
-  
-    <li><time>2016-03-24 11:15:48</time> - <a href="http://inorz.net/2016/03/24/black-apple-clover-error/">黑苹果Clover无法引导安装镜像，反复重启</a></li>
 
-  
-    <li><time>2016-03-24 11:15:48</time> - <a href="http://inorz.net/2016/03/24/mac-sleep/">MAC查看休眠日志</a></li>
-
-  
-  </ul>
-  
-  <h2>2015</h2>
-  <ul>
-  
-    <li><time>2015-11-05 20:05:48</time> - <a href="http://inorz.net/2015/11/05/zimbra-change-ssl/">Zimbra更换邮箱SSL证书</a></li>
-
-  
-    <li><time>2015-09-06 12:05:48</time> - <a href="http://inorz.net/2015/09/06/resolv/">resolv.conf配置说明</a></li>
-
-  
-    <li><time>2015-08-19 22:15:48</time> - <a href="http://inorz.net/2015/08/19/nginx-module-limit/">使用nginx的limit模块限制并发</a></li>
-
-  
-    <li><time>2015-05-24 14:35:48</time> - <a href="http://inorz.net/2015/05/24/see-you-again/">See you Again</a></li>
-
-  
-    <li><time>2015-05-24 13:25:48</time> - <a href="http://inorz.net/2015/05/24/init-privoxy-to-centos/">Centos下Privoxy的安装与配置</a></li>
-
-  
-    <li><time>2015-05-21 14:45:48</time> - <a href="http://inorz.net/2015/05/21/php-multipartform-data/">PHP Multipartform-data 远程DOS攻击漏洞</a></li>
-
-  
-    <li><time>2015-05-20 23:45:48</time> - <a href="http://inorz.net/2015/05/20/mac-dabao-luanma-windows/">解决MAC打包压缩文件在Windows下乱码</a></li>
-
-  
-    <li><time>2015-05-20 22:45:48</time> - <a href="http://inorz.net/2015/05/20/tcpcopy/">TcpCopy使用</a></li>
-
-  
-  </ul>
-  
 </div>
 
 </div>
