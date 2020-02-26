@@ -284,45 +284,56 @@
 <h2 id="解决">解决</h2>
 
 <ol>
-<li>安装对应依赖工具:
-<code>bash
-apt-get install gcc libelf-dev make dkms
-</code></li>
-<li>运行虚拟机，菜单栏-操作-安装Parallel Tools。此时虚拟机内部会挂载一个安装光盘。</li>
-<li>本地创建一个目录，将挂载盘里面的文件复制过来
-<code>bash
-mkdir -pv ~/ptool_fix/
+<li><p>安装对应依赖工具:</p>
+
+<pre><code class="language-bash">apt-get install gcc libelf-dev make dkms
+</code></pre></li>
+
+<li><p>运行虚拟机，菜单栏-操作-安装Parallel Tools。此时虚拟机内部会挂载一个安装光盘。</p></li>
+
+<li><p>本地创建一个目录，将挂载盘里面的文件复制过来</p>
+
+<pre><code class="language-bash">mkdir -pv ~/ptool_fix/
 /bin/cp -a /media/&lt;用户名&gt;/Parallel Tools/* ~/ptool_fix/
-</code></li>
-<li>cd ~/ptool_fix/kmods 回到我们刚刚复制文件过来的目录里，我们修改一下文件。</li>
-<li>检查prl_mod.tar.gz，存在的话则解压，解压完后把原文件 mv 到/tmp/。
-<code>bash
-test -f prl_mod.tar.gz &amp;&amp; tar xf prl_mod.tar.gz &amp;&amp; mv prl_mod.tar.gz /tmp/
-</code></li>
-<li>找到 <code>~/ptool_fix/kmods/prl_fs/SharedFolders/Guest/Linux/prl_fs/prlfs.h</code> 文件并修改
+
+</code></pre></li>
+
+<li><p>cd ~/ptool_fix/kmods 回到我们刚刚复制文件过来的目录里，我们修改一下文件。</p></li>
+
+<li><p>检查prl_mod.tar.gz，存在的话则解压，解压完后把原文件 mv 到/tmp/。</p>
+
+<pre><code class="language-bash">test -f prl_mod.tar.gz &amp;&amp; tar xf prl_mod.tar.gz &amp;&amp; mv prl_mod.tar.gz /tmp/
+</code></pre></li>
+
+<li><p>找到 <code>~/ptool_fix/kmods/prl_fs/SharedFolders/Guest/Linux/prl_fs/prlfs.h</code> 文件并修改</p>
 
 <ul>
 <li>打开文件后定位到第16行，添加一行： <code>#include &lt;uapi/linux/mount.h&gt;</code></li>
-<li>修改后的文件内容为：
-<code>
-..
+
+<li><p>修改后的文件内容为：</p>
+
+<pre><code>..
 #include &lt;linux/fs.h&gt;
 #include &lt;linux/types.h&gt;
 #include &lt;uapi/linux/mount.h&gt;
 ..
-</code></li>
+</code></pre></li>
 </ul></li>
-<li>返回 kmods 目录：<code>cd ~/ptool_fix/kmods/</code> 将文件重新打包
-<code>bash
-tar -zcvf prl_mod.tar.gz . dkms.conf Makefile.kmods
-</code></li>
-<li>回到安装目录： <code>cd ~/ptool_fix/installer/</code></li>
-<li>给对应脚本文件可执行权限：
-<code>bash
-sudo chmod 777 *.sh
+
+<li><p>返回 kmods 目录：<code>cd ~/ptool_fix/kmods/</code> 将文件重新打包</p>
+
+<pre><code class="language-bash">tar -zcvf prl_mod.tar.gz . dkms.conf Makefile.kmods
+</code></pre></li>
+
+<li><p>回到安装目录： <code>cd ~/ptool_fix/installer/</code></p></li>
+
+<li><p>给对应脚本文件可执行权限：</p>
+
+<pre><code class="language-bash">sudo chmod 777 *.sh
 sudo chmod 777 prl*
-</code></li>
-<li>运行安装脚本: <code>sudo ./install-cli.sh -i --verbose</code></li>
+</code></pre></li>
+
+<li><p>运行安装脚本: <code>sudo ./install-cli.sh -i --verbose</code></p></li>
 </ol>
 
 <h2 id="其他">其他</h2>
